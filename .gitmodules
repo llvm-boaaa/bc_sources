@@ -1,0 +1,18 @@
+[submodule "llvm_90/40"]
+	path = llvm_90/40
+	url = https://github.com/llvm-boaaa/LLVM_9_c_40.git
+[submodule "llvm_90/50"]
+	path = llvm_90/50
+	url = https://github.com/llvm-boaaa/LLVM_9_c_50.git
+[submodule "llvm_90/60"]
+	path = llvm_90/60
+	url = https://github.com/llvm-boaaa/LLVM_9_c_60.git
+[submodule "llvm_90/71"]
+	path = llvm_90/71
+	url = https://github.com/llvm-boaaa/LLVM_9_c_71.git
+[submodule "llvm_90/80"]
+	path = llvm_90/80
+	url = https://github.com/llvm-boaaa/LLVM_9_c_80.git
+[submodule "llvm_90/90"]
+	path = llvm_90/90
+	url = https://github.com/llvm-boaaa/LLVM_9_c_90.git
