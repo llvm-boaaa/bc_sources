@@ -1,0 +1,3031 @@
+; ModuleID = 'tinyexpr.c'
+source_filename = "tinyexpr.c"
+target datalayout = "e-m:o-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-apple-macosx10.15.0"
+
+%struct.te_variable = type { i8*, i8*, i32, i8* }
+%struct.te_expr = type { i32, %union.anon, [1 x i8*] }
+%union.anon = type { double }
+%struct.state = type { i8*, i8*, i32, %union.anon.0, i8*, %struct.te_variable*, i32 }
+%union.anon.0 = type { double }
+
+@functions = internal constant [25 x %struct.te_variable] [%struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), i8* bitcast (double (double)* @fabs to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.1, i32 0, i32 0), i8* bitcast (double (double)* @acos to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.2, i32 0, i32 0), i8* bitcast (double (double)* @asin to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.3, i32 0, i32 0), i8* bitcast (double (double)* @atan to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.4, i32 0, i32 0), i8* bitcast (double (double, double)* @atan2 to i8*), i32 42, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.5, i32 0, i32 0), i8* bitcast (double (double)* @ceil to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.6, i32 0, i32 0), i8* bitcast (double (double)* @cos to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.7, i32 0, i32 0), i8* bitcast (double (double)* @cosh to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.8, i32 0, i32 0), i8* bitcast (double ()* @e to i8*), i32 40, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.9, i32 0, i32 0), i8* bitcast (double (double)* @exp to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.10, i32 0, i32 0), i8* bitcast (double (double)* @fac to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.11, i32 0, i32 0), i8* bitcast (double (double)* @floor to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.12, i32 0, i32 0), i8* bitcast (double (double)* @log to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.13, i32 0, i32 0), i8* bitcast (double (double)* @log10 to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.14, i32 0, i32 0), i8* bitcast (double (double)* @log10 to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.15, i32 0, i32 0), i8* bitcast (double (double, double)* @ncr to i8*), i32 42, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.16, i32 0, i32 0), i8* bitcast (double (double, double)* @npr to i8*), i32 42, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.17, i32 0, i32 0), i8* bitcast (double ()* @pi to i8*), i32 40, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.18, i32 0, i32 0), i8* bitcast (double (double, double)* @pow to i8*), i32 42, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.19, i32 0, i32 0), i8* bitcast (double (double)* @sin to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.20, i32 0, i32 0), i8* bitcast (double (double)* @sinh to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.21, i32 0, i32 0), i8* bitcast (double (double)* @sqrt to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.22, i32 0, i32 0), i8* bitcast (double (double)* @tan to i8*), i32 41, i8* null }, %struct.te_variable { i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.23, i32 0, i32 0), i8* bitcast (double (double)* @tanh to i8*), i32 41, i8* null }, %struct.te_variable zeroinitializer], align 16
+@.str = private unnamed_addr constant [4 x i8] c"abs\00", align 1
+@.str.1 = private unnamed_addr constant [5 x i8] c"acos\00", align 1
+@.str.2 = private unnamed_addr constant [5 x i8] c"asin\00", align 1
+@.str.3 = private unnamed_addr constant [5 x i8] c"atan\00", align 1
+@.str.4 = private unnamed_addr constant [6 x i8] c"atan2\00", align 1
+@.str.5 = private unnamed_addr constant [5 x i8] c"ceil\00", align 1
+@.str.6 = private unnamed_addr constant [4 x i8] c"cos\00", align 1
+@.str.7 = private unnamed_addr constant [5 x i8] c"cosh\00", align 1
+@.str.8 = private unnamed_addr constant [2 x i8] c"e\00", align 1
+@.str.9 = private unnamed_addr constant [4 x i8] c"exp\00", align 1
+@.str.10 = private unnamed_addr constant [4 x i8] c"fac\00", align 1
+@.str.11 = private unnamed_addr constant [6 x i8] c"floor\00", align 1
+@.str.12 = private unnamed_addr constant [3 x i8] c"ln\00", align 1
+@.str.13 = private unnamed_addr constant [4 x i8] c"log\00", align 1
+@.str.14 = private unnamed_addr constant [6 x i8] c"log10\00", align 1
+@.str.15 = private unnamed_addr constant [4 x i8] c"ncr\00", align 1
+@.str.16 = private unnamed_addr constant [4 x i8] c"npr\00", align 1
+@.str.17 = private unnamed_addr constant [3 x i8] c"pi\00", align 1
+@.str.18 = private unnamed_addr constant [4 x i8] c"pow\00", align 1
+@.str.19 = private unnamed_addr constant [4 x i8] c"sin\00", align 1
+@.str.20 = private unnamed_addr constant [5 x i8] c"sinh\00", align 1
+@.str.21 = private unnamed_addr constant [5 x i8] c"sqrt\00", align 1
+@.str.22 = private unnamed_addr constant [4 x i8] c"tan\00", align 1
+@.str.23 = private unnamed_addr constant [5 x i8] c"tanh\00", align 1
+@.str.24 = private unnamed_addr constant [4 x i8] c"%*s\00", align 1
+@.str.25 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@.str.26 = private unnamed_addr constant [4 x i8] c"%f\0A\00", align 1
+@.str.27 = private unnamed_addr constant [10 x i8] c"bound %p\0A\00", align 1
+@.str.28 = private unnamed_addr constant [4 x i8] c"f%d\00", align 1
+@.str.29 = private unnamed_addr constant [4 x i8] c" %p\00", align 1
+@.str.30 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @te_free_parameters(%struct.te_expr* %n) #0 {
+entry:
+  %n.addr = alloca %struct.te_expr*, align 8
+  store %struct.te_expr* %n, %struct.te_expr** %n.addr, align 8
+  %0 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %tobool = icmp ne %struct.te_expr* %0, null
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  br label %sw.epilog
+
+if.end:                                           ; preds = %entry
+  %1 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type = getelementptr inbounds %struct.te_expr, %struct.te_expr* %1, i32 0, i32 0
+  %2 = load i32, i32* %type, align 8
+  %and = and i32 %2, 31
+  switch i32 %and, label %sw.epilog [
+    i32 15, label %sw.bb
+    i32 23, label %sw.bb
+    i32 14, label %sw.bb1
+    i32 22, label %sw.bb1
+    i32 13, label %sw.bb4
+    i32 21, label %sw.bb4
+    i32 12, label %sw.bb7
+    i32 20, label %sw.bb7
+    i32 11, label %sw.bb10
+    i32 19, label %sw.bb10
+    i32 10, label %sw.bb13
+    i32 18, label %sw.bb13
+    i32 9, label %sw.bb16
+    i32 17, label %sw.bb16
+  ]
+
+sw.bb:                                            ; preds = %if.end, %if.end
+  %3 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters = getelementptr inbounds %struct.te_expr, %struct.te_expr* %3, i32 0, i32 2
+  %arrayidx = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters, i64 0, i64 6
+  %4 = load i8*, i8** %arrayidx, align 8
+  %5 = bitcast i8* %4 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %5)
+  br label %sw.bb1
+
+sw.bb1:                                           ; preds = %if.end, %if.end, %sw.bb
+  %6 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters2 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %6, i32 0, i32 2
+  %arrayidx3 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters2, i64 0, i64 5
+  %7 = load i8*, i8** %arrayidx3, align 8
+  %8 = bitcast i8* %7 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %8)
+  br label %sw.bb4
+
+sw.bb4:                                           ; preds = %if.end, %if.end, %sw.bb1
+  %9 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters5 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %9, i32 0, i32 2
+  %arrayidx6 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters5, i64 0, i64 4
+  %10 = load i8*, i8** %arrayidx6, align 8
+  %11 = bitcast i8* %10 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %11)
+  br label %sw.bb7
+
+sw.bb7:                                           ; preds = %if.end, %if.end, %sw.bb4
+  %12 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters8 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %12, i32 0, i32 2
+  %arrayidx9 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters8, i64 0, i64 3
+  %13 = load i8*, i8** %arrayidx9, align 8
+  %14 = bitcast i8* %13 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %14)
+  br label %sw.bb10
+
+sw.bb10:                                          ; preds = %if.end, %if.end, %sw.bb7
+  %15 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters11 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %15, i32 0, i32 2
+  %arrayidx12 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters11, i64 0, i64 2
+  %16 = load i8*, i8** %arrayidx12, align 8
+  %17 = bitcast i8* %16 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %17)
+  br label %sw.bb13
+
+sw.bb13:                                          ; preds = %if.end, %if.end, %sw.bb10
+  %18 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters14 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %18, i32 0, i32 2
+  %arrayidx15 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters14, i64 0, i64 1
+  %19 = load i8*, i8** %arrayidx15, align 8
+  %20 = bitcast i8* %19 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %20)
+  br label %sw.bb16
+
+sw.bb16:                                          ; preds = %if.end, %if.end, %sw.bb13
+  %21 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters17 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %21, i32 0, i32 2
+  %arrayidx18 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters17, i64 0, i64 0
+  %22 = load i8*, i8** %arrayidx18, align 8
+  %23 = bitcast i8* %22 to %struct.te_expr*
+  call void @te_free(%struct.te_expr* %23)
+  br label %sw.epilog
+
+sw.epilog:                                        ; preds = %if.then, %sw.bb16, %if.end
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @te_free(%struct.te_expr* %n) #0 {
+entry:
+  %n.addr = alloca %struct.te_expr*, align 8
+  store %struct.te_expr* %n, %struct.te_expr** %n.addr, align 8
+  %0 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %tobool = icmp ne %struct.te_expr* %0, null
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %1 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  call void @te_free_parameters(%struct.te_expr* %1)
+  %2 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %3 = bitcast %struct.te_expr* %2 to i8*
+  call void @free(i8* %3)
+  br label %return
+
+return:                                           ; preds = %if.end, %if.then
+  ret void
+}
+
+declare void @free(i8*) #1
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @next_token(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %start = alloca i8*, align 8
+  %var = alloca %struct.te_variable*, align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %0, i32 0, i32 2
+  store i32 24, i32* %type, align 8
+  br label %do.body
+
+do.body:                                          ; preds = %do.cond, %entry
+  %1 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next = getelementptr inbounds %struct.state, %struct.state* %1, i32 0, i32 1
+  %2 = load i8*, i8** %next, align 8
+  %3 = load i8, i8* %2, align 1
+  %tobool = icmp ne i8 %3, 0
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %do.body
+  %4 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type1 = getelementptr inbounds %struct.state, %struct.state* %4, i32 0, i32 2
+  store i32 26, i32* %type1, align 8
+  br label %do.end
+
+if.end:                                           ; preds = %do.body
+  %5 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next2 = getelementptr inbounds %struct.state, %struct.state* %5, i32 0, i32 1
+  %6 = load i8*, i8** %next2, align 8
+  %arrayidx = getelementptr inbounds i8, i8* %6, i64 0
+  %7 = load i8, i8* %arrayidx, align 1
+  %conv = sext i8 %7 to i32
+  %cmp = icmp sge i32 %conv, 48
+  br i1 %cmp, label %land.lhs.true, label %lor.lhs.false
+
+land.lhs.true:                                    ; preds = %if.end
+  %8 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next4 = getelementptr inbounds %struct.state, %struct.state* %8, i32 0, i32 1
+  %9 = load i8*, i8** %next4, align 8
+  %arrayidx5 = getelementptr inbounds i8, i8* %9, i64 0
+  %10 = load i8, i8* %arrayidx5, align 1
+  %conv6 = sext i8 %10 to i32
+  %cmp7 = icmp sle i32 %conv6, 57
+  br i1 %cmp7, label %if.then14, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %land.lhs.true, %if.end
+  %11 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next9 = getelementptr inbounds %struct.state, %struct.state* %11, i32 0, i32 1
+  %12 = load i8*, i8** %next9, align 8
+  %arrayidx10 = getelementptr inbounds i8, i8* %12, i64 0
+  %13 = load i8, i8* %arrayidx10, align 1
+  %conv11 = sext i8 %13 to i32
+  %cmp12 = icmp eq i32 %conv11, 46
+  br i1 %cmp12, label %if.then14, label %if.else
+
+if.then14:                                        ; preds = %lor.lhs.false, %land.lhs.true
+  %14 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next15 = getelementptr inbounds %struct.state, %struct.state* %14, i32 0, i32 1
+  %15 = load i8*, i8** %next15, align 8
+  %16 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next16 = getelementptr inbounds %struct.state, %struct.state* %16, i32 0, i32 1
+  %call = call double @"\01_strtod"(i8* %15, i8** %next16)
+  %17 = load %struct.state*, %struct.state** %s.addr, align 8
+  %18 = getelementptr inbounds %struct.state, %struct.state* %17, i32 0, i32 3
+  %value = bitcast %union.anon.0* %18 to double*
+  store double %call, double* %value, align 8
+  %19 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type17 = getelementptr inbounds %struct.state, %struct.state* %19, i32 0, i32 2
+  store i32 30, i32* %type17, align 8
+  br label %if.end118
+
+if.else:                                          ; preds = %lor.lhs.false
+  %20 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next18 = getelementptr inbounds %struct.state, %struct.state* %20, i32 0, i32 1
+  %21 = load i8*, i8** %next18, align 8
+  %arrayidx19 = getelementptr inbounds i8, i8* %21, i64 0
+  %22 = load i8, i8* %arrayidx19, align 1
+  %conv20 = sext i8 %22 to i32
+  %cmp21 = icmp sge i32 %conv20, 97
+  br i1 %cmp21, label %land.lhs.true23, label %if.else85
+
+land.lhs.true23:                                  ; preds = %if.else
+  %23 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next24 = getelementptr inbounds %struct.state, %struct.state* %23, i32 0, i32 1
+  %24 = load i8*, i8** %next24, align 8
+  %arrayidx25 = getelementptr inbounds i8, i8* %24, i64 0
+  %25 = load i8, i8* %arrayidx25, align 1
+  %conv26 = sext i8 %25 to i32
+  %cmp27 = icmp sle i32 %conv26, 122
+  br i1 %cmp27, label %if.then29, label %if.else85
+
+if.then29:                                        ; preds = %land.lhs.true23
+  %26 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next30 = getelementptr inbounds %struct.state, %struct.state* %26, i32 0, i32 1
+  %27 = load i8*, i8** %next30, align 8
+  store i8* %27, i8** %start, align 8
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.body, %if.then29
+  %28 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next31 = getelementptr inbounds %struct.state, %struct.state* %28, i32 0, i32 1
+  %29 = load i8*, i8** %next31, align 8
+  %arrayidx32 = getelementptr inbounds i8, i8* %29, i64 0
+  %30 = load i8, i8* %arrayidx32, align 1
+  %conv33 = sext i8 %30 to i32
+  %cmp34 = icmp sge i32 %conv33, 97
+  br i1 %cmp34, label %land.lhs.true36, label %lor.lhs.false42
+
+land.lhs.true36:                                  ; preds = %while.cond
+  %31 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next37 = getelementptr inbounds %struct.state, %struct.state* %31, i32 0, i32 1
+  %32 = load i8*, i8** %next37, align 8
+  %arrayidx38 = getelementptr inbounds i8, i8* %32, i64 0
+  %33 = load i8, i8* %arrayidx38, align 1
+  %conv39 = sext i8 %33 to i32
+  %cmp40 = icmp sle i32 %conv39, 122
+  br i1 %cmp40, label %lor.end, label %lor.lhs.false42
+
+lor.lhs.false42:                                  ; preds = %land.lhs.true36, %while.cond
+  %34 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next43 = getelementptr inbounds %struct.state, %struct.state* %34, i32 0, i32 1
+  %35 = load i8*, i8** %next43, align 8
+  %arrayidx44 = getelementptr inbounds i8, i8* %35, i64 0
+  %36 = load i8, i8* %arrayidx44, align 1
+  %conv45 = sext i8 %36 to i32
+  %cmp46 = icmp sge i32 %conv45, 48
+  br i1 %cmp46, label %land.lhs.true48, label %lor.rhs
+
+land.lhs.true48:                                  ; preds = %lor.lhs.false42
+  %37 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next49 = getelementptr inbounds %struct.state, %struct.state* %37, i32 0, i32 1
+  %38 = load i8*, i8** %next49, align 8
+  %arrayidx50 = getelementptr inbounds i8, i8* %38, i64 0
+  %39 = load i8, i8* %arrayidx50, align 1
+  %conv51 = sext i8 %39 to i32
+  %cmp52 = icmp sle i32 %conv51, 57
+  br i1 %cmp52, label %lor.end, label %lor.rhs
+
+lor.rhs:                                          ; preds = %land.lhs.true48, %lor.lhs.false42
+  %40 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next54 = getelementptr inbounds %struct.state, %struct.state* %40, i32 0, i32 1
+  %41 = load i8*, i8** %next54, align 8
+  %arrayidx55 = getelementptr inbounds i8, i8* %41, i64 0
+  %42 = load i8, i8* %arrayidx55, align 1
+  %conv56 = sext i8 %42 to i32
+  %cmp57 = icmp eq i32 %conv56, 95
+  br label %lor.end
+
+lor.end:                                          ; preds = %lor.rhs, %land.lhs.true48, %land.lhs.true36
+  %43 = phi i1 [ true, %land.lhs.true48 ], [ true, %land.lhs.true36 ], [ %cmp57, %lor.rhs ]
+  br i1 %43, label %while.body, label %while.end
+
+while.body:                                       ; preds = %lor.end
+  %44 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next59 = getelementptr inbounds %struct.state, %struct.state* %44, i32 0, i32 1
+  %45 = load i8*, i8** %next59, align 8
+  %incdec.ptr = getelementptr inbounds i8, i8* %45, i32 1
+  store i8* %incdec.ptr, i8** %next59, align 8
+  br label %while.cond
+
+while.end:                                        ; preds = %lor.end
+  %46 = load %struct.state*, %struct.state** %s.addr, align 8
+  %47 = load i8*, i8** %start, align 8
+  %48 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next60 = getelementptr inbounds %struct.state, %struct.state* %48, i32 0, i32 1
+  %49 = load i8*, i8** %next60, align 8
+  %50 = load i8*, i8** %start, align 8
+  %sub.ptr.lhs.cast = ptrtoint i8* %49 to i64
+  %sub.ptr.rhs.cast = ptrtoint i8* %50 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %conv61 = trunc i64 %sub.ptr.sub to i32
+  %call62 = call %struct.te_variable* @find_lookup(%struct.state* %46, i8* %47, i32 %conv61)
+  store %struct.te_variable* %call62, %struct.te_variable** %var, align 8
+  %51 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %tobool63 = icmp ne %struct.te_variable* %51, null
+  br i1 %tobool63, label %if.end71, label %if.then64
+
+if.then64:                                        ; preds = %while.end
+  %52 = load i8*, i8** %start, align 8
+  %53 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next65 = getelementptr inbounds %struct.state, %struct.state* %53, i32 0, i32 1
+  %54 = load i8*, i8** %next65, align 8
+  %55 = load i8*, i8** %start, align 8
+  %sub.ptr.lhs.cast66 = ptrtoint i8* %54 to i64
+  %sub.ptr.rhs.cast67 = ptrtoint i8* %55 to i64
+  %sub.ptr.sub68 = sub i64 %sub.ptr.lhs.cast66, %sub.ptr.rhs.cast67
+  %conv69 = trunc i64 %sub.ptr.sub68 to i32
+  %call70 = call %struct.te_variable* @find_builtin(i8* %52, i32 %conv69)
+  store %struct.te_variable* %call70, %struct.te_variable** %var, align 8
+  br label %if.end71
+
+if.end71:                                         ; preds = %if.then64, %while.end
+  %56 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %tobool72 = icmp ne %struct.te_variable* %56, null
+  br i1 %tobool72, label %if.else75, label %if.then73
+
+if.then73:                                        ; preds = %if.end71
+  %57 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type74 = getelementptr inbounds %struct.state, %struct.state* %57, i32 0, i32 2
+  store i32 25, i32* %type74, align 8
+  br label %if.end84
+
+if.else75:                                        ; preds = %if.end71
+  %58 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %type76 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %58, i32 0, i32 2
+  %59 = load i32, i32* %type76, align 8
+  %and = and i32 %59, 31
+  switch i32 %and, label %sw.epilog [
+    i32 0, label %sw.bb
+    i32 16, label %sw.bb78
+    i32 17, label %sw.bb78
+    i32 18, label %sw.bb78
+    i32 19, label %sw.bb78
+    i32 20, label %sw.bb78
+    i32 21, label %sw.bb78
+    i32 22, label %sw.bb78
+    i32 23, label %sw.bb78
+    i32 8, label %sw.bb80
+    i32 9, label %sw.bb80
+    i32 10, label %sw.bb80
+    i32 11, label %sw.bb80
+    i32 12, label %sw.bb80
+    i32 13, label %sw.bb80
+    i32 14, label %sw.bb80
+    i32 15, label %sw.bb80
+  ]
+
+sw.bb:                                            ; preds = %if.else75
+  %60 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type77 = getelementptr inbounds %struct.state, %struct.state* %60, i32 0, i32 2
+  store i32 31, i32* %type77, align 8
+  %61 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %address = getelementptr inbounds %struct.te_variable, %struct.te_variable* %61, i32 0, i32 1
+  %62 = load i8*, i8** %address, align 8
+  %63 = bitcast i8* %62 to double*
+  %64 = load %struct.state*, %struct.state** %s.addr, align 8
+  %65 = getelementptr inbounds %struct.state, %struct.state* %64, i32 0, i32 3
+  %bound = bitcast %union.anon.0* %65 to double**
+  store double* %63, double** %bound, align 8
+  br label %sw.epilog
+
+sw.bb78:                                          ; preds = %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %if.else75
+  %66 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %context = getelementptr inbounds %struct.te_variable, %struct.te_variable* %66, i32 0, i32 3
+  %67 = load i8*, i8** %context, align 8
+  %68 = load %struct.state*, %struct.state** %s.addr, align 8
+  %context79 = getelementptr inbounds %struct.state, %struct.state* %68, i32 0, i32 4
+  store i8* %67, i8** %context79, align 8
+  br label %sw.bb80
+
+sw.bb80:                                          ; preds = %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %if.else75, %sw.bb78
+  %69 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %type81 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %69, i32 0, i32 2
+  %70 = load i32, i32* %type81, align 8
+  %71 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type82 = getelementptr inbounds %struct.state, %struct.state* %71, i32 0, i32 2
+  store i32 %70, i32* %type82, align 8
+  %72 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %address83 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %72, i32 0, i32 1
+  %73 = load i8*, i8** %address83, align 8
+  %74 = load %struct.state*, %struct.state** %s.addr, align 8
+  %75 = getelementptr inbounds %struct.state, %struct.state* %74, i32 0, i32 3
+  %function = bitcast %union.anon.0* %75 to i8**
+  store i8* %73, i8** %function, align 8
+  br label %sw.epilog
+
+sw.epilog:                                        ; preds = %if.else75, %sw.bb80, %sw.bb
+  br label %if.end84
+
+if.end84:                                         ; preds = %sw.epilog, %if.then73
+  br label %if.end117
+
+if.else85:                                        ; preds = %land.lhs.true23, %if.else
+  %76 = load %struct.state*, %struct.state** %s.addr, align 8
+  %next86 = getelementptr inbounds %struct.state, %struct.state* %76, i32 0, i32 1
+  %77 = load i8*, i8** %next86, align 8
+  %incdec.ptr87 = getelementptr inbounds i8, i8* %77, i32 1
+  store i8* %incdec.ptr87, i8** %next86, align 8
+  %arrayidx88 = getelementptr inbounds i8, i8* %77, i64 0
+  %78 = load i8, i8* %arrayidx88, align 1
+  %conv89 = sext i8 %78 to i32
+  switch i32 %conv89, label %sw.default [
+    i32 43, label %sw.bb90
+    i32 45, label %sw.bb93
+    i32 42, label %sw.bb96
+    i32 47, label %sw.bb99
+    i32 94, label %sw.bb102
+    i32 37, label %sw.bb105
+    i32 40, label %sw.bb108
+    i32 41, label %sw.bb110
+    i32 44, label %sw.bb112
+    i32 32, label %sw.bb114
+    i32 9, label %sw.bb114
+    i32 10, label %sw.bb114
+    i32 13, label %sw.bb114
+  ]
+
+sw.bb90:                                          ; preds = %if.else85
+  %79 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type91 = getelementptr inbounds %struct.state, %struct.state* %79, i32 0, i32 2
+  store i32 32, i32* %type91, align 8
+  %80 = load %struct.state*, %struct.state** %s.addr, align 8
+  %81 = getelementptr inbounds %struct.state, %struct.state* %80, i32 0, i32 3
+  %function92 = bitcast %union.anon.0* %81 to i8**
+  store i8* bitcast (double (double, double)* @add to i8*), i8** %function92, align 8
+  br label %sw.epilog116
+
+sw.bb93:                                          ; preds = %if.else85
+  %82 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type94 = getelementptr inbounds %struct.state, %struct.state* %82, i32 0, i32 2
+  store i32 32, i32* %type94, align 8
+  %83 = load %struct.state*, %struct.state** %s.addr, align 8
+  %84 = getelementptr inbounds %struct.state, %struct.state* %83, i32 0, i32 3
+  %function95 = bitcast %union.anon.0* %84 to i8**
+  store i8* bitcast (double (double, double)* @sub to i8*), i8** %function95, align 8
+  br label %sw.epilog116
+
+sw.bb96:                                          ; preds = %if.else85
+  %85 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type97 = getelementptr inbounds %struct.state, %struct.state* %85, i32 0, i32 2
+  store i32 32, i32* %type97, align 8
+  %86 = load %struct.state*, %struct.state** %s.addr, align 8
+  %87 = getelementptr inbounds %struct.state, %struct.state* %86, i32 0, i32 3
+  %function98 = bitcast %union.anon.0* %87 to i8**
+  store i8* bitcast (double (double, double)* @mul to i8*), i8** %function98, align 8
+  br label %sw.epilog116
+
+sw.bb99:                                          ; preds = %if.else85
+  %88 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type100 = getelementptr inbounds %struct.state, %struct.state* %88, i32 0, i32 2
+  store i32 32, i32* %type100, align 8
+  %89 = load %struct.state*, %struct.state** %s.addr, align 8
+  %90 = getelementptr inbounds %struct.state, %struct.state* %89, i32 0, i32 3
+  %function101 = bitcast %union.anon.0* %90 to i8**
+  store i8* bitcast (double (double, double)* @divide to i8*), i8** %function101, align 8
+  br label %sw.epilog116
+
+sw.bb102:                                         ; preds = %if.else85
+  %91 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type103 = getelementptr inbounds %struct.state, %struct.state* %91, i32 0, i32 2
+  store i32 32, i32* %type103, align 8
+  %92 = load %struct.state*, %struct.state** %s.addr, align 8
+  %93 = getelementptr inbounds %struct.state, %struct.state* %92, i32 0, i32 3
+  %function104 = bitcast %union.anon.0* %93 to i8**
+  store i8* bitcast (double (double, double)* @pow to i8*), i8** %function104, align 8
+  br label %sw.epilog116
+
+sw.bb105:                                         ; preds = %if.else85
+  %94 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type106 = getelementptr inbounds %struct.state, %struct.state* %94, i32 0, i32 2
+  store i32 32, i32* %type106, align 8
+  %95 = load %struct.state*, %struct.state** %s.addr, align 8
+  %96 = getelementptr inbounds %struct.state, %struct.state* %95, i32 0, i32 3
+  %function107 = bitcast %union.anon.0* %96 to i8**
+  store i8* bitcast (double (double, double)* @fmod to i8*), i8** %function107, align 8
+  br label %sw.epilog116
+
+sw.bb108:                                         ; preds = %if.else85
+  %97 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type109 = getelementptr inbounds %struct.state, %struct.state* %97, i32 0, i32 2
+  store i32 28, i32* %type109, align 8
+  br label %sw.epilog116
+
+sw.bb110:                                         ; preds = %if.else85
+  %98 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type111 = getelementptr inbounds %struct.state, %struct.state* %98, i32 0, i32 2
+  store i32 29, i32* %type111, align 8
+  br label %sw.epilog116
+
+sw.bb112:                                         ; preds = %if.else85
+  %99 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type113 = getelementptr inbounds %struct.state, %struct.state* %99, i32 0, i32 2
+  store i32 27, i32* %type113, align 8
+  br label %sw.epilog116
+
+sw.bb114:                                         ; preds = %if.else85, %if.else85, %if.else85, %if.else85
+  br label %sw.epilog116
+
+sw.default:                                       ; preds = %if.else85
+  %100 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type115 = getelementptr inbounds %struct.state, %struct.state* %100, i32 0, i32 2
+  store i32 25, i32* %type115, align 8
+  br label %sw.epilog116
+
+sw.epilog116:                                     ; preds = %sw.default, %sw.bb114, %sw.bb112, %sw.bb110, %sw.bb108, %sw.bb105, %sw.bb102, %sw.bb99, %sw.bb96, %sw.bb93, %sw.bb90
+  br label %if.end117
+
+if.end117:                                        ; preds = %sw.epilog116, %if.end84
+  br label %if.end118
+
+if.end118:                                        ; preds = %if.end117, %if.then14
+  br label %do.cond
+
+do.cond:                                          ; preds = %if.end118
+  %101 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type119 = getelementptr inbounds %struct.state, %struct.state* %101, i32 0, i32 2
+  %102 = load i32, i32* %type119, align 8
+  %cmp120 = icmp eq i32 %102, 24
+  br i1 %cmp120, label %do.body, label %do.end
+
+do.end:                                           ; preds = %if.then, %do.cond
+  ret void
+}
+
+declare double @"\01_strtod"(i8*, i8**) #1
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_variable* @find_lookup(%struct.state* %s, i8* %name, i32 %len) #0 {
+entry:
+  %retval = alloca %struct.te_variable*, align 8
+  %s.addr = alloca %struct.state*, align 8
+  %name.addr = alloca i8*, align 8
+  %len.addr = alloca i32, align 4
+  %iters = alloca i32, align 4
+  %var = alloca %struct.te_variable*, align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  store i8* %name, i8** %name.addr, align 8
+  store i32 %len, i32* %len.addr, align 4
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %lookup = getelementptr inbounds %struct.state, %struct.state* %0, i32 0, i32 5
+  %1 = load %struct.te_variable*, %struct.te_variable** %lookup, align 8
+  %tobool = icmp ne %struct.te_variable* %1, null
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  store %struct.te_variable* null, %struct.te_variable** %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %2 = load %struct.state*, %struct.state** %s.addr, align 8
+  %lookup1 = getelementptr inbounds %struct.state, %struct.state* %2, i32 0, i32 5
+  %3 = load %struct.te_variable*, %struct.te_variable** %lookup1, align 8
+  store %struct.te_variable* %3, %struct.te_variable** %var, align 8
+  %4 = load %struct.state*, %struct.state** %s.addr, align 8
+  %lookup_len = getelementptr inbounds %struct.state, %struct.state* %4, i32 0, i32 6
+  %5 = load i32, i32* %lookup_len, align 8
+  store i32 %5, i32* %iters, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.end
+  %6 = load i32, i32* %iters, align 4
+  %tobool2 = icmp ne i32 %6, 0
+  br i1 %tobool2, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %7 = load i8*, i8** %name.addr, align 8
+  %8 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %name3 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %8, i32 0, i32 0
+  %9 = load i8*, i8** %name3, align 8
+  %10 = load i32, i32* %len.addr, align 4
+  %conv = sext i32 %10 to i64
+  %call = call i32 @strncmp(i8* %7, i8* %9, i64 %conv)
+  %cmp = icmp eq i32 %call, 0
+  br i1 %cmp, label %land.lhs.true, label %if.end10
+
+land.lhs.true:                                    ; preds = %for.body
+  %11 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %name5 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %11, i32 0, i32 0
+  %12 = load i8*, i8** %name5, align 8
+  %13 = load i32, i32* %len.addr, align 4
+  %idxprom = sext i32 %13 to i64
+  %arrayidx = getelementptr inbounds i8, i8* %12, i64 %idxprom
+  %14 = load i8, i8* %arrayidx, align 1
+  %conv6 = sext i8 %14 to i32
+  %cmp7 = icmp eq i32 %conv6, 0
+  br i1 %cmp7, label %if.then9, label %if.end10
+
+if.then9:                                         ; preds = %land.lhs.true
+  %15 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  store %struct.te_variable* %15, %struct.te_variable** %retval, align 8
+  br label %return
+
+if.end10:                                         ; preds = %land.lhs.true, %for.body
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end10
+  %16 = load %struct.te_variable*, %struct.te_variable** %var, align 8
+  %incdec.ptr = getelementptr inbounds %struct.te_variable, %struct.te_variable* %16, i32 1
+  store %struct.te_variable* %incdec.ptr, %struct.te_variable** %var, align 8
+  %17 = load i32, i32* %iters, align 4
+  %dec = add nsw i32 %17, -1
+  store i32 %dec, i32* %iters, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  store %struct.te_variable* null, %struct.te_variable** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %for.end, %if.then9, %if.then
+  %18 = load %struct.te_variable*, %struct.te_variable** %retval, align 8
+  ret %struct.te_variable* %18
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_variable* @find_builtin(i8* %name, i32 %len) #0 {
+entry:
+  %retval = alloca %struct.te_variable*, align 8
+  %name.addr = alloca i8*, align 8
+  %len.addr = alloca i32, align 4
+  %imin = alloca i32, align 4
+  %imax = alloca i32, align 4
+  %i = alloca i32, align 4
+  %c = alloca i32, align 4
+  store i8* %name, i8** %name.addr, align 8
+  store i32 %len, i32* %len.addr, align 4
+  store i32 0, i32* %imin, align 4
+  store i32 23, i32* %imax, align 4
+  br label %while.cond
+
+while.cond:                                       ; preds = %if.end19, %entry
+  %0 = load i32, i32* %imax, align 4
+  %1 = load i32, i32* %imin, align 4
+  %cmp = icmp sge i32 %0, %1
+  br i1 %cmp, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  %2 = load i32, i32* %imin, align 4
+  %3 = load i32, i32* %imax, align 4
+  %4 = load i32, i32* %imin, align 4
+  %sub = sub nsw i32 %3, %4
+  %div = sdiv i32 %sub, 2
+  %add = add nsw i32 %2, %div
+  store i32 %add, i32* %i, align 4
+  %5 = load i8*, i8** %name.addr, align 8
+  %6 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %6 to i64
+  %arrayidx = getelementptr inbounds [25 x %struct.te_variable], [25 x %struct.te_variable]* @functions, i64 0, i64 %idxprom
+  %name1 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %arrayidx, i32 0, i32 0
+  %7 = load i8*, i8** %name1, align 16
+  %8 = load i32, i32* %len.addr, align 4
+  %conv = sext i32 %8 to i64
+  %call = call i32 @strncmp(i8* %5, i8* %7, i64 %conv)
+  store i32 %call, i32* %c, align 4
+  %9 = load i32, i32* %c, align 4
+  %tobool = icmp ne i32 %9, 0
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %while.body
+  %10 = load i32, i32* %i, align 4
+  %idxprom2 = sext i32 %10 to i64
+  %arrayidx3 = getelementptr inbounds [25 x %struct.te_variable], [25 x %struct.te_variable]* @functions, i64 0, i64 %idxprom2
+  %name4 = getelementptr inbounds %struct.te_variable, %struct.te_variable* %arrayidx3, i32 0, i32 0
+  %11 = load i8*, i8** %name4, align 16
+  %12 = load i32, i32* %len.addr, align 4
+  %idxprom5 = sext i32 %12 to i64
+  %arrayidx6 = getelementptr inbounds i8, i8* %11, i64 %idxprom5
+  %13 = load i8, i8* %arrayidx6, align 1
+  %conv7 = sext i8 %13 to i32
+  %sub8 = sub nsw i32 0, %conv7
+  store i32 %sub8, i32* %c, align 4
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %while.body
+  %14 = load i32, i32* %c, align 4
+  %cmp9 = icmp eq i32 %14, 0
+  br i1 %cmp9, label %if.then11, label %if.else
+
+if.then11:                                        ; preds = %if.end
+  %15 = load i32, i32* %i, align 4
+  %idx.ext = sext i32 %15 to i64
+  %add.ptr = getelementptr inbounds %struct.te_variable, %struct.te_variable* getelementptr inbounds ([25 x %struct.te_variable], [25 x %struct.te_variable]* @functions, i32 0, i32 0), i64 %idx.ext
+  store %struct.te_variable* %add.ptr, %struct.te_variable** %retval, align 8
+  br label %return
+
+if.else:                                          ; preds = %if.end
+  %16 = load i32, i32* %c, align 4
+  %cmp12 = icmp sgt i32 %16, 0
+  br i1 %cmp12, label %if.then14, label %if.else16
+
+if.then14:                                        ; preds = %if.else
+  %17 = load i32, i32* %i, align 4
+  %add15 = add nsw i32 %17, 1
+  store i32 %add15, i32* %imin, align 4
+  br label %if.end18
+
+if.else16:                                        ; preds = %if.else
+  %18 = load i32, i32* %i, align 4
+  %sub17 = sub nsw i32 %18, 1
+  store i32 %sub17, i32* %imax, align 4
+  br label %if.end18
+
+if.end18:                                         ; preds = %if.else16, %if.then14
+  br label %if.end19
+
+if.end19:                                         ; preds = %if.end18
+  br label %while.cond
+
+while.end:                                        ; preds = %while.cond
+  store %struct.te_variable* null, %struct.te_variable** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %while.end, %if.then11
+  %19 = load %struct.te_variable*, %struct.te_variable** %retval, align 8
+  ret %struct.te_variable* %19
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @add(double %a, double %b) #0 {
+entry:
+  %a.addr = alloca double, align 8
+  %b.addr = alloca double, align 8
+  store double %a, double* %a.addr, align 8
+  store double %b, double* %b.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %1 = load double, double* %b.addr, align 8
+  %add = fadd double %0, %1
+  ret double %add
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @sub(double %a, double %b) #0 {
+entry:
+  %a.addr = alloca double, align 8
+  %b.addr = alloca double, align 8
+  store double %a, double* %a.addr, align 8
+  store double %b, double* %b.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %1 = load double, double* %b.addr, align 8
+  %sub = fsub double %0, %1
+  ret double %sub
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @mul(double %a, double %b) #0 {
+entry:
+  %a.addr = alloca double, align 8
+  %b.addr = alloca double, align 8
+  store double %a, double* %a.addr, align 8
+  store double %b, double* %b.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %1 = load double, double* %b.addr, align 8
+  %mul = fmul double %0, %1
+  ret double %mul
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @divide(double %a, double %b) #0 {
+entry:
+  %a.addr = alloca double, align 8
+  %b.addr = alloca double, align 8
+  store double %a, double* %a.addr, align 8
+  store double %b, double* %b.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %1 = load double, double* %b.addr, align 8
+  %div = fdiv double %0, %1
+  ret double %div
+}
+
+; Function Attrs: nounwind readnone
+declare double @pow(double, double) #2
+
+; Function Attrs: nounwind readnone
+declare double @fmod(double, double) #2
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @te_eval(%struct.te_expr* %n) #0 {
+entry:
+  %retval = alloca double, align 8
+  %n.addr = alloca %struct.te_expr*, align 8
+  store %struct.te_expr* %n, %struct.te_expr** %n.addr, align 8
+  %0 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %tobool = icmp ne %struct.te_expr* %0, null
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  store double 0x7FF8000000000000, double* %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %1 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type = getelementptr inbounds %struct.te_expr, %struct.te_expr* %1, i32 0, i32 0
+  %2 = load i32, i32* %type, align 8
+  %and = and i32 %2, 31
+  switch i32 %and, label %sw.default247 [
+    i32 1, label %sw.bb
+    i32 0, label %sw.bb1
+    i32 8, label %sw.bb2
+    i32 9, label %sw.bb2
+    i32 10, label %sw.bb2
+    i32 11, label %sw.bb2
+    i32 12, label %sw.bb2
+    i32 13, label %sw.bb2
+    i32 14, label %sw.bb2
+    i32 15, label %sw.bb2
+    i32 16, label %sw.bb112
+    i32 17, label %sw.bb112
+    i32 18, label %sw.bb112
+    i32 19, label %sw.bb112
+    i32 20, label %sw.bb112
+    i32 21, label %sw.bb112
+    i32 22, label %sw.bb112
+    i32 23, label %sw.bb112
+  ]
+
+sw.bb:                                            ; preds = %if.end
+  %3 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %4 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %3, i32 0, i32 1
+  %value = bitcast %union.anon* %4 to double*
+  %5 = load double, double* %value, align 8
+  store double %5, double* %retval, align 8
+  br label %return
+
+sw.bb1:                                           ; preds = %if.end
+  %6 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %7 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %6, i32 0, i32 1
+  %bound = bitcast %union.anon* %7 to double**
+  %8 = load double*, double** %bound, align 8
+  %9 = load double, double* %8, align 8
+  store double %9, double* %retval, align 8
+  br label %return
+
+sw.bb2:                                           ; preds = %if.end, %if.end, %if.end, %if.end, %if.end, %if.end, %if.end, %if.end
+  %10 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type3 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %10, i32 0, i32 0
+  %11 = load i32, i32* %type3, align 8
+  %and4 = and i32 %11, 24
+  %tobool5 = icmp ne i32 %and4, 0
+  br i1 %tobool5, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %sw.bb2
+  %12 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type6 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %12, i32 0, i32 0
+  %13 = load i32, i32* %type6, align 8
+  %and7 = and i32 %13, 7
+  br label %cond.end
+
+cond.false:                                       ; preds = %sw.bb2
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %and7, %cond.true ], [ 0, %cond.false ]
+  switch i32 %cond, label %sw.default [
+    i32 0, label %sw.bb8
+    i32 1, label %sw.bb9
+    i32 2, label %sw.bb13
+    i32 3, label %sw.bb22
+    i32 4, label %sw.bb34
+    i32 5, label %sw.bb49
+    i32 6, label %sw.bb67
+    i32 7, label %sw.bb88
+  ]
+
+sw.bb8:                                           ; preds = %cond.end
+  %14 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %15 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %14, i32 0, i32 1
+  %function = bitcast %union.anon* %15 to i8**
+  %16 = load i8*, i8** %function, align 8
+  %17 = bitcast i8* %16 to double ()*
+  %call = call double %17()
+  store double %call, double* %retval, align 8
+  br label %return
+
+sw.bb9:                                           ; preds = %cond.end
+  %18 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %19 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %18, i32 0, i32 1
+  %function10 = bitcast %union.anon* %19 to i8**
+  %20 = load i8*, i8** %function10, align 8
+  %21 = bitcast i8* %20 to double (double)*
+  %22 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters = getelementptr inbounds %struct.te_expr, %struct.te_expr* %22, i32 0, i32 2
+  %arrayidx = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters, i64 0, i64 0
+  %23 = load i8*, i8** %arrayidx, align 8
+  %24 = bitcast i8* %23 to %struct.te_expr*
+  %call11 = call double @te_eval(%struct.te_expr* %24)
+  %call12 = call double %21(double %call11)
+  store double %call12, double* %retval, align 8
+  br label %return
+
+sw.bb13:                                          ; preds = %cond.end
+  %25 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %26 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %25, i32 0, i32 1
+  %function14 = bitcast %union.anon* %26 to i8**
+  %27 = load i8*, i8** %function14, align 8
+  %28 = bitcast i8* %27 to double (double, double)*
+  %29 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters15 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %29, i32 0, i32 2
+  %arrayidx16 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters15, i64 0, i64 0
+  %30 = load i8*, i8** %arrayidx16, align 8
+  %31 = bitcast i8* %30 to %struct.te_expr*
+  %call17 = call double @te_eval(%struct.te_expr* %31)
+  %32 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters18 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %32, i32 0, i32 2
+  %arrayidx19 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters18, i64 0, i64 1
+  %33 = load i8*, i8** %arrayidx19, align 8
+  %34 = bitcast i8* %33 to %struct.te_expr*
+  %call20 = call double @te_eval(%struct.te_expr* %34)
+  %call21 = call double %28(double %call17, double %call20)
+  store double %call21, double* %retval, align 8
+  br label %return
+
+sw.bb22:                                          ; preds = %cond.end
+  %35 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %36 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %35, i32 0, i32 1
+  %function23 = bitcast %union.anon* %36 to i8**
+  %37 = load i8*, i8** %function23, align 8
+  %38 = bitcast i8* %37 to double (double, double, double)*
+  %39 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters24 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %39, i32 0, i32 2
+  %arrayidx25 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters24, i64 0, i64 0
+  %40 = load i8*, i8** %arrayidx25, align 8
+  %41 = bitcast i8* %40 to %struct.te_expr*
+  %call26 = call double @te_eval(%struct.te_expr* %41)
+  %42 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters27 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %42, i32 0, i32 2
+  %arrayidx28 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters27, i64 0, i64 1
+  %43 = load i8*, i8** %arrayidx28, align 8
+  %44 = bitcast i8* %43 to %struct.te_expr*
+  %call29 = call double @te_eval(%struct.te_expr* %44)
+  %45 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters30 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %45, i32 0, i32 2
+  %arrayidx31 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters30, i64 0, i64 2
+  %46 = load i8*, i8** %arrayidx31, align 8
+  %47 = bitcast i8* %46 to %struct.te_expr*
+  %call32 = call double @te_eval(%struct.te_expr* %47)
+  %call33 = call double %38(double %call26, double %call29, double %call32)
+  store double %call33, double* %retval, align 8
+  br label %return
+
+sw.bb34:                                          ; preds = %cond.end
+  %48 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %49 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %48, i32 0, i32 1
+  %function35 = bitcast %union.anon* %49 to i8**
+  %50 = load i8*, i8** %function35, align 8
+  %51 = bitcast i8* %50 to double (double, double, double, double)*
+  %52 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters36 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %52, i32 0, i32 2
+  %arrayidx37 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters36, i64 0, i64 0
+  %53 = load i8*, i8** %arrayidx37, align 8
+  %54 = bitcast i8* %53 to %struct.te_expr*
+  %call38 = call double @te_eval(%struct.te_expr* %54)
+  %55 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters39 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %55, i32 0, i32 2
+  %arrayidx40 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters39, i64 0, i64 1
+  %56 = load i8*, i8** %arrayidx40, align 8
+  %57 = bitcast i8* %56 to %struct.te_expr*
+  %call41 = call double @te_eval(%struct.te_expr* %57)
+  %58 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters42 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %58, i32 0, i32 2
+  %arrayidx43 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters42, i64 0, i64 2
+  %59 = load i8*, i8** %arrayidx43, align 8
+  %60 = bitcast i8* %59 to %struct.te_expr*
+  %call44 = call double @te_eval(%struct.te_expr* %60)
+  %61 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters45 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %61, i32 0, i32 2
+  %arrayidx46 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters45, i64 0, i64 3
+  %62 = load i8*, i8** %arrayidx46, align 8
+  %63 = bitcast i8* %62 to %struct.te_expr*
+  %call47 = call double @te_eval(%struct.te_expr* %63)
+  %call48 = call double %51(double %call38, double %call41, double %call44, double %call47)
+  store double %call48, double* %retval, align 8
+  br label %return
+
+sw.bb49:                                          ; preds = %cond.end
+  %64 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %65 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %64, i32 0, i32 1
+  %function50 = bitcast %union.anon* %65 to i8**
+  %66 = load i8*, i8** %function50, align 8
+  %67 = bitcast i8* %66 to double (double, double, double, double, double)*
+  %68 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters51 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %68, i32 0, i32 2
+  %arrayidx52 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters51, i64 0, i64 0
+  %69 = load i8*, i8** %arrayidx52, align 8
+  %70 = bitcast i8* %69 to %struct.te_expr*
+  %call53 = call double @te_eval(%struct.te_expr* %70)
+  %71 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters54 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %71, i32 0, i32 2
+  %arrayidx55 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters54, i64 0, i64 1
+  %72 = load i8*, i8** %arrayidx55, align 8
+  %73 = bitcast i8* %72 to %struct.te_expr*
+  %call56 = call double @te_eval(%struct.te_expr* %73)
+  %74 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters57 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %74, i32 0, i32 2
+  %arrayidx58 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters57, i64 0, i64 2
+  %75 = load i8*, i8** %arrayidx58, align 8
+  %76 = bitcast i8* %75 to %struct.te_expr*
+  %call59 = call double @te_eval(%struct.te_expr* %76)
+  %77 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters60 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %77, i32 0, i32 2
+  %arrayidx61 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters60, i64 0, i64 3
+  %78 = load i8*, i8** %arrayidx61, align 8
+  %79 = bitcast i8* %78 to %struct.te_expr*
+  %call62 = call double @te_eval(%struct.te_expr* %79)
+  %80 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters63 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %80, i32 0, i32 2
+  %arrayidx64 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters63, i64 0, i64 4
+  %81 = load i8*, i8** %arrayidx64, align 8
+  %82 = bitcast i8* %81 to %struct.te_expr*
+  %call65 = call double @te_eval(%struct.te_expr* %82)
+  %call66 = call double %67(double %call53, double %call56, double %call59, double %call62, double %call65)
+  store double %call66, double* %retval, align 8
+  br label %return
+
+sw.bb67:                                          ; preds = %cond.end
+  %83 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %84 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %83, i32 0, i32 1
+  %function68 = bitcast %union.anon* %84 to i8**
+  %85 = load i8*, i8** %function68, align 8
+  %86 = bitcast i8* %85 to double (double, double, double, double, double, double)*
+  %87 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters69 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %87, i32 0, i32 2
+  %arrayidx70 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters69, i64 0, i64 0
+  %88 = load i8*, i8** %arrayidx70, align 8
+  %89 = bitcast i8* %88 to %struct.te_expr*
+  %call71 = call double @te_eval(%struct.te_expr* %89)
+  %90 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters72 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %90, i32 0, i32 2
+  %arrayidx73 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters72, i64 0, i64 1
+  %91 = load i8*, i8** %arrayidx73, align 8
+  %92 = bitcast i8* %91 to %struct.te_expr*
+  %call74 = call double @te_eval(%struct.te_expr* %92)
+  %93 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters75 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %93, i32 0, i32 2
+  %arrayidx76 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters75, i64 0, i64 2
+  %94 = load i8*, i8** %arrayidx76, align 8
+  %95 = bitcast i8* %94 to %struct.te_expr*
+  %call77 = call double @te_eval(%struct.te_expr* %95)
+  %96 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters78 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %96, i32 0, i32 2
+  %arrayidx79 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters78, i64 0, i64 3
+  %97 = load i8*, i8** %arrayidx79, align 8
+  %98 = bitcast i8* %97 to %struct.te_expr*
+  %call80 = call double @te_eval(%struct.te_expr* %98)
+  %99 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters81 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %99, i32 0, i32 2
+  %arrayidx82 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters81, i64 0, i64 4
+  %100 = load i8*, i8** %arrayidx82, align 8
+  %101 = bitcast i8* %100 to %struct.te_expr*
+  %call83 = call double @te_eval(%struct.te_expr* %101)
+  %102 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters84 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %102, i32 0, i32 2
+  %arrayidx85 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters84, i64 0, i64 5
+  %103 = load i8*, i8** %arrayidx85, align 8
+  %104 = bitcast i8* %103 to %struct.te_expr*
+  %call86 = call double @te_eval(%struct.te_expr* %104)
+  %call87 = call double %86(double %call71, double %call74, double %call77, double %call80, double %call83, double %call86)
+  store double %call87, double* %retval, align 8
+  br label %return
+
+sw.bb88:                                          ; preds = %cond.end
+  %105 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %106 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %105, i32 0, i32 1
+  %function89 = bitcast %union.anon* %106 to i8**
+  %107 = load i8*, i8** %function89, align 8
+  %108 = bitcast i8* %107 to double (double, double, double, double, double, double, double)*
+  %109 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters90 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %109, i32 0, i32 2
+  %arrayidx91 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters90, i64 0, i64 0
+  %110 = load i8*, i8** %arrayidx91, align 8
+  %111 = bitcast i8* %110 to %struct.te_expr*
+  %call92 = call double @te_eval(%struct.te_expr* %111)
+  %112 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters93 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %112, i32 0, i32 2
+  %arrayidx94 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters93, i64 0, i64 1
+  %113 = load i8*, i8** %arrayidx94, align 8
+  %114 = bitcast i8* %113 to %struct.te_expr*
+  %call95 = call double @te_eval(%struct.te_expr* %114)
+  %115 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters96 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %115, i32 0, i32 2
+  %arrayidx97 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters96, i64 0, i64 2
+  %116 = load i8*, i8** %arrayidx97, align 8
+  %117 = bitcast i8* %116 to %struct.te_expr*
+  %call98 = call double @te_eval(%struct.te_expr* %117)
+  %118 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters99 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %118, i32 0, i32 2
+  %arrayidx100 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters99, i64 0, i64 3
+  %119 = load i8*, i8** %arrayidx100, align 8
+  %120 = bitcast i8* %119 to %struct.te_expr*
+  %call101 = call double @te_eval(%struct.te_expr* %120)
+  %121 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters102 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %121, i32 0, i32 2
+  %arrayidx103 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters102, i64 0, i64 4
+  %122 = load i8*, i8** %arrayidx103, align 8
+  %123 = bitcast i8* %122 to %struct.te_expr*
+  %call104 = call double @te_eval(%struct.te_expr* %123)
+  %124 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters105 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %124, i32 0, i32 2
+  %arrayidx106 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters105, i64 0, i64 5
+  %125 = load i8*, i8** %arrayidx106, align 8
+  %126 = bitcast i8* %125 to %struct.te_expr*
+  %call107 = call double @te_eval(%struct.te_expr* %126)
+  %127 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters108 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %127, i32 0, i32 2
+  %arrayidx109 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters108, i64 0, i64 6
+  %128 = load i8*, i8** %arrayidx109, align 8
+  %129 = bitcast i8* %128 to %struct.te_expr*
+  %call110 = call double @te_eval(%struct.te_expr* %129)
+  %call111 = call double %108(double %call92, double %call95, double %call98, double %call101, double %call104, double %call107, double %call110)
+  store double %call111, double* %retval, align 8
+  br label %return
+
+sw.default:                                       ; preds = %cond.end
+  store double 0x7FF8000000000000, double* %retval, align 8
+  br label %return
+
+sw.bb112:                                         ; preds = %if.end, %if.end, %if.end, %if.end, %if.end, %if.end, %if.end, %if.end
+  %130 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type113 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %130, i32 0, i32 0
+  %131 = load i32, i32* %type113, align 8
+  %and114 = and i32 %131, 24
+  %tobool115 = icmp ne i32 %and114, 0
+  br i1 %tobool115, label %cond.true116, label %cond.false119
+
+cond.true116:                                     ; preds = %sw.bb112
+  %132 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type117 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %132, i32 0, i32 0
+  %133 = load i32, i32* %type117, align 8
+  %and118 = and i32 %133, 7
+  br label %cond.end120
+
+cond.false119:                                    ; preds = %sw.bb112
+  br label %cond.end120
+
+cond.end120:                                      ; preds = %cond.false119, %cond.true116
+  %cond121 = phi i32 [ %and118, %cond.true116 ], [ 0, %cond.false119 ]
+  switch i32 %cond121, label %sw.default246 [
+    i32 0, label %sw.bb122
+    i32 1, label %sw.bb127
+    i32 2, label %sw.bb135
+    i32 3, label %sw.bb146
+    i32 4, label %sw.bb160
+    i32 5, label %sw.bb177
+    i32 6, label %sw.bb197
+    i32 7, label %sw.bb220
+  ]
+
+sw.bb122:                                         ; preds = %cond.end120
+  %134 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %135 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %134, i32 0, i32 1
+  %function123 = bitcast %union.anon* %135 to i8**
+  %136 = load i8*, i8** %function123, align 8
+  %137 = bitcast i8* %136 to double (i8*)*
+  %138 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters124 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %138, i32 0, i32 2
+  %arrayidx125 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters124, i64 0, i64 0
+  %139 = load i8*, i8** %arrayidx125, align 8
+  %call126 = call double %137(i8* %139)
+  store double %call126, double* %retval, align 8
+  br label %return
+
+sw.bb127:                                         ; preds = %cond.end120
+  %140 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %141 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %140, i32 0, i32 1
+  %function128 = bitcast %union.anon* %141 to i8**
+  %142 = load i8*, i8** %function128, align 8
+  %143 = bitcast i8* %142 to double (i8*, double)*
+  %144 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters129 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %144, i32 0, i32 2
+  %arrayidx130 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters129, i64 0, i64 1
+  %145 = load i8*, i8** %arrayidx130, align 8
+  %146 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters131 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %146, i32 0, i32 2
+  %arrayidx132 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters131, i64 0, i64 0
+  %147 = load i8*, i8** %arrayidx132, align 8
+  %148 = bitcast i8* %147 to %struct.te_expr*
+  %call133 = call double @te_eval(%struct.te_expr* %148)
+  %call134 = call double %143(i8* %145, double %call133)
+  store double %call134, double* %retval, align 8
+  br label %return
+
+sw.bb135:                                         ; preds = %cond.end120
+  %149 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %150 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %149, i32 0, i32 1
+  %function136 = bitcast %union.anon* %150 to i8**
+  %151 = load i8*, i8** %function136, align 8
+  %152 = bitcast i8* %151 to double (i8*, double, double)*
+  %153 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters137 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %153, i32 0, i32 2
+  %arrayidx138 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters137, i64 0, i64 2
+  %154 = load i8*, i8** %arrayidx138, align 8
+  %155 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters139 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %155, i32 0, i32 2
+  %arrayidx140 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters139, i64 0, i64 0
+  %156 = load i8*, i8** %arrayidx140, align 8
+  %157 = bitcast i8* %156 to %struct.te_expr*
+  %call141 = call double @te_eval(%struct.te_expr* %157)
+  %158 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters142 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %158, i32 0, i32 2
+  %arrayidx143 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters142, i64 0, i64 1
+  %159 = load i8*, i8** %arrayidx143, align 8
+  %160 = bitcast i8* %159 to %struct.te_expr*
+  %call144 = call double @te_eval(%struct.te_expr* %160)
+  %call145 = call double %152(i8* %154, double %call141, double %call144)
+  store double %call145, double* %retval, align 8
+  br label %return
+
+sw.bb146:                                         ; preds = %cond.end120
+  %161 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %162 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %161, i32 0, i32 1
+  %function147 = bitcast %union.anon* %162 to i8**
+  %163 = load i8*, i8** %function147, align 8
+  %164 = bitcast i8* %163 to double (i8*, double, double, double)*
+  %165 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters148 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %165, i32 0, i32 2
+  %arrayidx149 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters148, i64 0, i64 3
+  %166 = load i8*, i8** %arrayidx149, align 8
+  %167 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters150 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %167, i32 0, i32 2
+  %arrayidx151 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters150, i64 0, i64 0
+  %168 = load i8*, i8** %arrayidx151, align 8
+  %169 = bitcast i8* %168 to %struct.te_expr*
+  %call152 = call double @te_eval(%struct.te_expr* %169)
+  %170 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters153 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %170, i32 0, i32 2
+  %arrayidx154 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters153, i64 0, i64 1
+  %171 = load i8*, i8** %arrayidx154, align 8
+  %172 = bitcast i8* %171 to %struct.te_expr*
+  %call155 = call double @te_eval(%struct.te_expr* %172)
+  %173 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters156 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %173, i32 0, i32 2
+  %arrayidx157 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters156, i64 0, i64 2
+  %174 = load i8*, i8** %arrayidx157, align 8
+  %175 = bitcast i8* %174 to %struct.te_expr*
+  %call158 = call double @te_eval(%struct.te_expr* %175)
+  %call159 = call double %164(i8* %166, double %call152, double %call155, double %call158)
+  store double %call159, double* %retval, align 8
+  br label %return
+
+sw.bb160:                                         ; preds = %cond.end120
+  %176 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %177 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %176, i32 0, i32 1
+  %function161 = bitcast %union.anon* %177 to i8**
+  %178 = load i8*, i8** %function161, align 8
+  %179 = bitcast i8* %178 to double (i8*, double, double, double, double)*
+  %180 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters162 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %180, i32 0, i32 2
+  %arrayidx163 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters162, i64 0, i64 4
+  %181 = load i8*, i8** %arrayidx163, align 8
+  %182 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters164 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %182, i32 0, i32 2
+  %arrayidx165 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters164, i64 0, i64 0
+  %183 = load i8*, i8** %arrayidx165, align 8
+  %184 = bitcast i8* %183 to %struct.te_expr*
+  %call166 = call double @te_eval(%struct.te_expr* %184)
+  %185 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters167 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %185, i32 0, i32 2
+  %arrayidx168 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters167, i64 0, i64 1
+  %186 = load i8*, i8** %arrayidx168, align 8
+  %187 = bitcast i8* %186 to %struct.te_expr*
+  %call169 = call double @te_eval(%struct.te_expr* %187)
+  %188 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters170 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %188, i32 0, i32 2
+  %arrayidx171 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters170, i64 0, i64 2
+  %189 = load i8*, i8** %arrayidx171, align 8
+  %190 = bitcast i8* %189 to %struct.te_expr*
+  %call172 = call double @te_eval(%struct.te_expr* %190)
+  %191 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters173 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %191, i32 0, i32 2
+  %arrayidx174 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters173, i64 0, i64 3
+  %192 = load i8*, i8** %arrayidx174, align 8
+  %193 = bitcast i8* %192 to %struct.te_expr*
+  %call175 = call double @te_eval(%struct.te_expr* %193)
+  %call176 = call double %179(i8* %181, double %call166, double %call169, double %call172, double %call175)
+  store double %call176, double* %retval, align 8
+  br label %return
+
+sw.bb177:                                         ; preds = %cond.end120
+  %194 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %195 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %194, i32 0, i32 1
+  %function178 = bitcast %union.anon* %195 to i8**
+  %196 = load i8*, i8** %function178, align 8
+  %197 = bitcast i8* %196 to double (i8*, double, double, double, double, double)*
+  %198 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters179 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %198, i32 0, i32 2
+  %arrayidx180 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters179, i64 0, i64 5
+  %199 = load i8*, i8** %arrayidx180, align 8
+  %200 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters181 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %200, i32 0, i32 2
+  %arrayidx182 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters181, i64 0, i64 0
+  %201 = load i8*, i8** %arrayidx182, align 8
+  %202 = bitcast i8* %201 to %struct.te_expr*
+  %call183 = call double @te_eval(%struct.te_expr* %202)
+  %203 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters184 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %203, i32 0, i32 2
+  %arrayidx185 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters184, i64 0, i64 1
+  %204 = load i8*, i8** %arrayidx185, align 8
+  %205 = bitcast i8* %204 to %struct.te_expr*
+  %call186 = call double @te_eval(%struct.te_expr* %205)
+  %206 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters187 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %206, i32 0, i32 2
+  %arrayidx188 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters187, i64 0, i64 2
+  %207 = load i8*, i8** %arrayidx188, align 8
+  %208 = bitcast i8* %207 to %struct.te_expr*
+  %call189 = call double @te_eval(%struct.te_expr* %208)
+  %209 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters190 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %209, i32 0, i32 2
+  %arrayidx191 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters190, i64 0, i64 3
+  %210 = load i8*, i8** %arrayidx191, align 8
+  %211 = bitcast i8* %210 to %struct.te_expr*
+  %call192 = call double @te_eval(%struct.te_expr* %211)
+  %212 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters193 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %212, i32 0, i32 2
+  %arrayidx194 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters193, i64 0, i64 4
+  %213 = load i8*, i8** %arrayidx194, align 8
+  %214 = bitcast i8* %213 to %struct.te_expr*
+  %call195 = call double @te_eval(%struct.te_expr* %214)
+  %call196 = call double %197(i8* %199, double %call183, double %call186, double %call189, double %call192, double %call195)
+  store double %call196, double* %retval, align 8
+  br label %return
+
+sw.bb197:                                         ; preds = %cond.end120
+  %215 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %216 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %215, i32 0, i32 1
+  %function198 = bitcast %union.anon* %216 to i8**
+  %217 = load i8*, i8** %function198, align 8
+  %218 = bitcast i8* %217 to double (i8*, double, double, double, double, double, double)*
+  %219 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters199 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %219, i32 0, i32 2
+  %arrayidx200 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters199, i64 0, i64 6
+  %220 = load i8*, i8** %arrayidx200, align 8
+  %221 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters201 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %221, i32 0, i32 2
+  %arrayidx202 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters201, i64 0, i64 0
+  %222 = load i8*, i8** %arrayidx202, align 8
+  %223 = bitcast i8* %222 to %struct.te_expr*
+  %call203 = call double @te_eval(%struct.te_expr* %223)
+  %224 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters204 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %224, i32 0, i32 2
+  %arrayidx205 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters204, i64 0, i64 1
+  %225 = load i8*, i8** %arrayidx205, align 8
+  %226 = bitcast i8* %225 to %struct.te_expr*
+  %call206 = call double @te_eval(%struct.te_expr* %226)
+  %227 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters207 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %227, i32 0, i32 2
+  %arrayidx208 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters207, i64 0, i64 2
+  %228 = load i8*, i8** %arrayidx208, align 8
+  %229 = bitcast i8* %228 to %struct.te_expr*
+  %call209 = call double @te_eval(%struct.te_expr* %229)
+  %230 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters210 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %230, i32 0, i32 2
+  %arrayidx211 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters210, i64 0, i64 3
+  %231 = load i8*, i8** %arrayidx211, align 8
+  %232 = bitcast i8* %231 to %struct.te_expr*
+  %call212 = call double @te_eval(%struct.te_expr* %232)
+  %233 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters213 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %233, i32 0, i32 2
+  %arrayidx214 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters213, i64 0, i64 4
+  %234 = load i8*, i8** %arrayidx214, align 8
+  %235 = bitcast i8* %234 to %struct.te_expr*
+  %call215 = call double @te_eval(%struct.te_expr* %235)
+  %236 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters216 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %236, i32 0, i32 2
+  %arrayidx217 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters216, i64 0, i64 5
+  %237 = load i8*, i8** %arrayidx217, align 8
+  %238 = bitcast i8* %237 to %struct.te_expr*
+  %call218 = call double @te_eval(%struct.te_expr* %238)
+  %call219 = call double %218(i8* %220, double %call203, double %call206, double %call209, double %call212, double %call215, double %call218)
+  store double %call219, double* %retval, align 8
+  br label %return
+
+sw.bb220:                                         ; preds = %cond.end120
+  %239 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %240 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %239, i32 0, i32 1
+  %function221 = bitcast %union.anon* %240 to i8**
+  %241 = load i8*, i8** %function221, align 8
+  %242 = bitcast i8* %241 to double (i8*, double, double, double, double, double, double, double)*
+  %243 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters222 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %243, i32 0, i32 2
+  %arrayidx223 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters222, i64 0, i64 7
+  %244 = load i8*, i8** %arrayidx223, align 8
+  %245 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters224 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %245, i32 0, i32 2
+  %arrayidx225 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters224, i64 0, i64 0
+  %246 = load i8*, i8** %arrayidx225, align 8
+  %247 = bitcast i8* %246 to %struct.te_expr*
+  %call226 = call double @te_eval(%struct.te_expr* %247)
+  %248 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters227 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %248, i32 0, i32 2
+  %arrayidx228 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters227, i64 0, i64 1
+  %249 = load i8*, i8** %arrayidx228, align 8
+  %250 = bitcast i8* %249 to %struct.te_expr*
+  %call229 = call double @te_eval(%struct.te_expr* %250)
+  %251 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters230 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %251, i32 0, i32 2
+  %arrayidx231 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters230, i64 0, i64 2
+  %252 = load i8*, i8** %arrayidx231, align 8
+  %253 = bitcast i8* %252 to %struct.te_expr*
+  %call232 = call double @te_eval(%struct.te_expr* %253)
+  %254 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters233 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %254, i32 0, i32 2
+  %arrayidx234 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters233, i64 0, i64 3
+  %255 = load i8*, i8** %arrayidx234, align 8
+  %256 = bitcast i8* %255 to %struct.te_expr*
+  %call235 = call double @te_eval(%struct.te_expr* %256)
+  %257 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters236 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %257, i32 0, i32 2
+  %arrayidx237 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters236, i64 0, i64 4
+  %258 = load i8*, i8** %arrayidx237, align 8
+  %259 = bitcast i8* %258 to %struct.te_expr*
+  %call238 = call double @te_eval(%struct.te_expr* %259)
+  %260 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters239 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %260, i32 0, i32 2
+  %arrayidx240 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters239, i64 0, i64 5
+  %261 = load i8*, i8** %arrayidx240, align 8
+  %262 = bitcast i8* %261 to %struct.te_expr*
+  %call241 = call double @te_eval(%struct.te_expr* %262)
+  %263 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters242 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %263, i32 0, i32 2
+  %arrayidx243 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters242, i64 0, i64 6
+  %264 = load i8*, i8** %arrayidx243, align 8
+  %265 = bitcast i8* %264 to %struct.te_expr*
+  %call244 = call double @te_eval(%struct.te_expr* %265)
+  %call245 = call double %242(i8* %244, double %call226, double %call229, double %call232, double %call235, double %call238, double %call241, double %call244)
+  store double %call245, double* %retval, align 8
+  br label %return
+
+sw.default246:                                    ; preds = %cond.end120
+  store double 0x7FF8000000000000, double* %retval, align 8
+  br label %return
+
+sw.default247:                                    ; preds = %if.end
+  store double 0x7FF8000000000000, double* %retval, align 8
+  br label %return
+
+return:                                           ; preds = %sw.default247, %sw.default246, %sw.bb220, %sw.bb197, %sw.bb177, %sw.bb160, %sw.bb146, %sw.bb135, %sw.bb127, %sw.bb122, %sw.default, %sw.bb88, %sw.bb67, %sw.bb49, %sw.bb34, %sw.bb22, %sw.bb13, %sw.bb9, %sw.bb8, %sw.bb1, %sw.bb, %if.then
+  %266 = load double, double* %retval, align 8
+  ret double %266
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define %struct.te_expr* @te_compile(i8* %expression, %struct.te_variable* %variables, i32 %var_count, i32* %error) #0 {
+entry:
+  %retval = alloca %struct.te_expr*, align 8
+  %expression.addr = alloca i8*, align 8
+  %variables.addr = alloca %struct.te_variable*, align 8
+  %var_count.addr = alloca i32, align 4
+  %error.addr = alloca i32*, align 8
+  %s = alloca %struct.state, align 8
+  %root = alloca %struct.te_expr*, align 8
+  store i8* %expression, i8** %expression.addr, align 8
+  store %struct.te_variable* %variables, %struct.te_variable** %variables.addr, align 8
+  store i32 %var_count, i32* %var_count.addr, align 4
+  store i32* %error, i32** %error.addr, align 8
+  %0 = load i8*, i8** %expression.addr, align 8
+  %next = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 1
+  store i8* %0, i8** %next, align 8
+  %start = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 0
+  store i8* %0, i8** %start, align 8
+  %1 = load %struct.te_variable*, %struct.te_variable** %variables.addr, align 8
+  %lookup = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 5
+  store %struct.te_variable* %1, %struct.te_variable** %lookup, align 8
+  %2 = load i32, i32* %var_count.addr, align 4
+  %lookup_len = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 6
+  store i32 %2, i32* %lookup_len, align 8
+  call void @next_token(%struct.state* %s)
+  %call = call %struct.te_expr* @list(%struct.state* %s)
+  store %struct.te_expr* %call, %struct.te_expr** %root, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 2
+  %3 = load i32, i32* %type, align 8
+  %cmp = icmp ne i32 %3, 26
+  br i1 %cmp, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  %4 = load %struct.te_expr*, %struct.te_expr** %root, align 8
+  call void @te_free(%struct.te_expr* %4)
+  %5 = load i32*, i32** %error.addr, align 8
+  %tobool = icmp ne i32* %5, null
+  br i1 %tobool, label %if.then1, label %if.end7
+
+if.then1:                                         ; preds = %if.then
+  %next2 = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 1
+  %6 = load i8*, i8** %next2, align 8
+  %start3 = getelementptr inbounds %struct.state, %struct.state* %s, i32 0, i32 0
+  %7 = load i8*, i8** %start3, align 8
+  %sub.ptr.lhs.cast = ptrtoint i8* %6 to i64
+  %sub.ptr.rhs.cast = ptrtoint i8* %7 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %conv = trunc i64 %sub.ptr.sub to i32
+  %8 = load i32*, i32** %error.addr, align 8
+  store i32 %conv, i32* %8, align 4
+  %9 = load i32*, i32** %error.addr, align 8
+  %10 = load i32, i32* %9, align 4
+  %cmp4 = icmp eq i32 %10, 0
+  br i1 %cmp4, label %if.then6, label %if.end
+
+if.then6:                                         ; preds = %if.then1
+  %11 = load i32*, i32** %error.addr, align 8
+  store i32 1, i32* %11, align 4
+  br label %if.end
+
+if.end:                                           ; preds = %if.then6, %if.then1
+  br label %if.end7
+
+if.end7:                                          ; preds = %if.end, %if.then
+  store %struct.te_expr* null, %struct.te_expr** %retval, align 8
+  br label %return
+
+if.else:                                          ; preds = %entry
+  %12 = load %struct.te_expr*, %struct.te_expr** %root, align 8
+  call void @optimize(%struct.te_expr* %12)
+  %13 = load i32*, i32** %error.addr, align 8
+  %tobool8 = icmp ne i32* %13, null
+  br i1 %tobool8, label %if.then9, label %if.end10
+
+if.then9:                                         ; preds = %if.else
+  %14 = load i32*, i32** %error.addr, align 8
+  store i32 0, i32* %14, align 4
+  br label %if.end10
+
+if.end10:                                         ; preds = %if.then9, %if.else
+  %15 = load %struct.te_expr*, %struct.te_expr** %root, align 8
+  store %struct.te_expr* %15, %struct.te_expr** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %if.end10, %if.end7
+  %16 = load %struct.te_expr*, %struct.te_expr** %retval, align 8
+  ret %struct.te_expr* %16
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @list(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %ret = alloca %struct.te_expr*, align 8
+  %.compoundliteral = alloca [2 x %struct.te_expr*], align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call = call %struct.te_expr* @expr(%struct.state* %0)
+  store %struct.te_expr* %call, %struct.te_expr** %ret, align 8
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.body, %entry
+  %1 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %1, i32 0, i32 2
+  %2 = load i32, i32* %type, align 8
+  %cmp = icmp eq i32 %2, 27
+  br i1 %cmp, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  %3 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %3)
+  %arrayinit.begin = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i64 0, i64 0
+  %4 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  store %struct.te_expr* %4, %struct.te_expr** %arrayinit.begin, align 8
+  %arrayinit.element = getelementptr inbounds %struct.te_expr*, %struct.te_expr** %arrayinit.begin, i64 1
+  %5 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call1 = call %struct.te_expr* @expr(%struct.state* %5)
+  store %struct.te_expr* %call1, %struct.te_expr** %arrayinit.element, align 8
+  %arraydecay = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i32 0, i32 0
+  %call2 = call %struct.te_expr* @new_expr(i32 42, %struct.te_expr** %arraydecay)
+  store %struct.te_expr* %call2, %struct.te_expr** %ret, align 8
+  %6 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %7 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %6, i32 0, i32 1
+  %function = bitcast %union.anon* %7 to i8**
+  store i8* bitcast (double (double, double)* @comma to i8*), i8** %function, align 8
+  br label %while.cond
+
+while.end:                                        ; preds = %while.cond
+  %8 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %8
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal void @optimize(%struct.te_expr* %n) #0 {
+entry:
+  %n.addr = alloca %struct.te_expr*, align 8
+  %arity = alloca i32, align 4
+  %known = alloca i32, align 4
+  %i = alloca i32, align 4
+  %value = alloca double, align 8
+  store %struct.te_expr* %n, %struct.te_expr** %n.addr, align 8
+  %0 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type = getelementptr inbounds %struct.te_expr, %struct.te_expr* %0, i32 0, i32 0
+  %1 = load i32, i32* %type, align 8
+  %cmp = icmp eq i32 %1, 1
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  br label %if.end25
+
+if.end:                                           ; preds = %entry
+  %2 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type1 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %2, i32 0, i32 0
+  %3 = load i32, i32* %type1, align 8
+  %cmp2 = icmp eq i32 %3, 0
+  br i1 %cmp2, label %if.then3, label %if.end4
+
+if.then3:                                         ; preds = %if.end
+  br label %if.end25
+
+if.end4:                                          ; preds = %if.end
+  %4 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type5 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %4, i32 0, i32 0
+  %5 = load i32, i32* %type5, align 8
+  %and = and i32 %5, 32
+  %cmp6 = icmp ne i32 %and, 0
+  br i1 %cmp6, label %if.then7, label %if.end25
+
+if.then7:                                         ; preds = %if.end4
+  %6 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type8 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %6, i32 0, i32 0
+  %7 = load i32, i32* %type8, align 8
+  %and9 = and i32 %7, 24
+  %tobool = icmp ne i32 %and9, 0
+  br i1 %tobool, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %if.then7
+  %8 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type10 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %8, i32 0, i32 0
+  %9 = load i32, i32* %type10, align 8
+  %and11 = and i32 %9, 7
+  br label %cond.end
+
+cond.false:                                       ; preds = %if.then7
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %and11, %cond.true ], [ 0, %cond.false ]
+  store i32 %cond, i32* %arity, align 4
+  store i32 1, i32* %known, align 4
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %cond.end
+  %10 = load i32, i32* %i, align 4
+  %11 = load i32, i32* %arity, align 4
+  %cmp12 = icmp slt i32 %10, %11
+  br i1 %cmp12, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %12 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters = getelementptr inbounds %struct.te_expr, %struct.te_expr* %12, i32 0, i32 2
+  %13 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %13 to i64
+  %arrayidx = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters, i64 0, i64 %idxprom
+  %14 = load i8*, i8** %arrayidx, align 8
+  %15 = bitcast i8* %14 to %struct.te_expr*
+  call void @optimize(%struct.te_expr* %15)
+  %16 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters13 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %16, i32 0, i32 2
+  %17 = load i32, i32* %i, align 4
+  %idxprom14 = sext i32 %17 to i64
+  %arrayidx15 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters13, i64 0, i64 %idxprom14
+  %18 = load i8*, i8** %arrayidx15, align 8
+  %19 = bitcast i8* %18 to %struct.te_expr*
+  %type16 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %19, i32 0, i32 0
+  %20 = load i32, i32* %type16, align 8
+  %cmp17 = icmp ne i32 %20, 1
+  br i1 %cmp17, label %if.then18, label %if.end19
+
+if.then18:                                        ; preds = %for.body
+  store i32 0, i32* %known, align 4
+  br label %if.end19
+
+if.end19:                                         ; preds = %if.then18, %for.body
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end19
+  %21 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %21, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  %22 = load i32, i32* %known, align 4
+  %tobool20 = icmp ne i32 %22, 0
+  br i1 %tobool20, label %if.then21, label %if.end24
+
+if.then21:                                        ; preds = %for.end
+  %23 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %call = call double @te_eval(%struct.te_expr* %23)
+  store double %call, double* %value, align 8
+  %24 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  call void @te_free_parameters(%struct.te_expr* %24)
+  %25 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type22 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %25, i32 0, i32 0
+  store i32 1, i32* %type22, align 8
+  %26 = load double, double* %value, align 8
+  %27 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %28 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %27, i32 0, i32 1
+  %value23 = bitcast %union.anon* %28 to double*
+  store double %26, double* %value23, align 8
+  br label %if.end24
+
+if.end24:                                         ; preds = %if.then21, %for.end
+  br label %if.end25
+
+if.end25:                                         ; preds = %if.then, %if.then3, %if.end24, %if.end4
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @te_interp(i8* %expression, i32* %error) #0 {
+entry:
+  %expression.addr = alloca i8*, align 8
+  %error.addr = alloca i32*, align 8
+  %n = alloca %struct.te_expr*, align 8
+  %ret = alloca double, align 8
+  store i8* %expression, i8** %expression.addr, align 8
+  store i32* %error, i32** %error.addr, align 8
+  %0 = load i8*, i8** %expression.addr, align 8
+  %1 = load i32*, i32** %error.addr, align 8
+  %call = call %struct.te_expr* @te_compile(i8* %0, %struct.te_variable* null, i32 0, i32* %1)
+  store %struct.te_expr* %call, %struct.te_expr** %n, align 8
+  %2 = load %struct.te_expr*, %struct.te_expr** %n, align 8
+  %tobool = icmp ne %struct.te_expr* %2, null
+  br i1 %tobool, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  %3 = load %struct.te_expr*, %struct.te_expr** %n, align 8
+  %call1 = call double @te_eval(%struct.te_expr* %3)
+  store double %call1, double* %ret, align 8
+  %4 = load %struct.te_expr*, %struct.te_expr** %n, align 8
+  call void @te_free(%struct.te_expr* %4)
+  br label %if.end
+
+if.else:                                          ; preds = %entry
+  store double 0x7FF8000000000000, double* %ret, align 8
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then
+  %5 = load double, double* %ret, align 8
+  ret double %5
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @te_print(%struct.te_expr* %n) #0 {
+entry:
+  %n.addr = alloca %struct.te_expr*, align 8
+  store %struct.te_expr* %n, %struct.te_expr** %n.addr, align 8
+  %0 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  call void @pn(%struct.te_expr* %0, i32 0)
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal void @pn(%struct.te_expr* %n, i32 %depth) #0 {
+entry:
+  %n.addr = alloca %struct.te_expr*, align 8
+  %depth.addr = alloca i32, align 4
+  %i = alloca i32, align 4
+  %arity = alloca i32, align 4
+  store %struct.te_expr* %n, %struct.te_expr** %n.addr, align 8
+  store i32 %depth, i32* %depth.addr, align 4
+  %0 = load i32, i32* %depth.addr, align 4
+  %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.24, i32 0, i32 0), i32 %0, i8* getelementptr inbounds ([1 x i8], [1 x i8]* @.str.25, i32 0, i32 0))
+  %1 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type = getelementptr inbounds %struct.te_expr, %struct.te_expr* %1, i32 0, i32 0
+  %2 = load i32, i32* %type, align 8
+  %and = and i32 %2, 31
+  switch i32 %and, label %sw.epilog [
+    i32 1, label %sw.bb
+    i32 0, label %sw.bb2
+    i32 8, label %sw.bb4
+    i32 9, label %sw.bb4
+    i32 10, label %sw.bb4
+    i32 11, label %sw.bb4
+    i32 12, label %sw.bb4
+    i32 13, label %sw.bb4
+    i32 14, label %sw.bb4
+    i32 15, label %sw.bb4
+    i32 16, label %sw.bb4
+    i32 17, label %sw.bb4
+    i32 18, label %sw.bb4
+    i32 19, label %sw.bb4
+    i32 20, label %sw.bb4
+    i32 21, label %sw.bb4
+    i32 22, label %sw.bb4
+    i32 23, label %sw.bb4
+  ]
+
+sw.bb:                                            ; preds = %entry
+  %3 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %4 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %3, i32 0, i32 1
+  %value = bitcast %union.anon* %4 to double*
+  %5 = load double, double* %value, align 8
+  %call1 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.26, i32 0, i32 0), double %5)
+  br label %sw.epilog
+
+sw.bb2:                                           ; preds = %entry
+  %6 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %7 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %6, i32 0, i32 1
+  %bound = bitcast %union.anon* %7 to double**
+  %8 = load double*, double** %bound, align 8
+  %call3 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str.27, i32 0, i32 0), double* %8)
+  br label %sw.epilog
+
+sw.bb4:                                           ; preds = %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry
+  %9 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type5 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %9, i32 0, i32 0
+  %10 = load i32, i32* %type5, align 8
+  %and6 = and i32 %10, 24
+  %tobool = icmp ne i32 %and6, 0
+  br i1 %tobool, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %sw.bb4
+  %11 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %type7 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %11, i32 0, i32 0
+  %12 = load i32, i32* %type7, align 8
+  %and8 = and i32 %12, 7
+  br label %cond.end
+
+cond.false:                                       ; preds = %sw.bb4
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %and8, %cond.true ], [ 0, %cond.false ]
+  store i32 %cond, i32* %arity, align 4
+  %13 = load i32, i32* %arity, align 4
+  %call9 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.28, i32 0, i32 0), i32 %13)
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %cond.end
+  %14 = load i32, i32* %i, align 4
+  %15 = load i32, i32* %arity, align 4
+  %cmp = icmp slt i32 %14, %15
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %16 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters = getelementptr inbounds %struct.te_expr, %struct.te_expr* %16, i32 0, i32 2
+  %17 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %17 to i64
+  %arrayidx = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters, i64 0, i64 %idxprom
+  %18 = load i8*, i8** %arrayidx, align 8
+  %call10 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.29, i32 0, i32 0), i8* %18)
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %19 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %19, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  %call11 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.30, i32 0, i32 0))
+  store i32 0, i32* %i, align 4
+  br label %for.cond12
+
+for.cond12:                                       ; preds = %for.inc18, %for.end
+  %20 = load i32, i32* %i, align 4
+  %21 = load i32, i32* %arity, align 4
+  %cmp13 = icmp slt i32 %20, %21
+  br i1 %cmp13, label %for.body14, label %for.end20
+
+for.body14:                                       ; preds = %for.cond12
+  %22 = load %struct.te_expr*, %struct.te_expr** %n.addr, align 8
+  %parameters15 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %22, i32 0, i32 2
+  %23 = load i32, i32* %i, align 4
+  %idxprom16 = sext i32 %23 to i64
+  %arrayidx17 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters15, i64 0, i64 %idxprom16
+  %24 = load i8*, i8** %arrayidx17, align 8
+  %25 = bitcast i8* %24 to %struct.te_expr*
+  %26 = load i32, i32* %depth.addr, align 4
+  %add = add nsw i32 %26, 1
+  call void @pn(%struct.te_expr* %25, i32 %add)
+  br label %for.inc18
+
+for.inc18:                                        ; preds = %for.body14
+  %27 = load i32, i32* %i, align 4
+  %inc19 = add nsw i32 %27, 1
+  store i32 %inc19, i32* %i, align 4
+  br label %for.cond12
+
+for.end20:                                        ; preds = %for.cond12
+  br label %sw.epilog
+
+sw.epilog:                                        ; preds = %entry, %for.end20, %sw.bb2, %sw.bb
+  ret void
+}
+
+declare i32 @strncmp(i8*, i8*, i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @fabs(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @acos(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @asin(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @atan(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @atan2(double, double) #2
+
+; Function Attrs: nounwind readnone
+declare double @ceil(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @cos(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @cosh(double) #2
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @e() #0 {
+entry:
+  ret double 0x4005BF0A8B145769
+}
+
+; Function Attrs: nounwind readnone
+declare double @exp(double) #2
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @fac(double %a) #0 {
+entry:
+  %retval = alloca double, align 8
+  %a.addr = alloca double, align 8
+  %ua = alloca i32, align 4
+  %result = alloca i64, align 8
+  %i = alloca i64, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %cmp = fcmp olt double %0, 0.000000e+00
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  store double 0x7FF8000000000000, double* %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %1 = load double, double* %a.addr, align 8
+  %cmp1 = fcmp ogt double %1, 0x41EFFFFFFFE00000
+  br i1 %cmp1, label %if.then2, label %if.end3
+
+if.then2:                                         ; preds = %if.end
+  store double 0x7FF0000000000000, double* %retval, align 8
+  br label %return
+
+if.end3:                                          ; preds = %if.end
+  %2 = load double, double* %a.addr, align 8
+  %conv = fptoui double %2 to i32
+  store i32 %conv, i32* %ua, align 4
+  store i64 1, i64* %result, align 8
+  store i64 1, i64* %i, align 8
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.end3
+  %3 = load i64, i64* %i, align 8
+  %4 = load i32, i32* %ua, align 4
+  %conv4 = zext i32 %4 to i64
+  %cmp5 = icmp ule i64 %3, %conv4
+  br i1 %cmp5, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %5 = load i64, i64* %i, align 8
+  %6 = load i64, i64* %result, align 8
+  %div = udiv i64 -1, %6
+  %cmp7 = icmp ugt i64 %5, %div
+  br i1 %cmp7, label %if.then9, label %if.end10
+
+if.then9:                                         ; preds = %for.body
+  store double 0x7FF0000000000000, double* %retval, align 8
+  br label %return
+
+if.end10:                                         ; preds = %for.body
+  %7 = load i64, i64* %i, align 8
+  %8 = load i64, i64* %result, align 8
+  %mul = mul i64 %8, %7
+  store i64 %mul, i64* %result, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end10
+  %9 = load i64, i64* %i, align 8
+  %inc = add i64 %9, 1
+  store i64 %inc, i64* %i, align 8
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  %10 = load i64, i64* %result, align 8
+  %conv11 = uitofp i64 %10 to double
+  store double %conv11, double* %retval, align 8
+  br label %return
+
+return:                                           ; preds = %for.end, %if.then9, %if.then2, %if.then
+  %11 = load double, double* %retval, align 8
+  ret double %11
+}
+
+; Function Attrs: nounwind readnone
+declare double @floor(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @log(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @log10(double) #2
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @ncr(double %n, double %r) #0 {
+entry:
+  %retval = alloca double, align 8
+  %n.addr = alloca double, align 8
+  %r.addr = alloca double, align 8
+  %un = alloca i64, align 8
+  %ur = alloca i64, align 8
+  %i = alloca i64, align 8
+  %result = alloca i64, align 8
+  store double %n, double* %n.addr, align 8
+  store double %r, double* %r.addr, align 8
+  %0 = load double, double* %n.addr, align 8
+  %cmp = fcmp olt double %0, 0.000000e+00
+  br i1 %cmp, label %if.then, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %entry
+  %1 = load double, double* %r.addr, align 8
+  %cmp1 = fcmp olt double %1, 0.000000e+00
+  br i1 %cmp1, label %if.then, label %lor.lhs.false2
+
+lor.lhs.false2:                                   ; preds = %lor.lhs.false
+  %2 = load double, double* %n.addr, align 8
+  %3 = load double, double* %r.addr, align 8
+  %cmp3 = fcmp olt double %2, %3
+  br i1 %cmp3, label %if.then, label %if.end
+
+if.then:                                          ; preds = %lor.lhs.false2, %lor.lhs.false, %entry
+  store double 0x7FF8000000000000, double* %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %lor.lhs.false2
+  %4 = load double, double* %n.addr, align 8
+  %cmp4 = fcmp ogt double %4, 0x41EFFFFFFFE00000
+  br i1 %cmp4, label %if.then7, label %lor.lhs.false5
+
+lor.lhs.false5:                                   ; preds = %if.end
+  %5 = load double, double* %r.addr, align 8
+  %cmp6 = fcmp ogt double %5, 0x41EFFFFFFFE00000
+  br i1 %cmp6, label %if.then7, label %if.end8
+
+if.then7:                                         ; preds = %lor.lhs.false5, %if.end
+  store double 0x7FF0000000000000, double* %retval, align 8
+  br label %return
+
+if.end8:                                          ; preds = %lor.lhs.false5
+  %6 = load double, double* %n.addr, align 8
+  %conv = fptoui double %6 to i32
+  %conv9 = zext i32 %conv to i64
+  store i64 %conv9, i64* %un, align 8
+  %7 = load double, double* %r.addr, align 8
+  %conv10 = fptoui double %7 to i32
+  %conv11 = zext i32 %conv10 to i64
+  store i64 %conv11, i64* %ur, align 8
+  store i64 1, i64* %result, align 8
+  %8 = load i64, i64* %ur, align 8
+  %9 = load i64, i64* %un, align 8
+  %div = udiv i64 %9, 2
+  %cmp12 = icmp ugt i64 %8, %div
+  br i1 %cmp12, label %if.then14, label %if.end15
+
+if.then14:                                        ; preds = %if.end8
+  %10 = load i64, i64* %un, align 8
+  %11 = load i64, i64* %ur, align 8
+  %sub = sub i64 %10, %11
+  store i64 %sub, i64* %ur, align 8
+  br label %if.end15
+
+if.end15:                                         ; preds = %if.then14, %if.end8
+  store i64 1, i64* %i, align 8
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.end15
+  %12 = load i64, i64* %i, align 8
+  %13 = load i64, i64* %ur, align 8
+  %cmp16 = icmp ule i64 %12, %13
+  br i1 %cmp16, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %14 = load i64, i64* %result, align 8
+  %15 = load i64, i64* %un, align 8
+  %16 = load i64, i64* %ur, align 8
+  %sub18 = sub i64 %15, %16
+  %17 = load i64, i64* %i, align 8
+  %add = add i64 %sub18, %17
+  %div19 = udiv i64 -1, %add
+  %cmp20 = icmp ugt i64 %14, %div19
+  br i1 %cmp20, label %if.then22, label %if.end23
+
+if.then22:                                        ; preds = %for.body
+  store double 0x7FF0000000000000, double* %retval, align 8
+  br label %return
+
+if.end23:                                         ; preds = %for.body
+  %18 = load i64, i64* %un, align 8
+  %19 = load i64, i64* %ur, align 8
+  %sub24 = sub i64 %18, %19
+  %20 = load i64, i64* %i, align 8
+  %add25 = add i64 %sub24, %20
+  %21 = load i64, i64* %result, align 8
+  %mul = mul i64 %21, %add25
+  store i64 %mul, i64* %result, align 8
+  %22 = load i64, i64* %i, align 8
+  %23 = load i64, i64* %result, align 8
+  %div26 = udiv i64 %23, %22
+  store i64 %div26, i64* %result, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end23
+  %24 = load i64, i64* %i, align 8
+  %inc = add i64 %24, 1
+  store i64 %inc, i64* %i, align 8
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  %25 = load i64, i64* %result, align 8
+  %conv27 = uitofp i64 %25 to double
+  store double %conv27, double* %retval, align 8
+  br label %return
+
+return:                                           ; preds = %for.end, %if.then22, %if.then7, %if.then
+  %26 = load double, double* %retval, align 8
+  ret double %26
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @npr(double %n, double %r) #0 {
+entry:
+  %n.addr = alloca double, align 8
+  %r.addr = alloca double, align 8
+  store double %n, double* %n.addr, align 8
+  store double %r, double* %r.addr, align 8
+  %0 = load double, double* %n.addr, align 8
+  %1 = load double, double* %r.addr, align 8
+  %call = call double @ncr(double %0, double %1)
+  %2 = load double, double* %r.addr, align 8
+  %call1 = call double @fac(double %2)
+  %mul = fmul double %call, %call1
+  ret double %mul
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @pi() #0 {
+entry:
+  ret double 0x400921FB54442D18
+}
+
+; Function Attrs: nounwind readnone
+declare double @sin(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @sinh(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @sqrt(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @tan(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @tanh(double) #2
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @expr(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %ret = alloca %struct.te_expr*, align 8
+  %t = alloca double (double, double)*, align 8
+  %.compoundliteral = alloca [2 x %struct.te_expr*], align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call = call %struct.te_expr* @term(%struct.state* %0)
+  store %struct.te_expr* %call, %struct.te_expr** %ret, align 8
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.body, %entry
+  %1 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %1, i32 0, i32 2
+  %2 = load i32, i32* %type, align 8
+  %cmp = icmp eq i32 %2, 32
+  br i1 %cmp, label %land.rhs, label %land.end
+
+land.rhs:                                         ; preds = %while.cond
+  %3 = load %struct.state*, %struct.state** %s.addr, align 8
+  %4 = getelementptr inbounds %struct.state, %struct.state* %3, i32 0, i32 3
+  %function = bitcast %union.anon.0* %4 to i8**
+  %5 = load i8*, i8** %function, align 8
+  %cmp1 = icmp eq i8* %5, bitcast (double (double, double)* @add to i8*)
+  br i1 %cmp1, label %lor.end, label %lor.rhs
+
+lor.rhs:                                          ; preds = %land.rhs
+  %6 = load %struct.state*, %struct.state** %s.addr, align 8
+  %7 = getelementptr inbounds %struct.state, %struct.state* %6, i32 0, i32 3
+  %function2 = bitcast %union.anon.0* %7 to i8**
+  %8 = load i8*, i8** %function2, align 8
+  %cmp3 = icmp eq i8* %8, bitcast (double (double, double)* @sub to i8*)
+  br label %lor.end
+
+lor.end:                                          ; preds = %lor.rhs, %land.rhs
+  %9 = phi i1 [ true, %land.rhs ], [ %cmp3, %lor.rhs ]
+  br label %land.end
+
+land.end:                                         ; preds = %lor.end, %while.cond
+  %10 = phi i1 [ false, %while.cond ], [ %9, %lor.end ]
+  br i1 %10, label %while.body, label %while.end
+
+while.body:                                       ; preds = %land.end
+  %11 = load %struct.state*, %struct.state** %s.addr, align 8
+  %12 = getelementptr inbounds %struct.state, %struct.state* %11, i32 0, i32 3
+  %function4 = bitcast %union.anon.0* %12 to i8**
+  %13 = load i8*, i8** %function4, align 8
+  %14 = bitcast i8* %13 to double (double, double)*
+  store double (double, double)* %14, double (double, double)** %t, align 8
+  %15 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %15)
+  %arrayinit.begin = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i64 0, i64 0
+  %16 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  store %struct.te_expr* %16, %struct.te_expr** %arrayinit.begin, align 8
+  %arrayinit.element = getelementptr inbounds %struct.te_expr*, %struct.te_expr** %arrayinit.begin, i64 1
+  %17 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call5 = call %struct.te_expr* @term(%struct.state* %17)
+  store %struct.te_expr* %call5, %struct.te_expr** %arrayinit.element, align 8
+  %arraydecay = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i32 0, i32 0
+  %call6 = call %struct.te_expr* @new_expr(i32 42, %struct.te_expr** %arraydecay)
+  store %struct.te_expr* %call6, %struct.te_expr** %ret, align 8
+  %18 = load double (double, double)*, double (double, double)** %t, align 8
+  %19 = bitcast double (double, double)* %18 to i8*
+  %20 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %21 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %20, i32 0, i32 1
+  %function7 = bitcast %union.anon* %21 to i8**
+  store i8* %19, i8** %function7, align 8
+  br label %while.cond
+
+while.end:                                        ; preds = %land.end
+  %22 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %22
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @new_expr(i32 %type, %struct.te_expr** %parameters) #0 {
+entry:
+  %type.addr = alloca i32, align 4
+  %parameters.addr = alloca %struct.te_expr**, align 8
+  %arity = alloca i32, align 4
+  %psize = alloca i32, align 4
+  %size = alloca i32, align 4
+  %ret = alloca %struct.te_expr*, align 8
+  store i32 %type, i32* %type.addr, align 4
+  store %struct.te_expr** %parameters, %struct.te_expr*** %parameters.addr, align 8
+  %0 = load i32, i32* %type.addr, align 4
+  %and = and i32 %0, 24
+  %tobool = icmp ne i32 %and, 0
+  br i1 %tobool, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %entry
+  %1 = load i32, i32* %type.addr, align 4
+  %and1 = and i32 %1, 7
+  br label %cond.end
+
+cond.false:                                       ; preds = %entry
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %and1, %cond.true ], [ 0, %cond.false ]
+  store i32 %cond, i32* %arity, align 4
+  %2 = load i32, i32* %arity, align 4
+  %conv = sext i32 %2 to i64
+  %mul = mul i64 8, %conv
+  %conv2 = trunc i64 %mul to i32
+  store i32 %conv2, i32* %psize, align 4
+  %3 = load i32, i32* %psize, align 4
+  %conv3 = sext i32 %3 to i64
+  %add = add i64 16, %conv3
+  %4 = load i32, i32* %type.addr, align 4
+  %and4 = and i32 %4, 16
+  %cmp = icmp ne i32 %and4, 0
+  %5 = zext i1 %cmp to i64
+  %cond6 = select i1 %cmp, i64 8, i64 0
+  %add7 = add i64 %add, %cond6
+  %conv8 = trunc i64 %add7 to i32
+  store i32 %conv8, i32* %size, align 4
+  %6 = load i32, i32* %size, align 4
+  %conv9 = sext i32 %6 to i64
+  %call = call i8* @malloc(i64 %conv9) #6
+  %7 = bitcast i8* %call to %struct.te_expr*
+  store %struct.te_expr* %7, %struct.te_expr** %ret, align 8
+  %8 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %9 = bitcast %struct.te_expr* %8 to i8*
+  %10 = load i32, i32* %size, align 4
+  %conv10 = sext i32 %10 to i64
+  %11 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %12 = bitcast %struct.te_expr* %11 to i8*
+  %13 = call i64 @llvm.objectsize.i64.p0i8(i8* %12, i1 false, i1 true)
+  %call11 = call i8* @__memset_chk(i8* %9, i32 0, i64 %conv10, i64 %13) #7
+  %14 = load i32, i32* %arity, align 4
+  %tobool12 = icmp ne i32 %14, 0
+  br i1 %tobool12, label %land.lhs.true, label %if.end
+
+land.lhs.true:                                    ; preds = %cond.end
+  %15 = load %struct.te_expr**, %struct.te_expr*** %parameters.addr, align 8
+  %tobool13 = icmp ne %struct.te_expr** %15, null
+  br i1 %tobool13, label %if.then, label %if.end
+
+if.then:                                          ; preds = %land.lhs.true
+  %16 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters14 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %16, i32 0, i32 2
+  %arraydecay = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters14, i32 0, i32 0
+  %17 = bitcast i8** %arraydecay to i8*
+  %18 = load %struct.te_expr**, %struct.te_expr*** %parameters.addr, align 8
+  %19 = bitcast %struct.te_expr** %18 to i8*
+  %20 = load i32, i32* %psize, align 4
+  %conv15 = sext i32 %20 to i64
+  %21 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters16 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %21, i32 0, i32 2
+  %arraydecay17 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters16, i32 0, i32 0
+  %22 = bitcast i8** %arraydecay17 to i8*
+  %23 = call i64 @llvm.objectsize.i64.p0i8(i8* %22, i1 false, i1 true)
+  %call18 = call i8* @__memcpy_chk(i8* %17, i8* %19, i64 %conv15, i64 %23) #7
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %land.lhs.true, %cond.end
+  %24 = load i32, i32* %type.addr, align 4
+  %25 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %type19 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %25, i32 0, i32 0
+  store i32 %24, i32* %type19, align 8
+  %26 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %27 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %26, i32 0, i32 1
+  %bound = bitcast %union.anon* %27 to double**
+  store double* null, double** %bound, align 8
+  %28 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %28
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @comma(double %a, double %b) #0 {
+entry:
+  %a.addr = alloca double, align 8
+  %b.addr = alloca double, align 8
+  store double %a, double* %a.addr, align 8
+  store double %b, double* %b.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %1 = load double, double* %b.addr, align 8
+  ret double %1
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @term(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %ret = alloca %struct.te_expr*, align 8
+  %t = alloca double (double, double)*, align 8
+  %.compoundliteral = alloca [2 x %struct.te_expr*], align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call = call %struct.te_expr* @factor(%struct.state* %0)
+  store %struct.te_expr* %call, %struct.te_expr** %ret, align 8
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.body, %entry
+  %1 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %1, i32 0, i32 2
+  %2 = load i32, i32* %type, align 8
+  %cmp = icmp eq i32 %2, 32
+  br i1 %cmp, label %land.rhs, label %land.end
+
+land.rhs:                                         ; preds = %while.cond
+  %3 = load %struct.state*, %struct.state** %s.addr, align 8
+  %4 = getelementptr inbounds %struct.state, %struct.state* %3, i32 0, i32 3
+  %function = bitcast %union.anon.0* %4 to i8**
+  %5 = load i8*, i8** %function, align 8
+  %cmp1 = icmp eq i8* %5, bitcast (double (double, double)* @mul to i8*)
+  br i1 %cmp1, label %lor.end, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %land.rhs
+  %6 = load %struct.state*, %struct.state** %s.addr, align 8
+  %7 = getelementptr inbounds %struct.state, %struct.state* %6, i32 0, i32 3
+  %function2 = bitcast %union.anon.0* %7 to i8**
+  %8 = load i8*, i8** %function2, align 8
+  %cmp3 = icmp eq i8* %8, bitcast (double (double, double)* @divide to i8*)
+  br i1 %cmp3, label %lor.end, label %lor.rhs
+
+lor.rhs:                                          ; preds = %lor.lhs.false
+  %9 = load %struct.state*, %struct.state** %s.addr, align 8
+  %10 = getelementptr inbounds %struct.state, %struct.state* %9, i32 0, i32 3
+  %function4 = bitcast %union.anon.0* %10 to i8**
+  %11 = load i8*, i8** %function4, align 8
+  %cmp5 = icmp eq i8* %11, bitcast (double (double, double)* @fmod to i8*)
+  br label %lor.end
+
+lor.end:                                          ; preds = %lor.rhs, %lor.lhs.false, %land.rhs
+  %12 = phi i1 [ true, %lor.lhs.false ], [ true, %land.rhs ], [ %cmp5, %lor.rhs ]
+  br label %land.end
+
+land.end:                                         ; preds = %lor.end, %while.cond
+  %13 = phi i1 [ false, %while.cond ], [ %12, %lor.end ]
+  br i1 %13, label %while.body, label %while.end
+
+while.body:                                       ; preds = %land.end
+  %14 = load %struct.state*, %struct.state** %s.addr, align 8
+  %15 = getelementptr inbounds %struct.state, %struct.state* %14, i32 0, i32 3
+  %function6 = bitcast %union.anon.0* %15 to i8**
+  %16 = load i8*, i8** %function6, align 8
+  %17 = bitcast i8* %16 to double (double, double)*
+  store double (double, double)* %17, double (double, double)** %t, align 8
+  %18 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %18)
+  %arrayinit.begin = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i64 0, i64 0
+  %19 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  store %struct.te_expr* %19, %struct.te_expr** %arrayinit.begin, align 8
+  %arrayinit.element = getelementptr inbounds %struct.te_expr*, %struct.te_expr** %arrayinit.begin, i64 1
+  %20 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call7 = call %struct.te_expr* @factor(%struct.state* %20)
+  store %struct.te_expr* %call7, %struct.te_expr** %arrayinit.element, align 8
+  %arraydecay = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i32 0, i32 0
+  %call8 = call %struct.te_expr* @new_expr(i32 42, %struct.te_expr** %arraydecay)
+  store %struct.te_expr* %call8, %struct.te_expr** %ret, align 8
+  %21 = load double (double, double)*, double (double, double)** %t, align 8
+  %22 = bitcast double (double, double)* %21 to i8*
+  %23 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %24 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %23, i32 0, i32 1
+  %function9 = bitcast %union.anon* %24 to i8**
+  store i8* %22, i8** %function9, align 8
+  br label %while.cond
+
+while.end:                                        ; preds = %land.end
+  %25 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %25
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @factor(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %ret = alloca %struct.te_expr*, align 8
+  %t = alloca double (double, double)*, align 8
+  %.compoundliteral = alloca [2 x %struct.te_expr*], align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call = call %struct.te_expr* @power(%struct.state* %0)
+  store %struct.te_expr* %call, %struct.te_expr** %ret, align 8
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.body, %entry
+  %1 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %1, i32 0, i32 2
+  %2 = load i32, i32* %type, align 8
+  %cmp = icmp eq i32 %2, 32
+  br i1 %cmp, label %land.rhs, label %land.end
+
+land.rhs:                                         ; preds = %while.cond
+  %3 = load %struct.state*, %struct.state** %s.addr, align 8
+  %4 = getelementptr inbounds %struct.state, %struct.state* %3, i32 0, i32 3
+  %function = bitcast %union.anon.0* %4 to i8**
+  %5 = load i8*, i8** %function, align 8
+  %cmp1 = icmp eq i8* %5, bitcast (double (double, double)* @pow to i8*)
+  br label %land.end
+
+land.end:                                         ; preds = %land.rhs, %while.cond
+  %6 = phi i1 [ false, %while.cond ], [ %cmp1, %land.rhs ]
+  br i1 %6, label %while.body, label %while.end
+
+while.body:                                       ; preds = %land.end
+  %7 = load %struct.state*, %struct.state** %s.addr, align 8
+  %8 = getelementptr inbounds %struct.state, %struct.state* %7, i32 0, i32 3
+  %function2 = bitcast %union.anon.0* %8 to i8**
+  %9 = load i8*, i8** %function2, align 8
+  %10 = bitcast i8* %9 to double (double, double)*
+  store double (double, double)* %10, double (double, double)** %t, align 8
+  %11 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %11)
+  %arrayinit.begin = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i64 0, i64 0
+  %12 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  store %struct.te_expr* %12, %struct.te_expr** %arrayinit.begin, align 8
+  %arrayinit.element = getelementptr inbounds %struct.te_expr*, %struct.te_expr** %arrayinit.begin, i64 1
+  %13 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call3 = call %struct.te_expr* @power(%struct.state* %13)
+  store %struct.te_expr* %call3, %struct.te_expr** %arrayinit.element, align 8
+  %arraydecay = getelementptr inbounds [2 x %struct.te_expr*], [2 x %struct.te_expr*]* %.compoundliteral, i32 0, i32 0
+  %call4 = call %struct.te_expr* @new_expr(i32 42, %struct.te_expr** %arraydecay)
+  store %struct.te_expr* %call4, %struct.te_expr** %ret, align 8
+  %14 = load double (double, double)*, double (double, double)** %t, align 8
+  %15 = bitcast double (double, double)* %14 to i8*
+  %16 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %17 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %16, i32 0, i32 1
+  %function5 = bitcast %union.anon* %17 to i8**
+  store i8* %15, i8** %function5, align 8
+  br label %while.cond
+
+while.end:                                        ; preds = %land.end
+  %18 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %18
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @power(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %sign = alloca i32, align 4
+  %ret = alloca %struct.te_expr*, align 8
+  %.compoundliteral = alloca [1 x %struct.te_expr*], align 8
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  store i32 1, i32* %sign, align 4
+  br label %while.cond
+
+while.cond:                                       ; preds = %if.end, %entry
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %0, i32 0, i32 2
+  %1 = load i32, i32* %type, align 8
+  %cmp = icmp eq i32 %1, 32
+  br i1 %cmp, label %land.rhs, label %land.end
+
+land.rhs:                                         ; preds = %while.cond
+  %2 = load %struct.state*, %struct.state** %s.addr, align 8
+  %3 = getelementptr inbounds %struct.state, %struct.state* %2, i32 0, i32 3
+  %function = bitcast %union.anon.0* %3 to i8**
+  %4 = load i8*, i8** %function, align 8
+  %cmp1 = icmp eq i8* %4, bitcast (double (double, double)* @add to i8*)
+  br i1 %cmp1, label %lor.end, label %lor.rhs
+
+lor.rhs:                                          ; preds = %land.rhs
+  %5 = load %struct.state*, %struct.state** %s.addr, align 8
+  %6 = getelementptr inbounds %struct.state, %struct.state* %5, i32 0, i32 3
+  %function2 = bitcast %union.anon.0* %6 to i8**
+  %7 = load i8*, i8** %function2, align 8
+  %cmp3 = icmp eq i8* %7, bitcast (double (double, double)* @sub to i8*)
+  br label %lor.end
+
+lor.end:                                          ; preds = %lor.rhs, %land.rhs
+  %8 = phi i1 [ true, %land.rhs ], [ %cmp3, %lor.rhs ]
+  br label %land.end
+
+land.end:                                         ; preds = %lor.end, %while.cond
+  %9 = phi i1 [ false, %while.cond ], [ %8, %lor.end ]
+  br i1 %9, label %while.body, label %while.end
+
+while.body:                                       ; preds = %land.end
+  %10 = load %struct.state*, %struct.state** %s.addr, align 8
+  %11 = getelementptr inbounds %struct.state, %struct.state* %10, i32 0, i32 3
+  %function4 = bitcast %union.anon.0* %11 to i8**
+  %12 = load i8*, i8** %function4, align 8
+  %cmp5 = icmp eq i8* %12, bitcast (double (double, double)* @sub to i8*)
+  br i1 %cmp5, label %if.then, label %if.end
+
+if.then:                                          ; preds = %while.body
+  %13 = load i32, i32* %sign, align 4
+  %sub = sub nsw i32 0, %13
+  store i32 %sub, i32* %sign, align 4
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %while.body
+  %14 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %14)
+  br label %while.cond
+
+while.end:                                        ; preds = %land.end
+  %15 = load i32, i32* %sign, align 4
+  %cmp6 = icmp eq i32 %15, 1
+  br i1 %cmp6, label %if.then7, label %if.else
+
+if.then7:                                         ; preds = %while.end
+  %16 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call = call %struct.te_expr* @base(%struct.state* %16)
+  store %struct.te_expr* %call, %struct.te_expr** %ret, align 8
+  br label %if.end11
+
+if.else:                                          ; preds = %while.end
+  %arrayinit.begin = getelementptr inbounds [1 x %struct.te_expr*], [1 x %struct.te_expr*]* %.compoundliteral, i64 0, i64 0
+  %17 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call8 = call %struct.te_expr* @base(%struct.state* %17)
+  store %struct.te_expr* %call8, %struct.te_expr** %arrayinit.begin, align 8
+  %arraydecay = getelementptr inbounds [1 x %struct.te_expr*], [1 x %struct.te_expr*]* %.compoundliteral, i32 0, i32 0
+  %call9 = call %struct.te_expr* @new_expr(i32 41, %struct.te_expr** %arraydecay)
+  store %struct.te_expr* %call9, %struct.te_expr** %ret, align 8
+  %18 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %19 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %18, i32 0, i32 1
+  %function10 = bitcast %union.anon* %19 to i8**
+  store i8* bitcast (double (double)* @negate to i8*), i8** %function10, align 8
+  br label %if.end11
+
+if.end11:                                         ; preds = %if.else, %if.then7
+  %20 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %20
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal %struct.te_expr* @base(%struct.state* %s) #0 {
+entry:
+  %s.addr = alloca %struct.state*, align 8
+  %ret = alloca %struct.te_expr*, align 8
+  %arity = alloca i32, align 4
+  %i = alloca i32, align 4
+  store %struct.state* %s, %struct.state** %s.addr, align 8
+  %0 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type = getelementptr inbounds %struct.state, %struct.state* %0, i32 0, i32 2
+  %1 = load i32, i32* %type, align 8
+  %and = and i32 %1, 31
+  switch i32 %and, label %sw.default [
+    i32 30, label %sw.bb
+    i32 31, label %sw.bb2
+    i32 8, label %sw.bb5
+    i32 16, label %sw.bb5
+    i32 9, label %sw.bb20
+    i32 17, label %sw.bb20
+    i32 10, label %sw.bb36
+    i32 11, label %sw.bb36
+    i32 12, label %sw.bb36
+    i32 13, label %sw.bb36
+    i32 14, label %sw.bb36
+    i32 15, label %sw.bb36
+    i32 18, label %sw.bb36
+    i32 19, label %sw.bb36
+    i32 20, label %sw.bb36
+    i32 21, label %sw.bb36
+    i32 22, label %sw.bb36
+    i32 23, label %sw.bb36
+    i32 28, label %sw.bb75
+  ]
+
+sw.bb:                                            ; preds = %entry
+  %call = call %struct.te_expr* @new_expr(i32 1, %struct.te_expr** null)
+  store %struct.te_expr* %call, %struct.te_expr** %ret, align 8
+  %2 = load %struct.state*, %struct.state** %s.addr, align 8
+  %3 = getelementptr inbounds %struct.state, %struct.state* %2, i32 0, i32 3
+  %value = bitcast %union.anon.0* %3 to double*
+  %4 = load double, double* %value, align 8
+  %5 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %6 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %5, i32 0, i32 1
+  %value1 = bitcast %union.anon* %6 to double*
+  store double %4, double* %value1, align 8
+  %7 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %7)
+  br label %sw.epilog
+
+sw.bb2:                                           ; preds = %entry
+  %call3 = call %struct.te_expr* @new_expr(i32 0, %struct.te_expr** null)
+  store %struct.te_expr* %call3, %struct.te_expr** %ret, align 8
+  %8 = load %struct.state*, %struct.state** %s.addr, align 8
+  %9 = getelementptr inbounds %struct.state, %struct.state* %8, i32 0, i32 3
+  %bound = bitcast %union.anon.0* %9 to double**
+  %10 = load double*, double** %bound, align 8
+  %11 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %12 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %11, i32 0, i32 1
+  %bound4 = bitcast %union.anon* %12 to double**
+  store double* %10, double** %bound4, align 8
+  %13 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %13)
+  br label %sw.epilog
+
+sw.bb5:                                           ; preds = %entry, %entry
+  %14 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type6 = getelementptr inbounds %struct.state, %struct.state* %14, i32 0, i32 2
+  %15 = load i32, i32* %type6, align 8
+  %call7 = call %struct.te_expr* @new_expr(i32 %15, %struct.te_expr** null)
+  store %struct.te_expr* %call7, %struct.te_expr** %ret, align 8
+  %16 = load %struct.state*, %struct.state** %s.addr, align 8
+  %17 = getelementptr inbounds %struct.state, %struct.state* %16, i32 0, i32 3
+  %function = bitcast %union.anon.0* %17 to i8**
+  %18 = load i8*, i8** %function, align 8
+  %19 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %20 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %19, i32 0, i32 1
+  %function8 = bitcast %union.anon* %20 to i8**
+  store i8* %18, i8** %function8, align 8
+  %21 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type9 = getelementptr inbounds %struct.state, %struct.state* %21, i32 0, i32 2
+  %22 = load i32, i32* %type9, align 8
+  %and10 = and i32 %22, 16
+  %cmp = icmp ne i32 %and10, 0
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %sw.bb5
+  %23 = load %struct.state*, %struct.state** %s.addr, align 8
+  %context = getelementptr inbounds %struct.state, %struct.state* %23, i32 0, i32 4
+  %24 = load i8*, i8** %context, align 8
+  %25 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters = getelementptr inbounds %struct.te_expr, %struct.te_expr* %25, i32 0, i32 2
+  %arrayidx = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters, i64 0, i64 0
+  store i8* %24, i8** %arrayidx, align 8
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %sw.bb5
+  %26 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %26)
+  %27 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type11 = getelementptr inbounds %struct.state, %struct.state* %27, i32 0, i32 2
+  %28 = load i32, i32* %type11, align 8
+  %cmp12 = icmp eq i32 %28, 28
+  br i1 %cmp12, label %if.then13, label %if.end19
+
+if.then13:                                        ; preds = %if.end
+  %29 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %29)
+  %30 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type14 = getelementptr inbounds %struct.state, %struct.state* %30, i32 0, i32 2
+  %31 = load i32, i32* %type14, align 8
+  %cmp15 = icmp ne i32 %31, 29
+  br i1 %cmp15, label %if.then16, label %if.else
+
+if.then16:                                        ; preds = %if.then13
+  %32 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type17 = getelementptr inbounds %struct.state, %struct.state* %32, i32 0, i32 2
+  store i32 25, i32* %type17, align 8
+  br label %if.end18
+
+if.else:                                          ; preds = %if.then13
+  %33 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %33)
+  br label %if.end18
+
+if.end18:                                         ; preds = %if.else, %if.then16
+  br label %if.end19
+
+if.end19:                                         ; preds = %if.end18, %if.end
+  br label %sw.epilog
+
+sw.bb20:                                          ; preds = %entry, %entry
+  %34 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type21 = getelementptr inbounds %struct.state, %struct.state* %34, i32 0, i32 2
+  %35 = load i32, i32* %type21, align 8
+  %call22 = call %struct.te_expr* @new_expr(i32 %35, %struct.te_expr** null)
+  store %struct.te_expr* %call22, %struct.te_expr** %ret, align 8
+  %36 = load %struct.state*, %struct.state** %s.addr, align 8
+  %37 = getelementptr inbounds %struct.state, %struct.state* %36, i32 0, i32 3
+  %function23 = bitcast %union.anon.0* %37 to i8**
+  %38 = load i8*, i8** %function23, align 8
+  %39 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %40 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %39, i32 0, i32 1
+  %function24 = bitcast %union.anon* %40 to i8**
+  store i8* %38, i8** %function24, align 8
+  %41 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type25 = getelementptr inbounds %struct.state, %struct.state* %41, i32 0, i32 2
+  %42 = load i32, i32* %type25, align 8
+  %and26 = and i32 %42, 16
+  %cmp27 = icmp ne i32 %and26, 0
+  br i1 %cmp27, label %if.then28, label %if.end32
+
+if.then28:                                        ; preds = %sw.bb20
+  %43 = load %struct.state*, %struct.state** %s.addr, align 8
+  %context29 = getelementptr inbounds %struct.state, %struct.state* %43, i32 0, i32 4
+  %44 = load i8*, i8** %context29, align 8
+  %45 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters30 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %45, i32 0, i32 2
+  %arrayidx31 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters30, i64 0, i64 1
+  store i8* %44, i8** %arrayidx31, align 8
+  br label %if.end32
+
+if.end32:                                         ; preds = %if.then28, %sw.bb20
+  %46 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %46)
+  %47 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call33 = call %struct.te_expr* @power(%struct.state* %47)
+  %48 = bitcast %struct.te_expr* %call33 to i8*
+  %49 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters34 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %49, i32 0, i32 2
+  %arrayidx35 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters34, i64 0, i64 0
+  store i8* %48, i8** %arrayidx35, align 8
+  br label %sw.epilog
+
+sw.bb36:                                          ; preds = %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry, %entry
+  %50 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type37 = getelementptr inbounds %struct.state, %struct.state* %50, i32 0, i32 2
+  %51 = load i32, i32* %type37, align 8
+  %and38 = and i32 %51, 24
+  %tobool = icmp ne i32 %and38, 0
+  br i1 %tobool, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %sw.bb36
+  %52 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type39 = getelementptr inbounds %struct.state, %struct.state* %52, i32 0, i32 2
+  %53 = load i32, i32* %type39, align 8
+  %and40 = and i32 %53, 7
+  br label %cond.end
+
+cond.false:                                       ; preds = %sw.bb36
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %and40, %cond.true ], [ 0, %cond.false ]
+  store i32 %cond, i32* %arity, align 4
+  %54 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type41 = getelementptr inbounds %struct.state, %struct.state* %54, i32 0, i32 2
+  %55 = load i32, i32* %type41, align 8
+  %call42 = call %struct.te_expr* @new_expr(i32 %55, %struct.te_expr** null)
+  store %struct.te_expr* %call42, %struct.te_expr** %ret, align 8
+  %56 = load %struct.state*, %struct.state** %s.addr, align 8
+  %57 = getelementptr inbounds %struct.state, %struct.state* %56, i32 0, i32 3
+  %function43 = bitcast %union.anon.0* %57 to i8**
+  %58 = load i8*, i8** %function43, align 8
+  %59 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %60 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %59, i32 0, i32 1
+  %function44 = bitcast %union.anon* %60 to i8**
+  store i8* %58, i8** %function44, align 8
+  %61 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type45 = getelementptr inbounds %struct.state, %struct.state* %61, i32 0, i32 2
+  %62 = load i32, i32* %type45, align 8
+  %and46 = and i32 %62, 16
+  %cmp47 = icmp ne i32 %and46, 0
+  br i1 %cmp47, label %if.then48, label %if.end52
+
+if.then48:                                        ; preds = %cond.end
+  %63 = load %struct.state*, %struct.state** %s.addr, align 8
+  %context49 = getelementptr inbounds %struct.state, %struct.state* %63, i32 0, i32 4
+  %64 = load i8*, i8** %context49, align 8
+  %65 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters50 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %65, i32 0, i32 2
+  %66 = load i32, i32* %arity, align 4
+  %idxprom = sext i32 %66 to i64
+  %arrayidx51 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters50, i64 0, i64 %idxprom
+  store i8* %64, i8** %arrayidx51, align 8
+  br label %if.end52
+
+if.end52:                                         ; preds = %if.then48, %cond.end
+  %67 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %67)
+  %68 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type53 = getelementptr inbounds %struct.state, %struct.state* %68, i32 0, i32 2
+  %69 = load i32, i32* %type53, align 8
+  %cmp54 = icmp ne i32 %69, 28
+  br i1 %cmp54, label %if.then55, label %if.else57
+
+if.then55:                                        ; preds = %if.end52
+  %70 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type56 = getelementptr inbounds %struct.state, %struct.state* %70, i32 0, i32 2
+  store i32 25, i32* %type56, align 8
+  br label %if.end74
+
+if.else57:                                        ; preds = %if.end52
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.else57
+  %71 = load i32, i32* %i, align 4
+  %72 = load i32, i32* %arity, align 4
+  %cmp58 = icmp slt i32 %71, %72
+  br i1 %cmp58, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %73 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %73)
+  %74 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call59 = call %struct.te_expr* @expr(%struct.state* %74)
+  %75 = bitcast %struct.te_expr* %call59 to i8*
+  %76 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %parameters60 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %76, i32 0, i32 2
+  %77 = load i32, i32* %i, align 4
+  %idxprom61 = sext i32 %77 to i64
+  %arrayidx62 = getelementptr inbounds [1 x i8*], [1 x i8*]* %parameters60, i64 0, i64 %idxprom61
+  store i8* %75, i8** %arrayidx62, align 8
+  %78 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type63 = getelementptr inbounds %struct.state, %struct.state* %78, i32 0, i32 2
+  %79 = load i32, i32* %type63, align 8
+  %cmp64 = icmp ne i32 %79, 27
+  br i1 %cmp64, label %if.then65, label %if.end66
+
+if.then65:                                        ; preds = %for.body
+  br label %for.end
+
+if.end66:                                         ; preds = %for.body
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end66
+  %80 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %80, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %if.then65, %for.cond
+  %81 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type67 = getelementptr inbounds %struct.state, %struct.state* %81, i32 0, i32 2
+  %82 = load i32, i32* %type67, align 8
+  %cmp68 = icmp ne i32 %82, 29
+  br i1 %cmp68, label %if.then70, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %for.end
+  %83 = load i32, i32* %i, align 4
+  %84 = load i32, i32* %arity, align 4
+  %sub = sub nsw i32 %84, 1
+  %cmp69 = icmp ne i32 %83, %sub
+  br i1 %cmp69, label %if.then70, label %if.else72
+
+if.then70:                                        ; preds = %lor.lhs.false, %for.end
+  %85 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type71 = getelementptr inbounds %struct.state, %struct.state* %85, i32 0, i32 2
+  store i32 25, i32* %type71, align 8
+  br label %if.end73
+
+if.else72:                                        ; preds = %lor.lhs.false
+  %86 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %86)
+  br label %if.end73
+
+if.end73:                                         ; preds = %if.else72, %if.then70
+  br label %if.end74
+
+if.end74:                                         ; preds = %if.end73, %if.then55
+  br label %sw.epilog
+
+sw.bb75:                                          ; preds = %entry
+  %87 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %87)
+  %88 = load %struct.state*, %struct.state** %s.addr, align 8
+  %call76 = call %struct.te_expr* @list(%struct.state* %88)
+  store %struct.te_expr* %call76, %struct.te_expr** %ret, align 8
+  %89 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type77 = getelementptr inbounds %struct.state, %struct.state* %89, i32 0, i32 2
+  %90 = load i32, i32* %type77, align 8
+  %cmp78 = icmp ne i32 %90, 29
+  br i1 %cmp78, label %if.then79, label %if.else81
+
+if.then79:                                        ; preds = %sw.bb75
+  %91 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type80 = getelementptr inbounds %struct.state, %struct.state* %91, i32 0, i32 2
+  store i32 25, i32* %type80, align 8
+  br label %if.end82
+
+if.else81:                                        ; preds = %sw.bb75
+  %92 = load %struct.state*, %struct.state** %s.addr, align 8
+  call void @next_token(%struct.state* %92)
+  br label %if.end82
+
+if.end82:                                         ; preds = %if.else81, %if.then79
+  br label %sw.epilog
+
+sw.default:                                       ; preds = %entry
+  %call83 = call %struct.te_expr* @new_expr(i32 0, %struct.te_expr** null)
+  store %struct.te_expr* %call83, %struct.te_expr** %ret, align 8
+  %93 = load %struct.state*, %struct.state** %s.addr, align 8
+  %type84 = getelementptr inbounds %struct.state, %struct.state* %93, i32 0, i32 2
+  store i32 25, i32* %type84, align 8
+  %94 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  %95 = getelementptr inbounds %struct.te_expr, %struct.te_expr* %94, i32 0, i32 1
+  %value85 = bitcast %union.anon* %95 to double*
+  store double 0x7FF8000000000000, double* %value85, align 8
+  br label %sw.epilog
+
+sw.epilog:                                        ; preds = %sw.default, %if.end82, %if.end74, %if.end32, %if.end19, %sw.bb2, %sw.bb
+  %96 = load %struct.te_expr*, %struct.te_expr** %ret, align 8
+  ret %struct.te_expr* %96
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define internal double @negate(double %a) #0 {
+entry:
+  %a.addr = alloca double, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %sub = fsub double -0.000000e+00, %0
+  ret double %sub
+}
+
+; Function Attrs: allocsize(0)
+declare i8* @malloc(i64) #3
+
+; Function Attrs: nounwind
+declare i8* @__memset_chk(i8*, i32, i64, i64) #4
+
+; Function Attrs: nounwind readnone speculatable
+declare i64 @llvm.objectsize.i64.p0i8(i8*, i1, i1) #5
+
+; Function Attrs: nounwind
+declare i8* @__memcpy_chk(i8*, i8*, i64, i64) #4
+
+declare i32 @printf(i8*, ...) #1
+
+attributes #0 = { noinline nounwind optnone ssp uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #1 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #2 = { nounwind readnone "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #3 = { allocsize(0) "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #4 = { nounwind "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+fxsr,+mmx,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #5 = { nounwind readnone speculatable }
+attributes #6 = { allocsize(0) }
+attributes #7 = { nounwind }
+
+!llvm.module.flags = !{!0, !1}
+!llvm.ident = !{!2}
+
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 7, !"PIC Level", i32 2}
+!2 = !{!"clang version 5.0.2 (https://github.com/llvm-mirror/clang.git 26cac19a0d622afc91cd52a002921074bccc6a27) (https://github.com/llvm-mirror/llvm.git da4a2839d80ac52958be0129b871beedfe90136e)"}

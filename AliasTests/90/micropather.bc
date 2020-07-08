@@ -1,0 +1,5465 @@
+	.text
+	.def	 @feat.00;
+	.scl	3;
+	.type	0;
+	.endef
+	.globl	@feat.00
+.set @feat.00, 0
+	.file	"micropather.cpp"
+	.def	 "?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z" # -- Begin function ?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z
+	.p2align	4, 0x90
+"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z": # @"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.seh_proc "?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+# %bb.0:
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	.seh_endprologue
+	movq	%rdx, 40(%rsp)
+	movq	%rcx, 48(%rsp)
+	movq	(%rcx), %rax
+	.p2align	4, 0x90
+.LBB0_1:                                # =>This Inner Loop Header: Depth=1
+	movq	64(%rax), %rax
+	movq	%rax, 32(%rsp)
+	movq	40(%rsp), %rax
+	movq	32(%rsp), %rcx
+	movss	16(%rcx), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	ucomiss	16(%rax), %xmm0
+	ja	.LBB0_2
+# %bb.3:                                #   in Loop: Header=BB0_1 Depth=1
+	movq	32(%rsp), %rax
+	jmp	.LBB0_1
+.LBB0_2:
+	movq	32(%rsp), %rcx
+	movq	40(%rsp), %rdx
+	callq	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	movq	40(%rsp), %rax
+	movb	$1, 80(%rax)
+	addq	$56, %rsp
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	.globl	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z" # -- Begin function ?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z
+	.p2align	4, 0x90
+"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z": # @"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+.seh_proc "?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movq	%rdx, (%rsp)
+	movq	%rcx, 8(%rsp)
+	movq	%rcx, 64(%rdx)
+	movq	72(%rcx), %rax
+	movq	(%rsp), %rdx
+	movq	%rax, 72(%rdx)
+	movq	(%rsp), %rax
+	movq	72(%rcx), %rdx
+	movq	%rax, 64(%rdx)
+	movq	(%rsp), %rax
+	movq	%rax, 72(%rcx)
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ" # -- Begin function ?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ
+	.p2align	4, 0x90
+"?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ": # @"?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ"
+.seh_proc "?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ"
+# %bb.0:
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	.seh_endprologue
+	movq	%rcx, 48(%rsp)
+	movq	(%rcx), %rax
+	movq	64(%rax), %rcx
+	movq	%rcx, 40(%rsp)
+	callq	"?Unlink@PathNode@micropather@@QEAAXXZ"
+	movq	40(%rsp), %rax
+	movb	$0, 80(%rax)
+	movq	40(%rsp), %rax
+	addq	$56, %rsp
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Unlink@PathNode@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?Unlink@PathNode@micropather@@QEAAXXZ"
+	.globl	"?Unlink@PathNode@micropather@@QEAAXXZ" # -- Begin function ?Unlink@PathNode@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?Unlink@PathNode@micropather@@QEAAXXZ": # @"?Unlink@PathNode@micropather@@QEAAXXZ"
+.seh_proc "?Unlink@PathNode@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movq	64(%rcx), %rax
+	movq	72(%rcx), %rdx
+	movq	%rdx, 72(%rax)
+	movq	64(%rcx), %rax
+	movq	72(%rcx), %rdx
+	movq	%rax, 64(%rdx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 64(%rcx)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?Unlink@PathNode@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z" # -- Begin function ?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z
+	.p2align	4, 0x90
+"?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z": # @"?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.seh_proc "?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rdx, 40(%rsp)
+	movq	%rcx, 56(%rsp)
+	movq	72(%rdx), %rax
+	cmpq	(%rcx), %rax
+	je	.LBB4_3
+# %bb.1:
+	movq	%rcx, %rsi
+	movq	40(%rsp), %rax
+	movq	72(%rax), %rcx
+	movss	16(%rcx), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	ucomiss	16(%rax), %xmm0
+	jbe	.LBB4_3
+# %bb.2:
+	movq	40(%rsp), %rcx
+	callq	"?Unlink@PathNode@micropather@@QEAAXXZ"
+	movq	(%rsi), %rax
+	movq	64(%rax), %rcx
+	movq	40(%rsp), %rdx
+	callq	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+.LBB4_3:
+	movq	40(%rsp), %rax
+	movss	16(%rax), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	movq	64(%rax), %rax
+	ucomiss	16(%rax), %xmm0
+	jbe	.LBB4_8
+# %bb.4:
+	movq	40(%rsp), %rcx
+	movq	64(%rcx), %rax
+	movq	%rax, 48(%rsp)
+	callq	"?Unlink@PathNode@micropather@@QEAAXXZ"
+	.p2align	4, 0x90
+.LBB4_5:                                # =>This Inner Loop Header: Depth=1
+	movq	40(%rsp), %rax
+	movss	16(%rax), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	movq	48(%rsp), %rax
+	ucomiss	16(%rax), %xmm0
+	jbe	.LBB4_7
+# %bb.6:                                #   in Loop: Header=BB4_5 Depth=1
+	movq	48(%rsp), %rax
+	movq	64(%rax), %rax
+	movq	%rax, 48(%rsp)
+	jmp	.LBB4_5
+.LBB4_7:
+	movq	48(%rsp), %rcx
+	movq	40(%rsp), %rdx
+	callq	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+.LBB4_8:
+	nop
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "??0PathNodePool@micropather@@QEAA@II@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"??0PathNodePool@micropather@@QEAA@II@Z" # -- Begin function ??0PathNodePool@micropather@@QEAA@II@Z
+	.p2align	4, 0x90
+"??0PathNodePool@micropather@@QEAA@II@Z": # @"??0PathNodePool@micropather@@QEAA@II@Z"
+.seh_proc "??0PathNodePool@micropather@@QEAA@II@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movl	%r8d, 44(%rsp)
+	movl	%edx, 40(%rsp)
+	movq	%rcx, 56(%rsp)
+	movq	%rcx, 48(%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 8(%rcx)
+	leaq	40(%rcx), %rcx
+	movl	40(%rsp), %eax
+	movl	%eax, 128(%rsi)
+	movq	$0, 132(%rsi)
+	callq	"?InitSentinel@PathNode@micropather@@QEAAXXZ"
+	movl	128(%rsi), %eax
+	imull	44(%rsp), %eax
+	movl	%eax, 32(%rsi)
+	movl	$0, 36(%rsi)
+	movslq	%eax, %rcx
+	shlq	$4, %rcx
+	callq	malloc
+	movq	%rax, 24(%rsi)
+	movl	$3, 140(%rsi)
+	.p2align	4, 0x90
+.LBB5_1:                                # =>This Inner Loop Header: Depth=1
+	movq	%rsi, %rcx
+	callq	"?HashSize@PathNodePool@micropather@@AEBAIXZ"
+	cmpl	128(%rsi), %eax
+	jae	.LBB5_3
+# %bb.2:                                #   in Loop: Header=BB5_1 Depth=1
+	addl	$1, 140(%rsi)
+	jmp	.LBB5_1
+.LBB5_3:
+	movq	%rsi, %rcx
+	callq	"?HashSize@PathNodePool@micropather@@AEBAIXZ"
+	movl	%eax, %ecx
+	movl	$8, %edx
+	callq	calloc
+	movq	%rax, (%rsi)
+	movq	%rsi, %rcx
+	callq	"?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ"
+	movq	%rax, 8(%rsi)
+	movq	%rax, 16(%rsi)
+	movl	$0, 144(%rsi)
+	movq	48(%rsp), %rax
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?InitSentinel@PathNode@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	__real@7f7fffff         # -- Begin function ?InitSentinel@PathNode@micropather@@QEAAXXZ
+	.section	.rdata,"dr",discard,__real@7f7fffff
+	.p2align	2
+__real@7f7fffff:
+	.long	2139095039              # float 3.40282347E+38
+	.section	.text,"xr",discard,"?InitSentinel@PathNode@micropather@@QEAAXXZ"
+	.globl	"?InitSentinel@PathNode@micropather@@QEAAXXZ"
+	.p2align	4, 0x90
+"?InitSentinel@PathNode@micropather@@QEAAXXZ": # @"?InitSentinel@PathNode@micropather@@QEAAXXZ"
+.seh_proc "?InitSentinel@PathNode@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rcx, 56(%rsp)
+	callq	"?Clear@PathNode@micropather@@QEAAXXZ"
+	movq	$0, 40(%rsp)
+	movl	$2139095039, 32(%rsp)   # imm = 0x7F7FFFFF
+	movss	__real@7f7fffff(%rip), %xmm3 # xmm3 = mem[0],zero,zero,zero
+	movq	%rsi, %rcx
+	xorl	%edx, %edx
+	xorl	%r8d, %r8d
+	callq	"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+	movq	%rsi, 64(%rsi)
+	movq	%rsi, 72(%rsi)
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?InitSentinel@PathNode@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?HashSize@PathNodePool@micropather@@AEBAIXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?HashSize@PathNodePool@micropather@@AEBAIXZ"
+	.globl	"?HashSize@PathNodePool@micropather@@AEBAIXZ" # -- Begin function ?HashSize@PathNodePool@micropather@@AEBAIXZ
+	.p2align	4, 0x90
+"?HashSize@PathNodePool@micropather@@AEBAIXZ": # @"?HashSize@PathNodePool@micropather@@AEBAIXZ"
+.seh_proc "?HashSize@PathNodePool@micropather@@AEBAIXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movb	140(%rcx), %cl
+	movl	$1, %eax
+	shll	%cl, %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?HashSize@PathNodePool@micropather@@AEBAIXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ" # -- Begin function ?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ
+	.p2align	4, 0x90
+"?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ": # @"?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ"
+.seh_proc "?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rcx, 48(%rsp)
+	movl	128(%rcx), %eax
+	addl	$-1, %eax
+	imulq	$88, %rax, %rdx
+	addq	$96, %rdx
+	movl	$1, %ecx
+	callq	calloc
+	movq	%rax, 40(%rsp)
+	movq	$0, (%rax)
+	movl	128(%rsi), %eax
+	addl	%eax, 136(%rsi)
+	movl	$0, 36(%rsp)
+	movq	%rsi, %rdi
+	addq	$40, %rdi
+	.p2align	4, 0x90
+.LBB8_1:                                # =>This Inner Loop Header: Depth=1
+	movl	36(%rsp), %eax
+	cmpl	128(%rsi), %eax
+	jae	.LBB8_2
+# %bb.3:                                #   in Loop: Header=BB8_1 Depth=1
+	movq	40(%rsp), %rax
+	movl	36(%rsp), %ecx
+	imulq	$88, %rcx, %rcx
+	leaq	(%rax,%rcx), %rdx
+	addq	$8, %rdx
+	movq	%rdi, %rcx
+	callq	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	addl	$1, 36(%rsp)
+	jmp	.LBB8_1
+.LBB8_2:
+	movq	40(%rsp), %rax
+	addq	$56, %rsp
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1PathNodePool@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"??1PathNodePool@micropather@@QEAA@XZ" # -- Begin function ??1PathNodePool@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??1PathNodePool@micropather@@QEAA@XZ": # @"??1PathNodePool@micropather@@QEAA@XZ"
+.Lfunc_begin0:
+.seh_proc "??1PathNodePool@micropather@@QEAA@XZ"
+	.seh_handler __CxxFrameHandler3, @unwind, @except
+# %bb.0:
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	48(%rsp), %rbp
+	.seh_setframe 5, 48
+	.seh_endprologue
+	movq	$-2, (%rbp)
+	movq	%rcx, %rsi
+	movq	%rcx, -8(%rbp)
+.Ltmp0:
+	callq	"?Clear@PathNodePool@micropather@@QEAAXXZ"
+.Ltmp1:
+# %bb.1:
+	movq	8(%rsi), %rcx
+.Ltmp2:
+	callq	free
+.Ltmp3:
+# %bb.2:
+	movq	24(%rsi), %rcx
+.Ltmp4:
+	callq	free
+.Ltmp5:
+# %bb.3:
+	movq	(%rsi), %rcx
+.Ltmp6:
+	callq	free
+.Ltmp7:
+# %bb.4:
+	nop
+	addq	$56, %rsp
+	popq	%rsi
+	popq	%rbp
+	retq
+	.seh_handlerdata
+	.long	("$cppxdata$??1PathNodePool@micropather@@QEAA@XZ")@IMGREL
+	.text
+	.seh_endproc
+	.def	 "?dtor$5@?0???1PathNodePool@micropather@@QEAA@XZ@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$5@?0???1PathNodePool@micropather@@QEAA@XZ@4HA":
+.seh_proc "?dtor$5@?0???1PathNodePool@micropather@@QEAA@XZ@4HA"
+.LBB9_5:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	leaq	48(%rdx), %rbp
+	.seh_endprologue
+	callq	__std_terminate
+	ud2
+.Lfunc_end0:
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.section	.xdata,"dr"
+	.p2align	2
+"$cppxdata$??1PathNodePool@micropather@@QEAA@XZ":
+	.long	429065506               # MagicNumber
+	.long	1                       # MaxState
+	.long	("$stateUnwindMap$??1PathNodePool@micropather@@QEAA@XZ")@IMGREL # UnwindMap
+	.long	0                       # NumTryBlocks
+	.long	0                       # TryBlockMap
+	.long	3                       # IPMapEntries
+	.long	("$ip2state$??1PathNodePool@micropather@@QEAA@XZ")@IMGREL # IPToStateXData
+	.long	48                      # UnwindHelp
+	.long	0                       # ESTypeList
+	.long	1                       # EHFlags
+"$stateUnwindMap$??1PathNodePool@micropather@@QEAA@XZ":
+	.long	-1                      # ToState
+	.long	"?dtor$5@?0???1PathNodePool@micropather@@QEAA@XZ@4HA"@IMGREL # Action
+"$ip2state$??1PathNodePool@micropather@@QEAA@XZ":
+	.long	.Lfunc_begin0@IMGREL    # IP
+	.long	-1                      # ToState
+	.long	.Ltmp0@IMGREL+1         # IP
+	.long	0                       # ToState
+	.long	.Ltmp7@IMGREL+1         # IP
+	.long	-1                      # ToState
+	.text
+                                        # -- End function
+	.def	 "?Clear@PathNodePool@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Clear@PathNodePool@micropather@@QEAAXXZ" # -- Begin function ?Clear@PathNodePool@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?Clear@PathNodePool@micropather@@QEAAXXZ": # @"?Clear@PathNodePool@micropather@@QEAAXXZ"
+.seh_proc "?Clear@PathNodePool@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rcx, %rdi
+	movq	%rcx, 56(%rsp)
+	movq	%rcx, %rsi
+	movq	16(%rcx), %rax
+	jmp	.LBB10_1
+	.p2align	4, 0x90
+.LBB10_4:                               #   in Loop: Header=BB10_1 Depth=1
+	movq	40(%rsp), %rax
+.LBB10_1:                               # =>This Inner Loop Header: Depth=1
+	movq	%rax, 48(%rsp)
+	cmpq	$0, 48(%rsp)
+	je	.LBB10_5
+# %bb.2:                                #   in Loop: Header=BB10_1 Depth=1
+	movq	48(%rsp), %rax
+	movq	(%rax), %rcx
+	movq	%rcx, 40(%rsp)
+	cmpq	8(%rsi), %rax
+	je	.LBB10_4
+# %bb.3:                                #   in Loop: Header=BB10_1 Depth=1
+	movq	48(%rsp), %rcx
+	callq	free
+	jmp	.LBB10_4
+.LBB10_5:
+	movq	8(%rsi), %rax
+	movq	%rax, 16(%rsi)
+	cmpl	$0, 132(%rsi)
+	je	.LBB10_9
+# %bb.6:
+	addq	$40, %rdi
+	movq	%rdi, 104(%rsi)
+	movq	%rdi, 112(%rsi)
+	movq	(%rsi), %rbx
+	movq	%rsi, %rcx
+	callq	"?HashSize@PathNodePool@micropather@@AEBAIXZ"
+	movl	%eax, %r8d
+	shlq	$3, %r8
+	movq	%rbx, %rcx
+	xorl	%edx, %edx
+	callq	memset
+	movl	$0, 40(%rsp)
+	.p2align	4, 0x90
+.LBB10_7:                               # =>This Inner Loop Header: Depth=1
+	movl	40(%rsp), %eax
+	cmpl	128(%rsi), %eax
+	jae	.LBB10_9
+# %bb.8:                                #   in Loop: Header=BB10_7 Depth=1
+	movq	8(%rsi), %rax
+	movl	40(%rsp), %ecx
+	imulq	$88, %rcx, %rcx
+	leaq	(%rax,%rcx), %rdx
+	addq	$8, %rdx
+	movq	%rdi, %rcx
+	callq	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	addl	$1, 40(%rsp)
+	jmp	.LBB10_7
+.LBB10_9:
+	movl	128(%rsi), %eax
+	movl	%eax, 136(%rsi)
+	movl	$0, 132(%rsi)
+	movl	$0, 36(%rsi)
+	addq	$64, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z" # -- Begin function ?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z
+	.p2align	4, 0x90
+"?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z": # @"?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z"
+.seh_proc "?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z"
+# %bb.0:
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%r9, 24(%rsp)
+	movl	%r8d, 12(%rsp)
+	movq	%rdx, 16(%rsp)
+	movq	%rcx, 32(%rsp)
+	movl	$-1, (%r9)
+	movl	12(%rsp), %eax
+	addl	36(%rcx), %eax
+	cmpl	32(%rcx), %eax
+	jg	.LBB11_5
+# %bb.1:
+	movl	$0, 8(%rsp)
+	.p2align	4, 0x90
+.LBB11_2:                               # =>This Inner Loop Header: Depth=1
+	movl	8(%rsp), %eax
+	cmpl	12(%rsp), %eax
+	jge	.LBB11_3
+# %bb.4:                                #   in Loop: Header=BB11_2 Depth=1
+	movq	16(%rsp), %r8
+	movslq	8(%rsp), %rdx
+	movslq	36(%rcx), %rax
+	addq	%rdx, %rax
+	shlq	$4, %rdx
+	movq	24(%rcx), %r9
+	shlq	$4, %rax
+	movups	(%r8,%rdx), %xmm0
+	movups	%xmm0, (%r9,%rax)
+	addl	$1, 8(%rsp)
+	jmp	.LBB11_2
+.LBB11_5:
+	movb	$0, 7(%rsp)
+	jmp	.LBB11_6
+.LBB11_3:
+	movl	36(%rcx), %eax
+	movq	24(%rsp), %rdx
+	movl	%eax, (%rdx)
+	movl	12(%rsp), %eax
+	addl	%eax, 36(%rcx)
+	movb	$1, 7(%rsp)
+.LBB11_6:
+	movb	7(%rsp), %al
+	addq	$40, %rsp
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z" # -- Begin function ?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z
+	.p2align	4, 0x90
+"?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z": # @"?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z"
+.seh_proc "?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z"
+# %bb.0:
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	.seh_endprologue
+	movq	%r9, 48(%rsp)
+	movl	%r8d, 36(%rsp)
+	movl	%edx, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	movslq	%edx, %rdx
+	shlq	$4, %rdx
+	addq	24(%rcx), %rdx
+	movslq	%r8d, %r8
+	shlq	$4, %r8
+	movq	%r9, %rcx
+	callq	memcpy
+	nop
+	addq	$56, %rsp
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Hash@PathNodePool@micropather@@AEAAIPEAX@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Hash@PathNodePool@micropather@@AEAAIPEAX@Z" # -- Begin function ?Hash@PathNodePool@micropather@@AEAAIPEAX@Z
+	.p2align	4, 0x90
+"?Hash@PathNodePool@micropather@@AEAAIPEAX@Z": # @"?Hash@PathNodePool@micropather@@AEAAIPEAX@Z"
+.seh_proc "?Hash@PathNodePool@micropather@@AEAAIPEAX@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rdx, %rsi
+	movq	%rdx, 56(%rsp)
+	movq	%rcx, 48(%rsp)
+	movq	%rdx, 40(%rsp)
+	callq	"?HashMask@PathNodePool@micropather@@AEBAIXZ"
+	movl	%eax, %ecx
+	movq	%rsi, %rax
+	xorl	%edx, %edx
+	divq	%rcx
+	movq	%rdx, %rax
+                                        # kill: def $eax killed $eax killed $rax
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?HashMask@PathNodePool@micropather@@AEBAIXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?HashMask@PathNodePool@micropather@@AEBAIXZ"
+	.globl	"?HashMask@PathNodePool@micropather@@AEBAIXZ" # -- Begin function ?HashMask@PathNodePool@micropather@@AEBAIXZ
+	.p2align	4, 0x90
+"?HashMask@PathNodePool@micropather@@AEBAIXZ": # @"?HashMask@PathNodePool@micropather@@AEBAIXZ"
+.seh_proc "?HashMask@PathNodePool@micropather@@AEBAIXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movb	140(%rcx), %cl
+	movl	$1, %eax
+	shll	%cl, %eax
+	addl	$-1, %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?HashMask@PathNodePool@micropather@@AEBAIXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ" # -- Begin function ?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ
+	.p2align	4, 0x90
+"?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ": # @"?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ"
+.seh_proc "?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rcx, 40(%rsp)
+	leaq	40(%rcx), %rax
+	cmpq	%rax, 104(%rcx)
+	jne	.LBB15_2
+# %bb.1:
+	movq	%rsi, %rcx
+	callq	"?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ"
+	movq	%rax, 32(%rsp)
+	movq	16(%rsi), %rcx
+	movq	%rcx, (%rax)
+	movq	32(%rsp), %rax
+	movq	%rax, 16(%rsi)
+.LBB15_2:
+	movq	104(%rsi), %rcx
+	movq	%rcx, 32(%rsp)
+	callq	"?Unlink@PathNode@micropather@@QEAAXXZ"
+	addl	$1, 132(%rsi)
+	addl	$-1, 136(%rsi)
+	movq	32(%rsp), %rax
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z" # -- Begin function ?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z
+	.p2align	4, 0x90
+"?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z": # @"?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z"
+.seh_proc "?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z"
+# %bb.0:
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%r8, 24(%rsp)
+	movl	%edx, 12(%rsp)
+	movq	%rcx, 32(%rsp)
+	movq	(%rcx), %rax
+	movl	%edx, %edx
+	cmpq	$0, (%rax,%rdx,8)
+	je	.LBB16_6
+# %bb.1:
+	movq	(%rcx), %rax
+	movl	12(%rsp), %ecx
+	movq	(%rax,%rcx,8), %rax
+	movq	%rax, 16(%rsp)
+.LBB16_2:                               # =>This Inner Loop Header: Depth=1
+	movq	24(%rsp), %rax
+	movq	(%rax), %rax
+	movq	16(%rsp), %rcx
+	xorl	%edx, %edx
+	cmpq	(%rcx), %rax
+	setae	%dl
+	movl	%edx, 8(%rsp)
+	cmpq	$0, 48(%rcx,%rdx,8)
+	je	.LBB16_4
+# %bb.3:                                #   in Loop: Header=BB16_2 Depth=1
+	movq	16(%rsp), %rax
+	movslq	8(%rsp), %rcx
+	movq	48(%rax,%rcx,8), %rax
+	movq	%rax, 16(%rsp)
+	movl	$0, 4(%rsp)
+	jmp	.LBB16_5
+	.p2align	4, 0x90
+.LBB16_4:                               #   in Loop: Header=BB16_2 Depth=1
+	movq	24(%rsp), %rax
+	movq	16(%rsp), %rcx
+	movslq	8(%rsp), %rdx
+	movq	%rax, 48(%rcx,%rdx,8)
+	movl	$3, 4(%rsp)
+.LBB16_5:                               #   in Loop: Header=BB16_2 Depth=1
+	cmpl	$0, 4(%rsp)
+	jne	.LBB16_7
+	jmp	.LBB16_2
+.LBB16_6:
+	movq	24(%rsp), %rax
+	movq	(%rcx), %rcx
+	movl	12(%rsp), %edx
+	movq	%rax, (%rcx,%rdx,8)
+.LBB16_7:
+	addq	$40, %rsp
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z" # -- Begin function ?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z
+	.p2align	4, 0x90
+"?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z": # @"?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z"
+.seh_proc "?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 40(%rsp)
+	movq	%rcx, 56(%rsp)
+	callq	"?Hash@PathNodePool@micropather@@AEAAIPEAX@Z"
+	movl	%eax, 52(%rsp)
+	movq	(%rsi), %rcx
+	movl	%eax, %eax
+	movq	(%rcx,%rax,8), %rax
+	jmp	.LBB17_1
+	.p2align	4, 0x90
+.LBB17_5:                               #   in Loop: Header=BB17_1 Depth=1
+	movq	32(%rsp), %rax
+	movq	56(%rax), %rax
+.LBB17_1:                               # =>This Inner Loop Header: Depth=1
+	movq	%rax, 32(%rsp)
+	cmpq	$0, 32(%rsp)
+	je	.LBB17_6
+# %bb.2:                                #   in Loop: Header=BB17_1 Depth=1
+	movq	32(%rsp), %rax
+	movq	(%rax), %rax
+	cmpq	40(%rsp), %rax
+	je	.LBB17_6
+# %bb.3:                                #   in Loop: Header=BB17_1 Depth=1
+	movq	40(%rsp), %rax
+	movq	32(%rsp), %rcx
+	cmpq	(%rcx), %rax
+	jae	.LBB17_5
+# %bb.4:                                #   in Loop: Header=BB17_1 Depth=1
+	movq	32(%rsp), %rax
+	movq	48(%rax), %rax
+	jmp	.LBB17_1
+.LBB17_6:
+	movq	32(%rsp), %rax
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z" # -- Begin function ?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z
+	.p2align	4, 0x90
+"?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z": # @"?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z"
+.seh_proc "?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$96, %rsp
+	.seh_stackalloc 96
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movss	%xmm3, 68(%rsp)
+	movq	%r8, 72(%rsp)
+	movl	%edx, 64(%rsp)
+	movq	%rcx, 88(%rsp)
+	movq	%r8, %rdx
+	callq	"?Hash@PathNodePool@micropather@@AEAAIPEAX@Z"
+	movl	%eax, 84(%rsp)
+	movq	(%rsi), %rcx
+	movl	%eax, %eax
+	movq	(%rcx,%rax,8), %rax
+	jmp	.LBB18_1
+	.p2align	4, 0x90
+.LBB18_10:                              #   in Loop: Header=BB18_1 Depth=1
+	movq	56(%rsp), %rax
+	movq	56(%rax), %rax
+.LBB18_1:                               # =>This Inner Loop Header: Depth=1
+	movq	%rax, 56(%rsp)
+	cmpq	$0, 56(%rsp)
+	je	.LBB18_5
+# %bb.2:                                #   in Loop: Header=BB18_1 Depth=1
+	movq	56(%rsp), %rax
+	movq	(%rax), %rax
+	cmpq	72(%rsp), %rax
+	je	.LBB18_3
+# %bb.8:                                #   in Loop: Header=BB18_1 Depth=1
+	movq	72(%rsp), %rax
+	movq	56(%rsp), %rcx
+	cmpq	(%rcx), %rax
+	jae	.LBB18_10
+# %bb.9:                                #   in Loop: Header=BB18_1 Depth=1
+	movq	56(%rsp), %rax
+	movq	48(%rax), %rax
+	jmp	.LBB18_1
+.LBB18_3:
+	movq	56(%rsp), %rax
+	movl	32(%rax), %eax
+	cmpl	64(%rsp), %eax
+	je	.LBB18_5
+# %bb.4:
+	movq	56(%rsp), %rcx
+	movq	152(%rsp), %rax
+	movss	144(%rsp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	movss	68(%rsp), %xmm3         # xmm3 = mem[0],zero,zero,zero
+	movq	72(%rsp), %r8
+	movl	64(%rsp), %edx
+	movq	%rax, 40(%rsp)
+	movss	%xmm0, 32(%rsp)
+	callq	"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+.LBB18_5:
+	cmpq	$0, 56(%rsp)
+	jne	.LBB18_7
+# %bb.6:
+	movq	%rsi, %rcx
+	callq	"?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ"
+	movq	%rax, 56(%rsp)
+	movq	%rax, %rcx
+	callq	"?Clear@PathNode@micropather@@QEAAXXZ"
+	movq	56(%rsp), %rcx
+	movq	152(%rsp), %rax
+	movss	144(%rsp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	movss	68(%rsp), %xmm3         # xmm3 = mem[0],zero,zero,zero
+	movq	72(%rsp), %r8
+	movl	64(%rsp), %edx
+	movq	%rax, 40(%rsp)
+	movss	%xmm0, 32(%rsp)
+	callq	"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+	movq	56(%rsp), %r8
+	movl	84(%rsp), %edx
+	movq	%rsi, %rcx
+	callq	"?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z"
+.LBB18_7:
+	movq	56(%rsp), %rax
+	addq	$96, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z" # -- Begin function ?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z
+	.p2align	4, 0x90
+"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z": # @"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+.seh_proc "?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movss	%xmm3, 44(%rsp)
+	movq	%r8, 56(%rsp)
+	movl	%edx, 40(%rsp)
+	movq	%rcx, 48(%rsp)
+	movq	%r8, (%rcx)
+	movss	44(%rsp), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	movss	%xmm0, 8(%rcx)
+	movss	112(%rsp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	movss	%xmm0, 12(%rcx)
+	callq	"?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+	movq	120(%rsp), %rax
+	movq	%rax, 24(%rsi)
+	movl	40(%rsp), %eax
+	movl	%eax, 32(%rsi)
+	movw	$0, 80(%rsi)
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Clear@PathNode@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Clear@PathNode@micropather@@QEAAXXZ" # -- Begin function ?Clear@PathNode@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?Clear@PathNode@micropather@@QEAAXXZ": # @"?Clear@PathNode@micropather@@QEAAXXZ"
+.seh_proc "?Clear@PathNode@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 32(%rcx)
+	movups	%xmm0, 64(%rcx)
+	movups	%xmm0, 48(%rcx)
+	movups	%xmm0, 16(%rcx)
+	movups	%xmm0, (%rcx)
+	movq	$0, 80(%rcx)
+	movq	$-1, 36(%rcx)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?CalcTotalCost@PathNode@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+	.globl	"?CalcTotalCost@PathNode@micropather@@QEAAXXZ" # -- Begin function ?CalcTotalCost@PathNode@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?CalcTotalCost@PathNode@micropather@@QEAAXXZ": # @"?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+.seh_proc "?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movss	__real@7f7fffff(%rip), %xmm0 # xmm0 = mem[0],zero,zero,zero
+	ucomiss	8(%rcx), %xmm0
+	jbe	.LBB21_3
+# %bb.1:
+	ucomiss	12(%rcx), %xmm0
+	jbe	.LBB21_3
+# %bb.2:
+	movss	8(%rcx), %xmm0          # xmm0 = mem[0],zero,zero,zero
+	addss	12(%rcx), %xmm0
+	movss	%xmm0, 16(%rcx)
+	jmp	.LBB21_4
+.LBB21_3:
+	movl	$2139095039, 16(%rcx)   # imm = 0x7F7FFFFF
+.LBB21_4:
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z" # -- Begin function ??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z
+	.p2align	4, 0x90
+"??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z": # @"??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z"
+.Lfunc_begin1:
+.seh_proc "??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z"
+	.seh_handler __CxxFrameHandler3, @unwind, @except
+# %bb.0:
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$128, %rsp
+	.seh_stackalloc 128
+	leaq	128(%rsp), %rbp
+	.seh_setframe 5, 128
+	.seh_endprologue
+	movq	$-2, -8(%rbp)
+	movq	%rcx, %rsi
+	movb	80(%rbp), %al
+	movb	%al, -9(%rbp)
+	movl	%r9d, -76(%rbp)
+	movl	%r8d, -16(%rbp)
+	movq	%rdx, -64(%rbp)
+	movq	%rcx, -88(%rbp)
+	movq	%rcx, -72(%rbp)
+	movl	%r8d, %edx
+	movl	%r9d, %r8d
+	callq	"??0PathNodePool@micropather@@QEAA@II@Z"
+	leaq	152(%rsi), %r14
+	movq	%r14, %rcx
+	callq	"??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	leaq	168(%rsi), %rbx
+	movq	%rbx, %rcx
+	callq	"??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	leaq	184(%rsi), %rdi
+	movq	%rdi, %rcx
+	callq	"??0?$MPVector@M@micropather@@QEAA@XZ"
+	movq	-64(%rbp), %rax
+	movq	%rax, 200(%rsi)
+	movl	$0, 208(%rsi)
+	movq	$0, 216(%rsi)
+	cmpb	$1, -9(%rbp)
+	jne	.LBB22_4
+# %bb.1:
+.Ltmp8:
+	movq	%rdi, -40(%rbp)         # 8-byte Spill
+	movq	%rbx, -48(%rbp)         # 8-byte Spill
+	movq	%r14, -56(%rbp)         # 8-byte Spill
+	movq	%rsi, -32(%rbp)         # 8-byte Spill
+	movl	$24, %ecx
+	callq	"??2@YAPEAX_K@Z"
+.Ltmp9:
+# %bb.2:
+	movl	-16(%rbp), %edx
+	shll	$2, %edx
+.Ltmp10:
+	movq	%rax, -24(%rbp)         # 8-byte Spill
+	movq	%rax, %rcx
+	callq	"??0PathCache@micropather@@QEAA@H@Z"
+.Ltmp11:
+# %bb.3:
+	movq	-32(%rbp), %rax         # 8-byte Reload
+	movq	-24(%rbp), %rcx         # 8-byte Reload
+	movq	%rcx, 216(%rax)
+.LBB22_4:
+	movq	-72(%rbp), %rax
+	addq	$128, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq
+	.seh_handlerdata
+	.long	("$cppxdata$??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z")@IMGREL
+	.text
+	.seh_endproc
+	.def	 "?dtor$5@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$5@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA":
+.seh_proc "?dtor$5@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"
+.LBB22_5:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$32, %rsp
+	.seh_stackalloc 32
+	leaq	128(%rdx), %rbp
+	.seh_endprologue
+	movq	-40(%rbp), %rcx         # 8-byte Reload
+	callq	"??1?$MPVector@M@micropather@@QEAA@XZ"
+	nop
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$6@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$6@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA":
+.seh_proc "?dtor$6@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"
+.LBB22_6:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$32, %rsp
+	.seh_stackalloc 32
+	leaq	128(%rdx), %rbp
+	.seh_endprologue
+	movq	-48(%rbp), %rcx         # 8-byte Reload
+	callq	"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	nop
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$7@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$7@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA":
+.seh_proc "?dtor$7@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"
+.LBB22_7:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$32, %rsp
+	.seh_stackalloc 32
+	leaq	128(%rdx), %rbp
+	.seh_endprologue
+	movq	-56(%rbp), %rcx         # 8-byte Reload
+	callq	"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	nop
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$8@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$8@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA":
+.seh_proc "?dtor$8@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"
+.LBB22_8:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$32, %rsp
+	.seh_stackalloc 32
+	leaq	128(%rdx), %rbp
+	.seh_endprologue
+	movq	-32(%rbp), %rcx         # 8-byte Reload
+	callq	"??1PathNodePool@micropather@@QEAA@XZ"
+	nop
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$9@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$9@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA":
+.seh_proc "?dtor$9@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"
+.LBB22_9:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$32, %rsp
+	.seh_stackalloc 32
+	leaq	128(%rdx), %rbp
+	.seh_endprologue
+	movq	-24(%rbp), %rcx         # 8-byte Reload
+	callq	"??3@YAXPEAX@Z"
+	nop
+	addq	$32, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+.Lfunc_end1:
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.section	.xdata,"dr"
+	.p2align	2
+"$cppxdata$??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z":
+	.long	429065506               # MagicNumber
+	.long	5                       # MaxState
+	.long	("$stateUnwindMap$??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z")@IMGREL # UnwindMap
+	.long	0                       # NumTryBlocks
+	.long	0                       # TryBlockMap
+	.long	4                       # IPMapEntries
+	.long	("$ip2state$??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z")@IMGREL # IPToStateXData
+	.long	120                     # UnwindHelp
+	.long	0                       # ESTypeList
+	.long	1                       # EHFlags
+"$stateUnwindMap$??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z":
+	.long	-1                      # ToState
+	.long	"?dtor$8@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"@IMGREL # Action
+	.long	0                       # ToState
+	.long	"?dtor$7@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"@IMGREL # Action
+	.long	1                       # ToState
+	.long	"?dtor$6@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"@IMGREL # Action
+	.long	2                       # ToState
+	.long	"?dtor$5@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"@IMGREL # Action
+	.long	3                       # ToState
+	.long	"?dtor$9@?0???0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z@4HA"@IMGREL # Action
+"$ip2state$??0MicroPather@micropather@@QEAA@PEAVGraph@1@II_N@Z":
+	.long	.Lfunc_begin1@IMGREL    # IP
+	.long	-1                      # ToState
+	.long	.Ltmp8@IMGREL+1         # IP
+	.long	3                       # ToState
+	.long	.Ltmp10@IMGREL+1        # IP
+	.long	4                       # ToState
+	.long	.Ltmp11@IMGREL+1        # IP
+	.long	-1                      # ToState
+	.text
+                                        # -- End function
+	.def	 "??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	.globl	"??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ" # -- Begin function ??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ": # @"??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+.seh_proc "??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, %rax
+	movq	%rcx, (%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rcx)
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??0?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	.globl	"??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ" # -- Begin function ??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ": # @"??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+.seh_proc "??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, %rax
+	movq	%rcx, (%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rcx)
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??0?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??0?$MPVector@M@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??0?$MPVector@M@micropather@@QEAA@XZ"
+	.globl	"??0?$MPVector@M@micropather@@QEAA@XZ" # -- Begin function ??0?$MPVector@M@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??0?$MPVector@M@micropather@@QEAA@XZ": # @"??0?$MPVector@M@micropather@@QEAA@XZ"
+.seh_proc "??0?$MPVector@M@micropather@@QEAA@XZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, %rax
+	movq	%rcx, (%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rcx)
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??0?$MPVector@M@micropather@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??0PathCache@micropather@@QEAA@H@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"??0PathCache@micropather@@QEAA@H@Z" # -- Begin function ??0PathCache@micropather@@QEAA@H@Z
+	.p2align	4, 0x90
+"??0PathCache@micropather@@QEAA@H@Z":   # @"??0PathCache@micropather@@QEAA@H@Z"
+.seh_proc "??0PathCache@micropather@@QEAA@H@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movl	%edx, 36(%rsp)
+	movslq	%edx, %rax
+	movl	$32, %ecx
+	mulq	%rcx
+	movq	%rsi, 40(%rsp)
+	movq	$-1, %rcx
+	cmovnoq	%rax, %rcx
+	callq	"??_U@YAPEAX_K@Z"
+	movq	%rax, 8(%rsi)
+	movslq	36(%rsp), %r8
+	shlq	$5, %r8
+	movq	%rax, %rcx
+	xorl	%edx, %edx
+	callq	memset
+	movl	36(%rsp), %eax
+	movl	%eax, 16(%rsi)
+	movl	$0, 20(%rsi)
+	movq	$0, (%rsi)
+	movq	%rsi, %rax
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1?$MPVector@M@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??1?$MPVector@M@micropather@@QEAA@XZ"
+	.globl	"??1?$MPVector@M@micropather@@QEAA@XZ" # -- Begin function ??1?$MPVector@M@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??1?$MPVector@M@micropather@@QEAA@XZ": # @"??1?$MPVector@M@micropather@@QEAA@XZ"
+.seh_proc "??1?$MPVector@M@micropather@@QEAA@XZ"
+# %bb.0:
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%rcx, 32(%rsp)
+	movq	8(%rcx), %rcx
+	testq	%rcx, %rcx
+	je	.LBB27_2
+# %bb.1:
+	callq	"??_V@YAXPEAX@Z"
+.LBB27_2:
+	nop
+	addq	$40, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??1?$MPVector@M@micropather@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	.globl	"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ" # -- Begin function ??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ": # @"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+.seh_proc "??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+# %bb.0:
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%rcx, 32(%rsp)
+	movq	8(%rcx), %rcx
+	testq	%rcx, %rcx
+	je	.LBB28_2
+# %bb.1:
+	callq	"??_V@YAXPEAX@Z"
+.LBB28_2:
+	nop
+	addq	$40, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	.globl	"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ" # -- Begin function ??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ": # @"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+.seh_proc "??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+# %bb.0:
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%rcx, 32(%rsp)
+	movq	8(%rcx), %rcx
+	testq	%rcx, %rcx
+	je	.LBB29_2
+# %bb.1:
+	callq	"??_V@YAXPEAX@Z"
+.LBB29_2:
+	nop
+	addq	$40, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1MicroPather@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"??1MicroPather@micropather@@QEAA@XZ" # -- Begin function ??1MicroPather@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??1MicroPather@micropather@@QEAA@XZ":  # @"??1MicroPather@micropather@@QEAA@XZ"
+.seh_proc "??1MicroPather@micropather@@QEAA@XZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rcx, 32(%rsp)
+	movq	216(%rcx), %rdi
+	testq	%rdi, %rdi
+	je	.LBB30_2
+# %bb.1:
+	movq	%rdi, %rcx
+	callq	"??1PathCache@micropather@@QEAA@XZ"
+	movq	%rdi, %rcx
+	callq	"??3@YAXPEAX@Z"
+.LBB30_2:
+	leaq	184(%rsi), %rcx
+	callq	"??1?$MPVector@M@micropather@@QEAA@XZ"
+	leaq	168(%rsi), %rcx
+	callq	"??1?$MPVector@UNodeCost@micropather@@@micropather@@QEAA@XZ"
+	movq	%rsi, %rcx
+	addq	$152, %rcx
+	callq	"??1?$MPVector@UStateCost@micropather@@@micropather@@QEAA@XZ"
+	movq	%rsi, %rcx
+	callq	"??1PathNodePool@micropather@@QEAA@XZ"
+	nop
+	addq	$40, %rsp
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1PathCache@micropather@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"??1PathCache@micropather@@QEAA@XZ" # -- Begin function ??1PathCache@micropather@@QEAA@XZ
+	.p2align	4, 0x90
+"??1PathCache@micropather@@QEAA@XZ":    # @"??1PathCache@micropather@@QEAA@XZ"
+.seh_proc "??1PathCache@micropather@@QEAA@XZ"
+# %bb.0:
+	subq	$40, %rsp
+	.seh_stackalloc 40
+	.seh_endprologue
+	movq	%rcx, 32(%rsp)
+	movq	8(%rcx), %rcx
+	testq	%rcx, %rcx
+	je	.LBB31_2
+# %bb.1:
+	callq	"??_V@YAXPEAX@Z"
+.LBB31_2:
+	nop
+	addq	$40, %rsp
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Reset@MicroPather@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Reset@MicroPather@micropather@@QEAAXXZ" # -- Begin function ?Reset@MicroPather@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?Reset@MicroPather@micropather@@QEAAXXZ": # @"?Reset@MicroPather@micropather@@QEAAXXZ"
+.seh_proc "?Reset@MicroPather@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rcx, 40(%rsp)
+	callq	"?Clear@PathNodePool@micropather@@QEAAXXZ"
+	cmpq	$0, 216(%rsi)
+	je	.LBB32_2
+# %bb.1:
+	movq	216(%rsi), %rcx
+	callq	"?Reset@PathCache@micropather@@QEAAXXZ"
+.LBB32_2:
+	movl	$0, 208(%rsi)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Reset@PathCache@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Reset@PathCache@micropather@@QEAAXXZ" # -- Begin function ?Reset@PathCache@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?Reset@PathCache@micropather@@QEAAXXZ": # @"?Reset@PathCache@micropather@@QEAAXXZ"
+.seh_proc "?Reset@PathCache@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, 40(%rsp)
+	cmpl	$0, 20(%rcx)
+	je	.LBB33_2
+# %bb.1:
+	movq	%rcx, %rsi
+	movq	8(%rcx), %rcx
+	movslq	16(%rsi), %r8
+	shlq	$5, %r8
+	xorl	%edx, %edx
+	callq	memset
+	movl	$0, 20(%rsi)
+	movq	$0, (%rsi)
+.LBB33_2:
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z" # -- Begin function ?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z
+	.p2align	4, 0x90
+"?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z": # @"?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z"
+.seh_proc "?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$120, %rsp
+	.seh_stackalloc 120
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%r9, 104(%rsp)
+	movq	%r8, 96(%rsp)
+	movq	%rdx, 88(%rsp)
+	movq	%rcx, 112(%rsp)
+	movq	%rcx, %rdi
+	movq	192(%rsp), %rcx
+	movq	%rcx, 40(%rsp)
+	callq	"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	movl	$1, 36(%rsp)
+	movq	88(%rsp), %rax
+	.p2align	4, 0x90
+.LBB34_1:                               # =>This Inner Loop Header: Depth=1
+	movq	%rax, 56(%rsp)
+	movq	56(%rsp), %rax
+	cmpq	$0, 24(%rax)
+	je	.LBB34_3
+# %bb.2:                                #   in Loop: Header=BB34_1 Depth=1
+	addl	$1, 36(%rsp)
+	movq	56(%rsp), %rax
+	movq	24(%rax), %rax
+	jmp	.LBB34_1
+.LBB34_3:
+	cmpl	$2, 36(%rsp)
+	jg	.LBB34_12
+# %bb.4:
+	movq	40(%rsp), %rcx
+	movl	$2, %edx
+	callq	"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+	movq	96(%rsp), %rbx
+	movq	40(%rsp), %rcx
+	xorl	%edx, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	%rbx, (%rax)
+	movq	104(%rsp), %rbx
+	movq	40(%rsp), %rcx
+	movl	$1, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	%rbx, (%rax)
+	jmp	.LBB34_5
+.LBB34_12:
+	movq	40(%rsp), %rcx
+	movl	36(%rsp), %edx
+	callq	"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+	movq	96(%rsp), %rbx
+	movq	40(%rsp), %rcx
+	xorl	%edx, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	%rbx, (%rax)
+	movq	104(%rsp), %rbx
+	movq	40(%rsp), %rcx
+	movl	36(%rsp), %edx
+	addl	$-1, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	%rbx, (%rax)
+	addl	$-2, 36(%rsp)
+	movq	88(%rsp), %rax
+	movq	24(%rax), %rax
+	movq	%rax, 56(%rsp)
+	.p2align	4, 0x90
+.LBB34_13:                              # =>This Inner Loop Header: Depth=1
+	movq	56(%rsp), %rax
+	cmpq	$0, 24(%rax)
+	je	.LBB34_5
+# %bb.14:                               #   in Loop: Header=BB34_13 Depth=1
+	movq	56(%rsp), %rax
+	movq	(%rax), %rbx
+	movq	40(%rsp), %rcx
+	movl	36(%rsp), %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	%rbx, (%rax)
+	movq	56(%rsp), %rax
+	movq	24(%rax), %rax
+	movq	%rax, 56(%rsp)
+	addl	$-1, 36(%rsp)
+	jmp	.LBB34_13
+.LBB34_5:
+	cmpq	$0, 216(%rdi)
+	je	.LBB34_9
+# %bb.6:
+	leaq	184(%rsi), %rbx
+	movq	%rbx, %rcx
+	callq	"?clear@?$MPVector@M@micropather@@QEAAXXZ"
+	movq	40(%rsp), %rcx
+	xorl	%edx, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	(%rax), %rdx
+	movq	%rdi, %rcx
+	callq	"?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z"
+	movq	%rax, 72(%rsp)
+	movq	$0, 80(%rsp)
+	movl	$0, 68(%rsp)
+	addq	$168, %rsi
+	jmp	.LBB34_7
+	.p2align	4, 0x90
+.LBB34_18:                              #   in Loop: Header=BB34_7 Depth=1
+	movl	52(%rsp), %edx
+	movq	%rsi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	leaq	8(%rax), %rdx
+	movq	%rbx, %rcx
+	callq	"?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z"
+.LBB34_19:                              #   in Loop: Header=BB34_7 Depth=1
+	movl	$9, 64(%rsp)
+	movq	80(%rsp), %rax
+	movq	%rax, 72(%rsp)
+	addl	$1, 68(%rsp)
+.LBB34_7:                               # =>This Loop Header: Depth=1
+                                        #     Child Loop BB34_16 Depth 2
+	movl	68(%rsp), %ebp
+	movq	40(%rsp), %rcx
+	callq	"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	addl	$-1, %eax
+	cmpl	%eax, %ebp
+	jae	.LBB34_8
+# %bb.15:                               #   in Loop: Header=BB34_7 Depth=1
+	movq	40(%rsp), %rcx
+	movl	68(%rsp), %edx
+	addl	$1, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	movq	(%rax), %rdx
+	movq	%rdi, %rcx
+	callq	"?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z"
+	movq	%rax, 80(%rsp)
+	movq	%rsi, %rcx
+	callq	"?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ"
+	movq	72(%rsp), %rdx
+	movq	%rdi, %rcx
+	movq	%rsi, %r8
+	callq	"?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z"
+	movl	$0, 52(%rsp)
+	.p2align	4, 0x90
+.LBB34_16:                              #   Parent Loop BB34_7 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	movl	52(%rsp), %ebp
+	movq	%rsi, %rcx
+	callq	"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+	cmpl	%eax, %ebp
+	jae	.LBB34_19
+# %bb.17:                               #   in Loop: Header=BB34_16 Depth=2
+	movl	52(%rsp), %edx
+	movq	%rsi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	cmpq	80(%rsp), %rax
+	je	.LBB34_18
+# %bb.21:                               #   in Loop: Header=BB34_16 Depth=2
+	addl	$1, 52(%rsp)
+	jmp	.LBB34_16
+.LBB34_8:
+	movl	$6, 64(%rsp)
+	movq	216(%rdi), %rcx
+	movq	40(%rsp), %rdx
+	movq	%rbx, %r8
+	callq	"?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z"
+.LBB34_9:
+	movl	$0, 72(%rsp)
+	.p2align	4, 0x90
+.LBB34_10:                              # =>This Inner Loop Header: Depth=1
+	movl	72(%rsp), %esi
+	movq	40(%rsp), %rcx
+	callq	"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	cmpl	%eax, %esi
+	jae	.LBB34_11
+# %bb.20:                               #   in Loop: Header=BB34_10 Depth=1
+	addl	$1, 72(%rsp)
+	jmp	.LBB34_10
+.LBB34_11:
+	movl	$12, 64(%rsp)
+	addq	$120, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?clear@?$MPVector@PEAX@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	.globl	"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ" # -- Begin function ?clear@?$MPVector@PEAX@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ": # @"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+.seh_proc "?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	$0, 4(%rcx)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+	.globl	"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z" # -- Begin function ?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z
+	.p2align	4, 0x90
+"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z": # @"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+.seh_proc "?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movl	%edx, 36(%rsp)
+	movq	%rcx, 40(%rsp)
+	callq	"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+	movl	36(%rsp), %eax
+	movl	%eax, 4(%rsi)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	.globl	"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z" # -- Begin function ??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z
+	.p2align	4, 0x90
+"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z": # @"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+.seh_proc "??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movl	%edx, 4(%rsp)
+	movq	%rcx, 8(%rsp)
+	movl	%edx, %eax
+	shlq	$3, %rax
+	addq	8(%rcx), %rax
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?clear@?$MPVector@M@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?clear@?$MPVector@M@micropather@@QEAAXXZ"
+	.globl	"?clear@?$MPVector@M@micropather@@QEAAXXZ" # -- Begin function ?clear@?$MPVector@M@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?clear@?$MPVector@M@micropather@@QEAAXXZ": # @"?clear@?$MPVector@M@micropather@@QEAAXXZ"
+.seh_proc "?clear@?$MPVector@M@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	$0, 4(%rcx)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?clear@?$MPVector@M@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?size@?$MPVector@PEAX@micropather@@QEBAIXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	.globl	"?size@?$MPVector@PEAX@micropather@@QEBAIXZ" # -- Begin function ?size@?$MPVector@PEAX@micropather@@QEBAIXZ
+	.p2align	4, 0x90
+"?size@?$MPVector@PEAX@micropather@@QEBAIXZ": # @"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+.seh_proc "?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	4(%rcx), %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ"
+	.globl	"?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ" # -- Begin function ?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ": # @"?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ"
+.seh_proc "?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	$0, 4(%rcx)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z" # -- Begin function ?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z
+	.p2align	4, 0x90
+"?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z": # @"?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z"
+.seh_proc "?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$128, %rsp
+	.seh_stackalloc 128
+	movaps	%xmm6, 112(%rsp)        # 16-byte Spill
+	.seh_savexmm 6, 112
+	.seh_endprologue
+	movq	%r8, 72(%rsp)
+	movq	%rdx, 64(%rsp)
+	movq	%rcx, 104(%rsp)
+	cmpl	$0, 36(%rdx)
+	je	.LBB41_1
+# %bb.3:
+	movq	%rcx, %rsi
+	movq	64(%rsp), %rax
+	cmpl	$0, 40(%rax)
+	js	.LBB41_4
+# %bb.10:
+	movq	72(%rsp), %rcx
+	movq	64(%rsp), %rax
+	movl	36(%rax), %edx
+	callq	"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+	movq	72(%rsp), %rcx
+	xorl	%edx, %edx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	%rax, 88(%rsp)
+	movq	64(%rsp), %rcx
+	movl	36(%rcx), %r8d
+	movl	40(%rcx), %edx
+	movq	%rsi, %rcx
+	movq	%rax, %r9
+	callq	"?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z"
+	movl	$0, 56(%rsp)
+	movss	__real@7f7fffff(%rip), %xmm6 # xmm6 = mem[0],zero,zero,zero
+	jmp	.LBB41_11
+	.p2align	4, 0x90
+.LBB41_14:                              #   in Loop: Header=BB41_11 Depth=1
+	addl	$1, 56(%rsp)
+.LBB41_11:                              # =>This Inner Loop Header: Depth=1
+	movl	56(%rsp), %eax
+	movq	64(%rsp), %rcx
+	cmpl	36(%rcx), %eax
+	jge	.LBB41_2
+# %bb.12:                               #   in Loop: Header=BB41_11 Depth=1
+	movq	88(%rsp), %rax
+	movslq	56(%rsp), %rcx
+	shlq	$4, %rcx
+	movq	(%rax,%rcx), %rax
+	movq	%rax, 80(%rsp)
+	movl	32(%rax), %eax
+	cmpl	208(%rsi), %eax
+	je	.LBB41_14
+# %bb.13:                               #   in Loop: Header=BB41_11 Depth=1
+	movq	80(%rsp), %rcx
+	movq	(%rcx), %r8
+	movl	208(%rsi), %edx
+	movq	$0, 40(%rsp)
+	movl	$2139095039, 32(%rsp)   # imm = 0x7F7FFFFF
+	movaps	%xmm6, %xmm3
+	callq	"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+	jmp	.LBB41_14
+.LBB41_1:
+	movq	72(%rsp), %rcx
+	xorl	%edx, %edx
+	callq	"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+.LBB41_2:
+	movaps	112(%rsp), %xmm6        # 16-byte Reload
+	addq	$128, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	retq
+.LBB41_4:
+	movq	%rsi, %rdi
+	addq	$152, %rdi
+	movq	%rdi, %rcx
+	xorl	%edx, %edx
+	callq	"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+	movq	200(%rsi), %rcx
+	movq	64(%rsp), %rax
+	movq	(%rax), %rdx
+	movq	(%rcx), %rax
+	movq	%rdi, %r8
+	callq	*16(%rax)
+	movq	72(%rsp), %rbx
+	movq	%rdi, %rcx
+	callq	"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+	movq	%rbx, %rcx
+	movl	%eax, %edx
+	callq	"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+	movq	%rdi, %rcx
+	callq	"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+	movq	64(%rsp), %rcx
+	movl	%eax, 36(%rcx)
+	movq	64(%rsp), %rax
+	cmpl	$0, 36(%rax)
+	jle	.LBB41_2
+# %bb.5:
+	movq	%rdi, %rcx
+	callq	"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+	movl	%eax, 100(%rsp)
+	movq	%rdi, %rcx
+	xorl	%edx, %edx
+	callq	"??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z"
+	movq	%rax, 88(%rsp)
+	movq	72(%rsp), %rcx
+	xorl	%edx, %edx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	%rax, 80(%rsp)
+	movl	$0, 52(%rsp)
+	movss	__real@7f7fffff(%rip), %xmm6 # xmm6 = mem[0],zero,zero,zero
+	.p2align	4, 0x90
+.LBB41_6:                               # =>This Inner Loop Header: Depth=1
+	movl	52(%rsp), %eax
+	cmpl	100(%rsp), %eax
+	jae	.LBB41_7
+# %bb.15:                               #   in Loop: Header=BB41_6 Depth=1
+	movq	88(%rsp), %rax
+	movl	52(%rsp), %ecx
+	shlq	$4, %rcx
+	movq	(%rax,%rcx), %rdx
+	movq	%rdx, 56(%rsp)
+	movss	8(%rax,%rcx), %xmm0     # xmm0 = mem[0],zero,zero,zero
+	movq	80(%rsp), %rax
+	movss	%xmm0, 8(%rax,%rcx)
+	movq	56(%rsp), %r8
+	movl	208(%rsi), %edx
+	movq	$0, 40(%rsp)
+	movl	$2139095039, 32(%rsp)   # imm = 0x7F7FFFFF
+	movq	%rsi, %rcx
+	movaps	%xmm6, %xmm3
+	callq	"?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z"
+	movq	80(%rsp), %rcx
+	movl	52(%rsp), %edx
+	shlq	$4, %rdx
+	movq	%rax, (%rcx,%rdx)
+	addl	$1, 52(%rsp)
+	jmp	.LBB41_6
+.LBB41_7:
+	movl	$0, 56(%rsp)
+	movq	72(%rsp), %rcx
+	callq	"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+	testl	%eax, %eax
+	je	.LBB41_2
+# %bb.8:
+	movq	72(%rsp), %rcx
+	callq	"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+	movq	80(%rsp), %rdx
+	leaq	56(%rsp), %r9
+	movq	%rsi, %rcx
+	movl	%eax, %r8d
+	callq	"?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z"
+	testb	%al, %al
+	je	.LBB41_2
+# %bb.9:
+	movl	56(%rsp), %eax
+	movq	64(%rsp), %rcx
+	movl	%eax, 40(%rcx)
+	jmp	.LBB41_2
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+	.globl	"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ" # -- Begin function ?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ
+	.p2align	4, 0x90
+"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ": # @"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+.seh_proc "?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	4(%rcx), %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	.globl	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z" # -- Begin function ??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z
+	.p2align	4, 0x90
+"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z": # @"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+.seh_proc "??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movl	%edx, 4(%rsp)
+	movq	%rcx, 8(%rsp)
+	movl	%edx, %eax
+	shlq	$4, %rax
+	addq	8(%rcx), %rax
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z"
+	.globl	"?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z" # -- Begin function ?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z
+	.p2align	4, 0x90
+"?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z": # @"?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z"
+.seh_proc "?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	movl	4(%rcx), %edx
+	addl	$1, %edx
+	callq	"?capacity@?$MPVector@M@micropather@@AEAAXI@Z"
+	movq	32(%rsp), %rax
+	movss	(%rax), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	movq	8(%rsi), %rax
+	movl	4(%rsi), %ecx
+	leal	1(%rcx), %edx
+	movl	%edx, 4(%rsi)
+	movss	%xmm0, (%rax,%rcx,4)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z" # -- Begin function ?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z
+	.p2align	4, 0x90
+"?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z": # @"?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z"
+.seh_proc "?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$112, %rsp
+	.seh_stackalloc 112
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%r8, 64(%rsp)
+	movq	%rdx, 48(%rsp)
+	movq	%rcx, 104(%rsp)
+	movl	20(%rcx), %edi
+	movq	%rdx, %rcx
+	callq	"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	addl	%edi, %eax
+	movl	16(%rsi), %ecx
+	leal	(%rcx,%rcx,2), %ecx
+	movl	%ecx, %edx
+	sarl	$31, %edx
+	shrl	$30, %edx
+	addl	%ecx, %edx
+	sarl	$2, %edx
+	cmpl	%edx, %eax
+	jg	.LBB45_4
+# %bb.1:
+	movl	$0, 44(%rsp)
+	leaq	72(%rsp), %rdi
+	.p2align	4, 0x90
+.LBB45_2:                               # =>This Inner Loop Header: Depth=1
+	movl	44(%rsp), %ebx
+	movq	48(%rsp), %rcx
+	callq	"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	addl	$-1, %eax
+	cmpl	%eax, %ebx
+	jae	.LBB45_4
+# %bb.3:                                #   in Loop: Header=BB45_2 Depth=1
+	movq	48(%rsp), %rbx
+	movq	%rbx, %rcx
+	callq	"?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+                                        # kill: def $eax killed $eax def $rax
+	leal	-1(%rax), %edx
+	movq	%rbx, %rcx
+	callq	"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+	movq	(%rax), %rax
+	movq	%rax, 56(%rsp)
+	movq	48(%rsp), %rcx
+	movl	44(%rsp), %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+	movq	(%rax), %rax
+	movq	%rax, 72(%rsp)
+	movq	56(%rsp), %rax
+	movq	%rax, 80(%rsp)
+	movq	48(%rsp), %rcx
+	movl	44(%rsp), %edx
+	addl	$1, %edx
+	callq	"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+	movq	(%rax), %rax
+	movq	%rax, 88(%rsp)
+	movq	64(%rsp), %rcx
+	movl	44(%rsp), %edx
+	callq	"??A?$MPVector@M@micropather@@QEBAAEBMI@Z"
+	movss	(%rax), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	movss	%xmm0, 96(%rsp)
+	movq	%rsi, %rcx
+	movq	%rdi, %rdx
+	callq	"?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z"
+	addl	$1, 44(%rsp)
+	jmp	.LBB45_2
+.LBB45_4:
+	addq	$112, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+	.globl	"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z" # -- Begin function ?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z
+	.p2align	4, 0x90
+"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z": # @"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+.seh_proc "?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movl	%edx, 36(%rsp)
+	movq	%rcx, 40(%rsp)
+	callq	"?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z"
+	movl	36(%rsp), %eax
+	movl	%eax, 4(%rsi)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+	.globl	"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z" # -- Begin function ?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z
+	.p2align	4, 0x90
+"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z": # @"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+.seh_proc "?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movl	%edx, 36(%rsp)
+	movq	%rcx, 40(%rsp)
+	callq	"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+	movl	36(%rsp), %eax
+	movl	%eax, 4(%rsi)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+	.globl	"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ" # -- Begin function ?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ
+	.p2align	4, 0x90
+"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ": # @"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+.seh_proc "?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	4(%rcx), %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z"
+	.globl	"??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z" # -- Begin function ??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z
+	.p2align	4, 0x90
+"??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z": # @"??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z"
+.seh_proc "??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movl	%edx, 4(%rsp)
+	movq	%rcx, 8(%rsp)
+	movl	%edx, %eax
+	shlq	$4, %rax
+	addq	8(%rcx), %rax
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?StatesInPool@MicroPather@micropather@@QEAAXPEAV?$MPVector@PEAX@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?StatesInPool@MicroPather@micropather@@QEAAXPEAV?$MPVector@PEAX@2@@Z" # -- Begin function ?StatesInPool@MicroPather@micropather@@QEAAXPEAV?$MPVector@PEAX@2@@Z
+	.p2align	4, 0x90
+"?StatesInPool@MicroPather@micropather@@QEAAXPEAV?$MPVector@PEAX@2@@Z": # @"?StatesInPool@MicroPather@micropather@@QEAAXPEAV?$MPVector@PEAX@2@@Z"
+.seh_proc "?StatesInPool@MicroPather@micropather@@QEAAXPEAV?$MPVector@PEAX@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	movq	%rdx, %rcx
+	callq	"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	movq	32(%rsp), %r8
+	movl	208(%rsi), %edx
+	movq	%rsi, %rcx
+	callq	"?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z"
+	nop
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z" # -- Begin function ?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z
+	.p2align	4, 0x90
+"?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z": # @"?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z"
+.seh_proc "?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$80, %rsp
+	.seh_stackalloc 80
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%r8, 64(%rsp)
+	movl	%edx, 60(%rsp)
+	movq	%rcx, 72(%rsp)
+	movq	16(%rcx), %rax
+	jmp	.LBB51_1
+	.p2align	4, 0x90
+.LBB51_4:                               #   in Loop: Header=BB51_1 Depth=1
+	movl	$5, 56(%rsp)
+	movq	48(%rsp), %rax
+	movq	(%rax), %rax
+.LBB51_1:                               # =>This Loop Header: Depth=1
+                                        #     Child Loop BB51_3 Depth 2
+	movq	%rax, 48(%rsp)
+	cmpq	$0, 48(%rsp)
+	je	.LBB51_8
+# %bb.2:                                #   in Loop: Header=BB51_1 Depth=1
+	movl	$0, 44(%rsp)
+	jmp	.LBB51_3
+	.p2align	4, 0x90
+.LBB51_7:                               #   in Loop: Header=BB51_3 Depth=2
+	addl	$1, 44(%rsp)
+.LBB51_3:                               #   Parent Loop BB51_1 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	movl	44(%rsp), %eax
+	cmpl	128(%rsi), %eax
+	jae	.LBB51_4
+# %bb.5:                                #   in Loop: Header=BB51_3 Depth=2
+	movq	48(%rsp), %rax
+	movl	44(%rsp), %ecx
+	imulq	$88, %rcx, %rcx
+	movl	40(%rax,%rcx), %eax
+	cmpl	60(%rsp), %eax
+	jne	.LBB51_7
+# %bb.6:                                #   in Loop: Header=BB51_3 Depth=2
+	movq	64(%rsp), %rcx
+	movq	48(%rsp), %rax
+	movl	44(%rsp), %edx
+	imulq	$88, %rdx, %rdx
+	addq	%rax, %rdx
+	addq	$8, %rdx
+	callq	"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+	jmp	.LBB51_7
+.LBB51_8:
+	movl	$2, 56(%rsp)
+	addq	$80, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+	.globl	"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z" # -- Begin function ?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z
+	.p2align	4, 0x90
+"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z": # @"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+.seh_proc "?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	movl	4(%rcx), %edx
+	addl	$1, %edx
+	callq	"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+	movq	32(%rsp), %rax
+	movq	(%rax), %r8
+	movq	8(%rsi), %rcx
+	movl	4(%rsi), %edx
+	leal	1(%rdx), %eax
+	movl	%eax, 4(%rsi)
+	movq	%r8, (%rcx,%rdx,8)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+	.globl	"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z" # -- Begin function ??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z
+	.p2align	4, 0x90
+"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z": # @"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+.seh_proc "??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movl	%edx, 4(%rsp)
+	movq	%rcx, 8(%rsp)
+	movl	%edx, %eax
+	shlq	$3, %rax
+	addq	8(%rcx), %rax
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??A?$MPVector@M@micropather@@QEBAAEBMI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??A?$MPVector@M@micropather@@QEBAAEBMI@Z"
+	.globl	"??A?$MPVector@M@micropather@@QEBAAEBMI@Z" # -- Begin function ??A?$MPVector@M@micropather@@QEBAAEBMI@Z
+	.p2align	4, 0x90
+"??A?$MPVector@M@micropather@@QEBAAEBMI@Z": # @"??A?$MPVector@M@micropather@@QEBAAEBMI@Z"
+.seh_proc "??A?$MPVector@M@micropather@@QEBAAEBMI@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movl	%edx, 4(%rsp)
+	movq	%rcx, 8(%rsp)
+	movl	%edx, %eax
+	shlq	$2, %rax
+	addq	8(%rcx), %rax
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??A?$MPVector@M@micropather@@QEBAAEBMI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z" # -- Begin function ?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z
+	.p2align	4, 0x90
+"?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z": # @"?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z"
+.seh_proc "?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 48(%rsp)
+	movq	%rcx, 56(%rsp)
+	movq	%rdx, %rcx
+	callq	"?Hash@Item@PathCache@micropather@@QEBAIXZ"
+	xorl	%edx, %edx
+	divl	16(%rsi)
+	movl	%edx, 44(%rsp)
+	.p2align	4, 0x90
+.LBB55_1:                               # =>This Inner Loop Header: Depth=1
+	movl	44(%rsp), %ecx
+	shlq	$5, %rcx
+	addq	8(%rsi), %rcx
+	callq	"?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+	testb	%al, %al
+	jne	.LBB55_2
+# %bb.4:                                #   in Loop: Header=BB55_1 Depth=1
+	movl	44(%rsp), %ecx
+	shlq	$5, %rcx
+	addq	8(%rsi), %rcx
+	movq	48(%rsp), %rdx
+	callq	"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+	testb	%al, %al
+	jne	.LBB55_3
+# %bb.5:                                #   in Loop: Header=BB55_1 Depth=1
+	movl	44(%rsp), %eax
+	addl	$1, %eax
+	movl	%eax, 44(%rsp)
+	cmpl	16(%rsi), %eax
+	jne	.LBB55_1
+# %bb.6:                                #   in Loop: Header=BB55_1 Depth=1
+	movl	$0, 44(%rsp)
+	jmp	.LBB55_1
+.LBB55_2:
+	movq	48(%rsp), %rax
+	movq	8(%rsi), %rcx
+	movl	44(%rsp), %edx
+	shlq	$5, %rdx
+	movups	(%rax), %xmm0
+	movups	16(%rax), %xmm1
+	movups	%xmm1, 16(%rcx,%rdx)
+	movups	%xmm0, (%rcx,%rdx)
+	addl	$1, 20(%rsi)
+.LBB55_3:
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z" # -- Begin function ?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z
+	.p2align	4, 0x90
+"?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z": # @"?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z"
+.seh_proc "?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	subq	$104, %rsp
+	.seh_stackalloc 104
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movl	%r9d, 44(%rsp)
+	movq	%r8, 56(%rsp)
+	movq	%rdx, 48(%rsp)
+	movq	%rcx, 96(%rsp)
+	addl	20(%rcx), %r9d
+	movl	16(%rcx), %eax
+	leal	(%rax,%rax,2), %eax
+	movl	%eax, %ecx
+	sarl	$31, %ecx
+	shrl	$30, %ecx
+	addl	%eax, %ecx
+	sarl	$2, %ecx
+	cmpl	%ecx, %r9d
+	jg	.LBB56_4
+# %bb.1:
+	movl	$0, 40(%rsp)
+	leaq	64(%rsp), %rdi
+	.p2align	4, 0x90
+.LBB56_2:                               # =>This Inner Loop Header: Depth=1
+	movl	40(%rsp), %eax
+	cmpl	44(%rsp), %eax
+	jge	.LBB56_4
+# %bb.3:                                #   in Loop: Header=BB56_2 Depth=1
+	movq	56(%rsp), %rax
+	movslq	40(%rsp), %rcx
+	movq	(%rax,%rcx,8), %rax
+	movq	%rax, 64(%rsp)
+	movq	48(%rsp), %rax
+	movq	%rax, 72(%rsp)
+	movq	$0, 80(%rsp)
+	movl	$2139095039, 88(%rsp)   # imm = 0x7F7FFFFF
+	movq	%rsi, %rcx
+	movq	%rdi, %rdx
+	callq	"?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z"
+	addl	$1, 40(%rsp)
+	jmp	.LBB56_2
+.LBB56_4:
+	addq	$104, %rsp
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z" # -- Begin function ?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z
+	.p2align	4, 0x90
+"?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z": # @"?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z"
+.seh_proc "?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$96, %rsp
+	.seh_stackalloc 96
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%r9, 72(%rsp)
+	movq	%r8, 80(%rsp)
+	movq	%rdx, 64(%rsp)
+	movq	%rcx, 88(%rsp)
+	callq	"?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z"
+	movq	%rax, 48(%rsp)
+	testq	%rax, %rax
+	je	.LBB57_7
+# %bb.1:
+	movq	48(%rsp), %rax
+	movss	24(%rax), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	ucomiss	__real@7f7fffff(%rip), %xmm0
+	jne	.LBB57_3
+	jp	.LBB57_3
+# %bb.2:
+	addl	$1, (%rsi)
+	movl	$1, 44(%rsp)
+	jmp	.LBB57_8
+.LBB57_7:
+	addl	$1, 4(%rsi)
+	movl	$3, 44(%rsp)
+	jmp	.LBB57_8
+.LBB57_3:
+	movq	72(%rsp), %rcx
+	callq	"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	movq	72(%rsp), %rcx
+	leaq	64(%rsp), %rdx
+	callq	"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+	movq	144(%rsp), %rax
+	movl	$0, (%rax)
+	.p2align	4, 0x90
+.LBB57_4:                               # =>This Inner Loop Header: Depth=1
+	movq	64(%rsp), %rax
+	cmpq	80(%rsp), %rax
+	je	.LBB57_6
+# %bb.5:                                #   in Loop: Header=BB57_4 Depth=1
+	movq	48(%rsp), %rax
+	movq	144(%rsp), %rcx
+	movss	(%rcx), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	addss	24(%rax), %xmm0
+	movss	%xmm0, (%rcx)
+	movq	72(%rsp), %rcx
+	movq	48(%rsp), %rdx
+	addq	$16, %rdx
+	callq	"?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+	movq	48(%rsp), %rax
+	movq	16(%rax), %rdx
+	movq	%rdx, 64(%rsp)
+	movq	80(%rsp), %r8
+	movq	%rsi, %rcx
+	callq	"?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z"
+	movq	%rax, 48(%rsp)
+	jmp	.LBB57_4
+.LBB57_6:
+	addl	$1, (%rsi)
+	movl	$0, 44(%rsp)
+.LBB57_8:
+	movl	$1, 60(%rsp)
+	movl	44(%rsp), %eax
+	addq	$96, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.globl	"?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z" # -- Begin function ?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z
+	.p2align	4, 0x90
+"?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z": # @"?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z"
+.seh_proc "?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	subq	$104, %rsp
+	.seh_stackalloc 104
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%r8, 96(%rsp)
+	movq	%rdx, 88(%rsp)
+	movq	%rcx, 80(%rsp)
+	movq	%rdx, 48(%rsp)
+	movq	%r8, 56(%rsp)
+	movq	$0, 64(%rsp)
+	movl	$0, 72(%rsp)
+	leaq	48(%rsp), %rdi
+	movq	%rdi, %rcx
+	callq	"?Hash@Item@PathCache@micropather@@QEBAIXZ"
+	xorl	%edx, %edx
+	divl	16(%rsi)
+	movl	%edx, 32(%rsp)
+	.p2align	4, 0x90
+.LBB58_1:                               # =>This Inner Loop Header: Depth=1
+	movl	32(%rsp), %ecx
+	shlq	$5, %rcx
+	addq	8(%rsi), %rcx
+	callq	"?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+	testb	%al, %al
+	jne	.LBB58_2
+# %bb.3:                                #   in Loop: Header=BB58_1 Depth=1
+	movl	32(%rsp), %ecx
+	shlq	$5, %rcx
+	addq	8(%rsi), %rcx
+	movq	%rdi, %rdx
+	callq	"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+	testb	%al, %al
+	jne	.LBB58_4
+# %bb.6:                                #   in Loop: Header=BB58_1 Depth=1
+	movl	32(%rsp), %eax
+	addl	$1, %eax
+	movl	%eax, 32(%rsp)
+	cmpl	16(%rsi), %eax
+	jne	.LBB58_1
+# %bb.7:                                #   in Loop: Header=BB58_1 Depth=1
+	movl	$0, 32(%rsp)
+	jmp	.LBB58_1
+.LBB58_2:
+	movq	$0, 40(%rsp)
+	jmp	.LBB58_5
+.LBB58_4:
+	movl	32(%rsp), %eax
+	shlq	$5, %rax
+	addq	8(%rsi), %rax
+	movq	%rax, 40(%rsp)
+.LBB58_5:
+	movl	$1, 36(%rsp)
+	movq	40(%rsp), %rax
+	addq	$104, %rsp
+	popq	%rdi
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Hash@Item@PathCache@micropather@@QEBAIXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?Hash@Item@PathCache@micropather@@QEBAIXZ"
+	.globl	"?Hash@Item@PathCache@micropather@@QEBAIXZ" # -- Begin function ?Hash@Item@PathCache@micropather@@QEBAIXZ
+	.p2align	4, 0x90
+"?Hash@Item@PathCache@micropather@@QEBAIXZ": # @"?Hash@Item@PathCache@micropather@@QEBAIXZ"
+.seh_proc "?Hash@Item@PathCache@micropather@@QEBAIXZ"
+# %bb.0:
+	subq	$24, %rsp
+	.seh_stackalloc 24
+	.seh_endprologue
+	movq	%rcx, 16(%rsp)
+	movq	%rcx, 8(%rsp)
+	movl	$-2128831035, (%rsp)    # imm = 0x811C9DC5
+	movl	$0, 4(%rsp)
+	cmpl	$16, 4(%rsp)
+	jae	.LBB59_2
+	.p2align	4, 0x90
+.LBB59_3:                               # =>This Inner Loop Header: Depth=1
+	movq	8(%rsp), %rax
+	movzbl	(%rax), %ecx
+	xorl	(%rsp), %ecx
+	addl	$1, 4(%rsp)
+	imull	$16777619, %ecx, %ecx   # imm = 0x1000193
+	movl	%ecx, (%rsp)
+	addq	$1, %rax
+	movq	%rax, 8(%rsp)
+	cmpl	$16, 4(%rsp)
+	jb	.LBB59_3
+.LBB59_2:
+	movl	(%rsp), %eax
+	addq	$24, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?Hash@Item@PathCache@micropather@@QEBAIXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Empty@Item@PathCache@micropather@@QEBA_NXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+	.globl	"?Empty@Item@PathCache@micropather@@QEBA_NXZ" # -- Begin function ?Empty@Item@PathCache@micropather@@QEBA_NXZ
+	.p2align	4, 0x90
+"?Empty@Item@PathCache@micropather@@QEBA_NXZ": # @"?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+.seh_proc "?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	cmpq	$0, (%rcx)
+	je	.LBB60_2
+# %bb.1:
+	xorl	%eax, %eax
+	jmp	.LBB60_3
+.LBB60_2:
+	cmpq	$0, 8(%rcx)
+	sete	%al
+.LBB60_3:
+                                        # kill: def $al killed $al killed $eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+	.globl	"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z" # -- Begin function ?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z
+	.p2align	4, 0x90
+"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z": # @"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+.seh_proc "?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movq	%rdx, (%rsp)
+	movq	%rcx, 8(%rsp)
+	movq	(%rcx), %rax
+	cmpq	(%rdx), %rax
+	je	.LBB61_2
+# %bb.1:
+	xorl	%eax, %eax
+	jmp	.LBB61_3
+.LBB61_2:
+	movq	8(%rcx), %rax
+	movq	(%rsp), %rcx
+	cmpq	8(%rcx), %rax
+	sete	%al
+.LBB61_3:
+                                        # kill: def $al killed $al killed $eax
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?GetCacheData@MicroPather@micropather@@QEAAXPEAUCacheData@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?GetCacheData@MicroPather@micropather@@QEAAXPEAUCacheData@2@@Z" # -- Begin function ?GetCacheData@MicroPather@micropather@@QEAAXPEAUCacheData@2@@Z
+	.p2align	4, 0x90
+"?GetCacheData@MicroPather@micropather@@QEAAXPEAUCacheData@2@@Z": # @"?GetCacheData@MicroPather@micropather@@QEAAXPEAUCacheData@2@@Z"
+.seh_proc "?GetCacheData@MicroPather@micropather@@QEAAXPEAUCacheData@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rdx, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rdx)
+	movq	$0, 16(%rdx)
+	cmpq	$0, 216(%rcx)
+	je	.LBB62_4
+# %bb.1:
+	movq	%rcx, %rsi
+	movq	216(%rcx), %rcx
+	callq	"?AllocatedBytes@PathCache@micropather@@QEBAHXZ"
+	movq	32(%rsp), %rcx
+	movl	%eax, (%rcx)
+	movq	216(%rsi), %rcx
+	callq	"?UsedBytes@PathCache@micropather@@QEBAHXZ"
+	movq	32(%rsp), %rcx
+	movl	%eax, 4(%rcx)
+	movq	32(%rsp), %rax
+	xorps	%xmm0, %xmm0
+	cvtsi2sdl	4(%rax), %xmm0
+	cvtsi2sdl	(%rax), %xmm1
+	divsd	%xmm1, %xmm0
+	cvtsd2ss	%xmm0, %xmm0
+	movss	%xmm0, 8(%rax)
+	movq	216(%rsi), %rax
+	movl	(%rax), %eax
+	movq	32(%rsp), %rcx
+	movl	%eax, 12(%rcx)
+	movq	216(%rsi), %rax
+	movl	4(%rax), %eax
+	movq	32(%rsp), %rcx
+	movl	%eax, 16(%rcx)
+	movq	32(%rsp), %rax
+	movl	12(%rax), %ecx
+	addl	16(%rax), %ecx
+	je	.LBB62_3
+# %bb.2:
+	movq	32(%rsp), %rax
+	movl	12(%rax), %ecx
+	xorps	%xmm0, %xmm0
+	cvtsi2sd	%ecx, %xmm0
+	addl	16(%rax), %ecx
+	xorps	%xmm1, %xmm1
+	cvtsi2sd	%ecx, %xmm1
+	divsd	%xmm1, %xmm0
+	cvtsd2ss	%xmm0, %xmm0
+	movss	%xmm0, 20(%rax)
+	jmp	.LBB62_4
+.LBB62_3:
+	movq	32(%rsp), %rax
+	movl	$0, 20(%rax)
+.LBB62_4:
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.text
+	.seh_endproc
+                                        # -- End function
+	.def	 "?AllocatedBytes@PathCache@micropather@@QEBAHXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?AllocatedBytes@PathCache@micropather@@QEBAHXZ"
+	.globl	"?AllocatedBytes@PathCache@micropather@@QEBAHXZ" # -- Begin function ?AllocatedBytes@PathCache@micropather@@QEBAHXZ
+	.p2align	4, 0x90
+"?AllocatedBytes@PathCache@micropather@@QEBAHXZ": # @"?AllocatedBytes@PathCache@micropather@@QEBAHXZ"
+.seh_proc "?AllocatedBytes@PathCache@micropather@@QEBAHXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	16(%rcx), %eax
+	shll	$5, %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?AllocatedBytes@PathCache@micropather@@QEBAHXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?UsedBytes@PathCache@micropather@@QEBAHXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?UsedBytes@PathCache@micropather@@QEBAHXZ"
+	.globl	"?UsedBytes@PathCache@micropather@@QEBAHXZ" # -- Begin function ?UsedBytes@PathCache@micropather@@QEBAHXZ
+	.p2align	4, 0x90
+"?UsedBytes@PathCache@micropather@@QEBAHXZ": # @"?UsedBytes@PathCache@micropather@@QEBAHXZ"
+.seh_proc "?UsedBytes@PathCache@micropather@@QEBAHXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	20(%rcx), %eax
+	shll	$5, %eax
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?UsedBytes@PathCache@micropather@@QEBAHXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z" # -- Begin function ?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z
+	.p2align	4, 0x90
+"?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z": # @"?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z"
+.Lfunc_begin2:
+.seh_proc "?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z"
+	.seh_handler __CxxFrameHandler3, @unwind, @except
+# %bb.0:
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$320, %rsp              # imm = 0x140
+	.seh_stackalloc 320
+	leaq	128(%rsp), %rbp
+	.seh_setframe 5, 128
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movq	$-2, 152(%rbp)
+	movq	%rcx, %rsi
+	movq	%r9, 72(%rbp)
+	movq	%r8, 112(%rbp)
+	movq	%rdx, 96(%rbp)
+	movq	%rcx, 40(%rbp)
+	movq	%r9, %rcx
+	callq	"?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	movq	272(%rbp), %rax
+	movl	$0, (%rax)
+	movq	96(%rbp), %rax
+	cmpq	112(%rbp), %rax
+	je	.LBB65_1
+# %bb.2:
+	cmpq	$0, 216(%rsi)
+	je	.LBB65_8
+# %bb.3:
+	movq	216(%rsi), %rcx
+	movq	272(%rbp), %rax
+	movq	72(%rbp), %r9
+	movq	112(%rbp), %r8
+	movq	96(%rbp), %rdx
+	movq	%rax, 32(%rsp)
+	callq	"?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z"
+	movl	%eax, -72(%rbp)
+	testl	%eax, %eax
+	je	.LBB65_5
+# %bb.4:
+	cmpl	$1, -72(%rbp)
+	jne	.LBB65_6
+.LBB65_5:
+	movl	-72(%rbp), %eax
+	movl	%eax, 132(%rbp)
+	movl	$1, 140(%rbp)
+	cmpl	$1, 140(%rbp)
+	jne	.LBB65_8
+	jmp	.LBB65_50
+.LBB65_1:
+	movl	$2, 132(%rbp)
+	jmp	.LBB65_50
+.LBB65_6:
+	movl	$0, 140(%rbp)
+	cmpl	$1, 140(%rbp)
+	je	.LBB65_50
+.LBB65_8:
+	addl	$1, 208(%rsi)
+	movq	200(%rsi), %rdx
+	leaq	-72(%rbp), %rcx
+	callq	"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z"
+	movq	200(%rsi), %rdx
+	leaq	88(%rbp), %rcx
+	callq	"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z"
+	movq	200(%rsi), %rcx
+	movq	112(%rbp), %r8
+	movq	96(%rbp), %rdx
+	movq	(%rcx), %rax
+.Ltmp12:
+	callq	*8(%rax)
+.Ltmp13:
+# %bb.9:
+	movq	96(%rbp), %r8
+	movl	208(%rsi), %edx
+.Ltmp14:
+	movss	%xmm0, 32(%rsp)
+	movq	$0, 40(%rsp)
+	xorps	%xmm3, %xmm3
+	movq	%rsi, %rcx
+	callq	"?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z"
+.Ltmp15:
+# %bb.10:
+	movq	%rax, 48(%rbp)
+.Ltmp16:
+	leaq	-72(%rbp), %rcx
+	movq	%rax, %rdx
+	callq	"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.Ltmp17:
+# %bb.11:
+	leaq	152(%rsi), %rcx
+.Ltmp18:
+	xorl	%edx, %edx
+	callq	"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+.Ltmp19:
+# %bb.12:
+	movq	%rsi, %rdi
+	addq	$168, %rdi
+.Ltmp20:
+	movq	%rdi, %rcx
+	xorl	%edx, %edx
+	callq	"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+.Ltmp21:
+# %bb.13:
+	leaq	-72(%rbp), %rbx
+	leaq	88(%rbp), %r14
+	movss	__real@7f7fffff(%rip), %xmm6 # xmm6 = mem[0],zero,zero,zero
+	jmp	.LBB65_14
+	.p2align	4, 0x90
+.LBB65_22:                              #   in Loop: Header=BB65_14 Depth=1
+	movl	$4, 140(%rbp)
+	movl	$0, 140(%rbp)
+.LBB65_23:                              #   in Loop: Header=BB65_14 Depth=1
+	cmpl	$0, 140(%rbp)
+	jne	.LBB65_49
+.LBB65_14:                              # =>This Loop Header: Depth=1
+                                        #     Child Loop BB65_21 Depth 2
+	movq	%rbx, %rcx
+	callq	"?Empty@OpenQueue@@QEAA_NXZ"
+	testb	%al, %al
+	jne	.LBB65_46
+# %bb.15:                               #   in Loop: Header=BB65_14 Depth=1
+.Ltmp24:
+	movq	%rbx, %rcx
+	callq	"?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ"
+.Ltmp25:
+# %bb.16:                               #   in Loop: Header=BB65_14 Depth=1
+	movq	%rax, 120(%rbp)
+	movq	(%rax), %rax
+	cmpq	112(%rbp), %rax
+	je	.LBB65_17
+# %bb.19:                               #   in Loop: Header=BB65_14 Depth=1
+	movq	120(%rbp), %rdx
+	movq	%r14, %rcx
+	callq	"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+	movq	120(%rbp), %rdx
+.Ltmp26:
+	movq	%rsi, %rcx
+	movq	%rdi, %r8
+	callq	"?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z"
+.Ltmp27:
+# %bb.20:                               #   in Loop: Header=BB65_14 Depth=1
+	movl	$0, 136(%rbp)
+	jmp	.LBB65_21
+	.p2align	4, 0x90
+.LBB65_38:                              #   in Loop: Header=BB65_21 Depth=2
+	addl	$1, 136(%rbp)
+.LBB65_21:                              #   Parent Loop BB65_14 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	movl	136(%rbp), %eax
+	movq	120(%rbp), %rcx
+	cmpl	36(%rcx), %eax
+	jge	.LBB65_22
+# %bb.24:                               #   in Loop: Header=BB65_21 Depth=2
+	movl	136(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movss	8(%rax), %xmm0          # xmm0 = mem[0],zero,zero,zero
+	ucomiss	%xmm6, %xmm0
+	jne	.LBB65_25
+	jnp	.LBB65_38
+.LBB65_25:                              #   in Loop: Header=BB65_21 Depth=2
+	movl	136(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	movq	%rax, 144(%rbp)
+	movq	120(%rbp), %rax
+	movss	8(%rax), %xmm7          # xmm7 = mem[0],zero,zero,zero
+	movl	136(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	addss	8(%rax), %xmm7
+	movss	%xmm7, 108(%rbp)
+	movq	144(%rbp), %rax
+	cmpb	$1, 80(%rax)
+	jne	.LBB65_26
+# %bb.27:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	144(%rbp), %rax
+	jmp	.LBB65_28
+.LBB65_26:                              #   in Loop: Header=BB65_21 Depth=2
+	xorl	%eax, %eax
+.LBB65_28:                              #   in Loop: Header=BB65_21 Depth=2
+	movq	%rax, 80(%rbp)
+	movq	144(%rbp), %rax
+	cmpb	$1, 81(%rax)
+	jne	.LBB65_29
+# %bb.30:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	144(%rbp), %rax
+	jmp	.LBB65_31
+.LBB65_29:                              #   in Loop: Header=BB65_21 Depth=2
+	xorl	%eax, %eax
+.LBB65_31:                              #   in Loop: Header=BB65_21 Depth=2
+	movq	%rax, 56(%rbp)
+	orq	80(%rbp), %rax
+	movq	%rax, 64(%rbp)
+	je	.LBB65_36
+# %bb.32:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	144(%rbp), %rax
+	movss	8(%rax), %xmm0          # xmm0 = mem[0],zero,zero,zero
+	ucomiss	108(%rbp), %xmm0
+	jbe	.LBB65_38
+# %bb.33:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	120(%rbp), %rax
+	movq	144(%rbp), %rcx
+	movq	%rax, 24(%rcx)
+	movss	108(%rbp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	movq	144(%rbp), %rax
+	movss	%xmm0, 8(%rax)
+	movq	200(%rsi), %rcx
+	movq	112(%rbp), %r8
+	movq	144(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	(%rcx), %rax
+.Ltmp32:
+	callq	*8(%rax)
+.Ltmp33:
+# %bb.34:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	144(%rbp), %rax
+	movss	%xmm0, 12(%rax)
+	movq	144(%rbp), %rcx
+	callq	"?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+	cmpq	$0, 80(%rbp)
+	je	.LBB65_38
+# %bb.35:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	144(%rbp), %rdx
+.Ltmp34:
+	movq	%rbx, %rcx
+	callq	"?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.Ltmp35:
+	jmp	.LBB65_38
+.LBB65_36:                              #   in Loop: Header=BB65_21 Depth=2
+	movq	120(%rbp), %rax
+	movq	144(%rbp), %rcx
+	movq	%rax, 24(%rcx)
+	movss	108(%rbp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	movq	144(%rbp), %rax
+	movss	%xmm0, 8(%rax)
+	movq	200(%rsi), %rcx
+	movq	112(%rbp), %r8
+	movq	144(%rbp), %rax
+	movq	(%rax), %rdx
+	movq	(%rcx), %rax
+.Ltmp28:
+	callq	*8(%rax)
+.Ltmp29:
+# %bb.37:                               #   in Loop: Header=BB65_21 Depth=2
+	movq	144(%rbp), %rax
+	movss	%xmm0, 12(%rax)
+	movq	144(%rbp), %rcx
+	callq	"?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+	movq	144(%rbp), %rdx
+.Ltmp30:
+	movq	%rbx, %rcx
+	callq	"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.Ltmp31:
+	jmp	.LBB65_38
+	.p2align	4, 0x90
+.LBB65_17:                              #   in Loop: Header=BB65_14 Depth=1
+	movq	72(%rbp), %rax
+	movq	112(%rbp), %r9
+	movq	96(%rbp), %r8
+	movq	120(%rbp), %rdx
+.Ltmp36:
+	movq	%rax, 32(%rsp)
+	movq	%rsi, %rcx
+	callq	"?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z"
+.Ltmp37:
+# %bb.18:                               #   in Loop: Header=BB65_14 Depth=1
+	movq	120(%rbp), %rax
+	movss	8(%rax), %xmm0          # xmm0 = mem[0],zero,zero,zero
+	movq	272(%rbp), %rax
+	movss	%xmm0, (%rax)
+	movl	$0, 132(%rbp)
+	movl	$1, 140(%rbp)
+	jmp	.LBB65_23
+.LBB65_46:
+	cmpq	$0, 216(%rsi)
+	je	.LBB65_48
+# %bb.47:
+	movq	216(%rsi), %rcx
+	movq	112(%rbp), %rdx
+.Ltmp22:
+	leaq	96(%rbp), %r8
+	movl	$1, %r9d
+	callq	"?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z"
+.Ltmp23:
+.LBB65_48:
+	movl	$1, 132(%rbp)
+	movl	$1, 140(%rbp)
+.LBB65_49:
+	leaq	88(%rbp), %rcx
+	callq	"??1ClosedSet@@QEAA@XZ"
+	leaq	-72(%rbp), %rcx
+	callq	"??1OpenQueue@@QEAA@XZ"
+.LBB65_50:
+	movl	132(%rbp), %eax
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$320, %rsp              # imm = 0x140
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq
+	.seh_handlerdata
+	.long	("$cppxdata$?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z")@IMGREL
+	.text
+	.seh_endproc
+	.def	 "?dtor$39@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$39@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$39@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_39:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$40@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$40@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$40@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_40:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$41@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$41@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$41@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_41:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$42@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$42@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$42@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_42:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$43@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$43@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$43@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_43:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$44@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$44@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$44@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_44:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$45@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$45@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$45@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_45:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$51@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$51@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$51@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_51:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$52@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$52@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$52@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_52:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	leaq	88(%rbp), %rcx
+	callq	"??1ClosedSet@@QEAA@XZ"
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$53@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$53@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$53@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_53:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$54@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$54@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$54@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_54:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	leaq	-72(%rbp), %rcx
+	callq	"??1OpenQueue@@QEAA@XZ"
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$55@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$55@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA":
+.seh_proc "?dtor$55@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"
+.LBB65_55:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	leaq	128(%rdx), %rbp
+	movaps	%xmm7, 176(%rbp)        # 16-byte Spill
+	.seh_savexmm 7, 304
+	movaps	%xmm6, 160(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 288
+	.seh_endprologue
+	movaps	160(%rbp), %xmm6        # 16-byte Reload
+	movaps	176(%rbp), %xmm7        # 16-byte Reload
+	addq	$48, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%rbp
+	retq                            # CLEANUPRET
+.Lfunc_end2:
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.section	.xdata,"dr"
+	.p2align	2
+"$cppxdata$?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z":
+	.long	429065506               # MagicNumber
+	.long	12                      # MaxState
+	.long	("$stateUnwindMap$?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z")@IMGREL # UnwindMap
+	.long	0                       # NumTryBlocks
+	.long	0                       # TryBlockMap
+	.long	7                       # IPMapEntries
+	.long	("$ip2state$?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z")@IMGREL # IPToStateXData
+	.long	280                     # UnwindHelp
+	.long	0                       # ESTypeList
+	.long	1                       # EHFlags
+"$stateUnwindMap$?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z":
+	.long	-1                      # ToState
+	.long	"?dtor$55@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	0                       # ToState
+	.long	"?dtor$54@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	1                       # ToState
+	.long	"?dtor$53@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	2                       # ToState
+	.long	"?dtor$52@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	3                       # ToState
+	.long	"?dtor$51@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	4                       # ToState
+	.long	"?dtor$45@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	5                       # ToState
+	.long	"?dtor$44@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	6                       # ToState
+	.long	"?dtor$43@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	7                       # ToState
+	.long	"?dtor$42@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	8                       # ToState
+	.long	"?dtor$41@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	9                       # ToState
+	.long	"?dtor$40@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+	.long	10                      # ToState
+	.long	"?dtor$39@?0??Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z@4HA"@IMGREL # Action
+"$ip2state$?Solve@MicroPather@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z":
+	.long	.Lfunc_begin2@IMGREL    # IP
+	.long	-1                      # ToState
+	.long	.Ltmp12@IMGREL+1        # IP
+	.long	4                       # ToState
+	.long	.Ltmp24@IMGREL+1        # IP
+	.long	5                       # ToState
+	.long	.Ltmp32@IMGREL+1        # IP
+	.long	11                      # ToState
+	.long	.Ltmp36@IMGREL+1        # IP
+	.long	5                       # ToState
+	.long	.Ltmp22@IMGREL+1        # IP
+	.long	4                       # ToState
+	.long	.Ltmp23@IMGREL+1        # IP
+	.long	-1                      # ToState
+	.text
+                                        # -- End function
+	.def	 "??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z"
+	.globl	"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z" # -- Begin function ??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z
+	.p2align	4, 0x90
+"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z": # @"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z"
+.seh_proc "??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 40(%rsp)
+	movq	%rcx, 32(%rsp)
+	movq	%rdx, 104(%rcx)
+	addq	$8, %rcx
+	movq	%rcx, (%rsi)
+	callq	"?InitSentinel@PathNode@micropather@@QEAAXXZ"
+	movq	%rsi, %rax
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z"
+	.globl	"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z" # -- Begin function ??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z
+	.p2align	4, 0x90
+"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z": # @"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z"
+.seh_proc "??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movq	%rcx, %rax
+	movq	%rdx, 8(%rsp)
+	movq	%rcx, (%rsp)
+	movq	%rdx, (%rcx)
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Empty@OpenQueue@@QEAA_NXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?Empty@OpenQueue@@QEAA_NXZ"
+	.globl	"?Empty@OpenQueue@@QEAA_NXZ" # -- Begin function ?Empty@OpenQueue@@QEAA_NXZ
+	.p2align	4, 0x90
+"?Empty@OpenQueue@@QEAA_NXZ":           # @"?Empty@OpenQueue@@QEAA_NXZ"
+.seh_proc "?Empty@OpenQueue@@QEAA_NXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movq	(%rcx), %rax
+	cmpq	%rax, 64(%rax)
+	sete	%al
+	popq	%rcx
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?Empty@OpenQueue@@QEAA_NXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+	.globl	"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z" # -- Begin function ?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z
+	.p2align	4, 0x90
+"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z": # @"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+.seh_proc "?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+# %bb.0:
+	subq	$16, %rsp
+	.seh_stackalloc 16
+	.seh_endprologue
+	movq	%rdx, 8(%rsp)
+	movq	%rcx, (%rsp)
+	movb	$1, 81(%rdx)
+	addq	$16, %rsp
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1ClosedSet@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??1ClosedSet@@QEAA@XZ"
+	.globl	"??1ClosedSet@@QEAA@XZ" # -- Begin function ??1ClosedSet@@QEAA@XZ
+	.p2align	4, 0x90
+"??1ClosedSet@@QEAA@XZ":                # @"??1ClosedSet@@QEAA@XZ"
+.seh_proc "??1ClosedSet@@QEAA@XZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??1ClosedSet@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "??1OpenQueue@@QEAA@XZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"??1OpenQueue@@QEAA@XZ"
+	.globl	"??1OpenQueue@@QEAA@XZ" # -- Begin function ??1OpenQueue@@QEAA@XZ
+	.p2align	4, 0x90
+"??1OpenQueue@@QEAA@XZ":                # @"??1OpenQueue@@QEAA@XZ"
+.seh_proc "??1OpenQueue@@QEAA@XZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"??1OpenQueue@@QEAA@XZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.text
+	.globl	"?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z" # -- Begin function ?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z
+	.p2align	4, 0x90
+"?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z": # @"?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z"
+.Lfunc_begin3:
+.seh_proc "?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z"
+	.seh_handler __CxxFrameHandler3, @unwind, @except
+# %bb.0:
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$392, %rsp              # imm = 0x188
+	.seh_stackalloc 392
+	leaq	128(%rsp), %rbp
+	.seh_setframe 5, 128
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movq	$-2, 232(%rbp)
+	movq	%rcx, %r14
+	movss	%xmm3, 208(%rbp)
+	movq	%r8, 160(%rbp)
+	movq	%rdx, 144(%rbp)
+	movq	%rcx, 128(%rbp)
+	addl	$1, 208(%rcx)
+	movq	200(%rcx), %rdx
+	leaq	-72(%rbp), %rcx
+	callq	"??0OpenQueue@@QEAA@PEAVGraph@micropather@@@Z"
+	movq	200(%r14), %rdx
+	leaq	176(%rbp), %rcx
+	callq	"??0ClosedSet@@QEAA@PEAVGraph@micropather@@@Z"
+	leaq	168(%r14), %rdi
+.Ltmp38:
+	movq	%rdi, %rcx
+	xorl	%edx, %edx
+	callq	"?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+.Ltmp39:
+# %bb.1:
+	leaq	152(%r14), %rcx
+.Ltmp40:
+	xorl	%edx, %edx
+	callq	"?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+.Ltmp41:
+# %bb.2:
+	leaq	40(%rbp), %rsi
+	movq	%rsi, %rcx
+	callq	"?Clear@PathNode@micropather@@QEAAXXZ"
+	movl	208(%r14), %edx
+.Ltmp42:
+	movq	$0, 40(%rsp)
+	movl	$2139095039, 32(%rsp)   # imm = 0x7F7FFFFF
+	movss	__real@7f7fffff(%rip), %xmm3 # xmm3 = mem[0],zero,zero,zero
+	movq	%rsi, %rcx
+	xorl	%r8d, %r8d
+	callq	"?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+.Ltmp43:
+# %bb.3:
+	movq	%rsi, 112(%rbp)
+	movq	%rsi, 104(%rbp)
+	movq	144(%rbp), %r8
+	movl	208(%r14), %edx
+.Ltmp44:
+	movq	$0, 40(%rsp)
+	movl	$0, 32(%rsp)
+	xorps	%xmm3, %xmm3
+	movq	%r14, %rcx
+	callq	"?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z"
+.Ltmp45:
+# %bb.4:
+	movq	%rax, 136(%rbp)
+.Ltmp46:
+	leaq	-72(%rbp), %rcx
+	movq	%rax, %rdx
+	callq	"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.Ltmp47:
+# %bb.5:
+	leaq	-72(%rbp), %rsi
+	leaq	176(%rbp), %r15
+	leaq	40(%rbp), %rbx
+	jmp	.LBB72_6
+	.p2align	4, 0x90
+.LBB72_9:                               #   in Loop: Header=BB72_6 Depth=1
+	movl	$2, 224(%rbp)
+.LBB72_6:                               # =>This Loop Header: Depth=1
+                                        #     Child Loop BB72_12 Depth 2
+	movq	%rsi, %rcx
+	callq	"?Empty@OpenQueue@@QEAA_NXZ"
+	testb	%al, %al
+	jne	.LBB72_38
+# %bb.7:                                #   in Loop: Header=BB72_6 Depth=1
+.Ltmp50:
+	movq	%rsi, %rcx
+	callq	"?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ"
+.Ltmp51:
+# %bb.8:                                #   in Loop: Header=BB72_6 Depth=1
+	movq	%rax, 192(%rbp)
+	movq	%r15, %rcx
+	movq	%rax, %rdx
+	callq	"?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+	movq	192(%rbp), %rdx
+	movq	%rbx, %rcx
+	callq	"?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	movq	192(%rbp), %rax
+	movss	16(%rax), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	ucomiss	208(%rbp), %xmm0
+	ja	.LBB72_9
+# %bb.10:                               #   in Loop: Header=BB72_6 Depth=1
+	movq	192(%rbp), %rdx
+.Ltmp52:
+	movq	%r14, %rcx
+	movq	%rdi, %r8
+	callq	"?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z"
+.Ltmp53:
+# %bb.11:                               #   in Loop: Header=BB72_6 Depth=1
+	movl	$0, 228(%rbp)
+	jmp	.LBB72_12
+	.p2align	4, 0x90
+.LBB72_25:                              #   in Loop: Header=BB72_12 Depth=2
+	movl	$6, 224(%rbp)
+	addl	$1, 228(%rbp)
+.LBB72_12:                              #   Parent Loop BB72_6 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	movl	228(%rbp), %eax
+	movq	192(%rbp), %rcx
+	cmpl	36(%rcx), %eax
+	jge	.LBB72_13
+# %bb.14:                               #   in Loop: Header=BB72_12 Depth=2
+	movq	192(%rbp), %rax
+	movss	8(%rax), %xmm6          # xmm6 = mem[0],zero,zero,zero
+	movl	228(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	addss	8(%rax), %xmm6
+	movss	%xmm6, 212(%rbp)
+	movl	228(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	cmpb	$1, 80(%rax)
+	jne	.LBB72_15
+# %bb.16:                               #   in Loop: Header=BB72_12 Depth=2
+	movl	228(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	jmp	.LBB72_17
+	.p2align	4, 0x90
+.LBB72_15:                              #   in Loop: Header=BB72_12 Depth=2
+	xorl	%eax, %eax
+.LBB72_17:                              #   in Loop: Header=BB72_12 Depth=2
+	movq	%rax, 216(%rbp)
+	movl	228(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	cmpb	$1, 81(%rax)
+	jne	.LBB72_18
+# %bb.19:                               #   in Loop: Header=BB72_12 Depth=2
+	movl	228(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	jmp	.LBB72_20
+	.p2align	4, 0x90
+.LBB72_18:                              #   in Loop: Header=BB72_12 Depth=2
+	xorl	%eax, %eax
+.LBB72_20:                              #   in Loop: Header=BB72_12 Depth=2
+	movq	%rax, 168(%rbp)
+	cmpq	$0, 216(%rbp)
+	je	.LBB72_22
+# %bb.21:                               #   in Loop: Header=BB72_12 Depth=2
+	movq	216(%rbp), %rax
+	jmp	.LBB72_23
+	.p2align	4, 0x90
+.LBB72_22:                              #   in Loop: Header=BB72_12 Depth=2
+	movq	168(%rbp), %rax
+.LBB72_23:                              #   in Loop: Header=BB72_12 Depth=2
+	movq	%rax, 152(%rbp)
+	testq	%rax, %rax
+	je	.LBB72_26
+# %bb.24:                               #   in Loop: Header=BB72_12 Depth=2
+	movq	152(%rbp), %rax
+	movss	212(%rbp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	ucomiss	8(%rax), %xmm0
+	jae	.LBB72_25
+.LBB72_26:                              #   in Loop: Header=BB72_12 Depth=2
+	movl	228(%rbp), %edx
+	movq	%rdi, %rcx
+	callq	"??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	movq	(%rax), %rax
+	movq	%rax, 184(%rbp)
+	movq	192(%rbp), %rcx
+	movq	%rcx, 24(%rax)
+	movss	212(%rbp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	movq	184(%rbp), %rax
+	movss	%xmm0, 8(%rax)
+	movq	184(%rbp), %rax
+	movl	$0, 12(%rax)
+	movq	184(%rbp), %rax
+	movss	8(%rax), %xmm0          # xmm0 = mem[0],zero,zero,zero
+	movss	%xmm0, 16(%rax)
+	cmpq	$0, 216(%rbp)
+	je	.LBB72_28
+# %bb.27:                               #   in Loop: Header=BB72_12 Depth=2
+	movq	216(%rbp), %rdx
+.Ltmp56:
+	movq	%rsi, %rcx
+	callq	"?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.Ltmp57:
+	jmp	.LBB72_30
+	.p2align	4, 0x90
+.LBB72_28:                              #   in Loop: Header=BB72_12 Depth=2
+	cmpq	$0, 168(%rbp)
+	jne	.LBB72_30
+# %bb.29:                               #   in Loop: Header=BB72_12 Depth=2
+	movq	184(%rbp), %rdx
+.Ltmp54:
+	movq	%rsi, %rcx
+	callq	"?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+.Ltmp55:
+	.p2align	4, 0x90
+.LBB72_30:                              #   in Loop: Header=BB72_12 Depth=2
+	movl	$0, 224(%rbp)
+	addl	$1, 228(%rbp)
+	jmp	.LBB72_12
+	.p2align	4, 0x90
+.LBB72_13:                              #   in Loop: Header=BB72_6 Depth=1
+	movl	$4, 224(%rbp)
+	movl	$0, 224(%rbp)
+	jmp	.LBB72_6
+.LBB72_38:
+	movq	160(%rbp), %rcx
+	callq	"?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ"
+	movq	104(%rbp), %rax
+	movq	%rax, 216(%rbp)
+	leaq	192(%rbp), %rsi
+	cmpq	%rbx, 216(%rbp)
+	jne	.LBB72_40
+	jmp	.LBB72_50
+	.p2align	4, 0x90
+.LBB72_42:                              #   in Loop: Header=BB72_40 Depth=1
+	movq	216(%rbp), %rax
+	movq	64(%rax), %rax
+	movq	%rax, 216(%rbp)
+	cmpq	%rbx, 216(%rbp)
+	je	.LBB72_50
+.LBB72_40:                              # =>This Inner Loop Header: Depth=1
+	movq	216(%rbp), %rax
+	movss	208(%rbp), %xmm0        # xmm0 = mem[0],zero,zero,zero
+	ucomiss	16(%rax), %xmm0
+	jb	.LBB72_42
+# %bb.41:                               #   in Loop: Header=BB72_40 Depth=1
+	movq	216(%rbp), %rax
+	movss	16(%rax), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	movss	%xmm0, 200(%rbp)
+	movq	(%rax), %rax
+	movq	%rax, 192(%rbp)
+	movq	160(%rbp), %rcx
+.Ltmp48:
+	movq	%rsi, %rdx
+	callq	"?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z"
+.Ltmp49:
+	jmp	.LBB72_42
+.LBB72_50:
+	movl	$7, 224(%rbp)
+	movl	$1, 224(%rbp)
+	leaq	176(%rbp), %rcx
+	callq	"??1ClosedSet@@QEAA@XZ"
+	leaq	-72(%rbp), %rcx
+	callq	"??1OpenQueue@@QEAA@XZ"
+	xorl	%eax, %eax
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$392, %rsp              # imm = 0x188
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq
+	.seh_handlerdata
+	.long	("$cppxdata$?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z")@IMGREL
+	.text
+	.seh_endproc
+	.def	 "?dtor$31@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$31@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$31@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_31:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$32@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$32@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$32@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_32:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$33@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$33@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$33@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_33:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$34@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$34@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$34@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_34:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$35@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$35@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$35@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_35:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$36@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$36@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$36@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_36:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$37@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$37@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$37@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_37:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$43@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$43@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$43@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_43:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$44@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$44@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$44@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_44:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$45@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$45@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$45@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_45:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$46@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$46@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$46@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_46:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	leaq	176(%rbp), %rcx
+	callq	"??1ClosedSet@@QEAA@XZ"
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$47@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$47@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$47@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_47:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$48@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$48@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$48@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_48:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	leaq	-72(%rbp), %rcx
+	callq	"??1OpenQueue@@QEAA@XZ"
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$49@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$49@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$49@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_49:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.def	 "?dtor$51@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA";
+	.scl	3;
+	.type	32;
+	.endef
+	.p2align	4, 0x90
+"?dtor$51@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA":
+.seh_proc "?dtor$51@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"
+.LBB72_51:
+	movq	%rdx, 16(%rsp)
+	pushq	%rbp
+	.seh_pushreg 5
+	pushq	%r15
+	.seh_pushreg 15
+	pushq	%r14
+	.seh_pushreg 14
+	pushq	%rsi
+	.seh_pushreg 6
+	pushq	%rdi
+	.seh_pushreg 7
+	pushq	%rbx
+	.seh_pushreg 3
+	subq	$56, %rsp
+	.seh_stackalloc 56
+	leaq	128(%rdx), %rbp
+	movaps	%xmm6, 240(%rbp)        # 16-byte Spill
+	.seh_savexmm 6, 368
+	.seh_endprologue
+	movaps	240(%rbp), %xmm6        # 16-byte Reload
+	addq	$56, %rsp
+	popq	%rbx
+	popq	%rdi
+	popq	%rsi
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq                            # CLEANUPRET
+.Lfunc_end3:
+	.seh_handlerdata
+	.text
+	.seh_endproc
+	.section	.xdata,"dr"
+	.p2align	2
+"$cppxdata$?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z":
+	.long	429065506               # MagicNumber
+	.long	15                      # MaxState
+	.long	("$stateUnwindMap$?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z")@IMGREL # UnwindMap
+	.long	0                       # NumTryBlocks
+	.long	0                       # TryBlockMap
+	.long	8                       # IPMapEntries
+	.long	("$ip2state$?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z")@IMGREL # IPToStateXData
+	.long	360                     # UnwindHelp
+	.long	0                       # ESTypeList
+	.long	1                       # EHFlags
+"$stateUnwindMap$?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z":
+	.long	-1                      # ToState
+	.long	"?dtor$49@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	0                       # ToState
+	.long	"?dtor$48@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	1                       # ToState
+	.long	"?dtor$47@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	2                       # ToState
+	.long	"?dtor$46@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	3                       # ToState
+	.long	"?dtor$45@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	4                       # ToState
+	.long	"?dtor$44@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	5                       # ToState
+	.long	"?dtor$43@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	6                       # ToState
+	.long	"?dtor$51@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	5                       # ToState
+	.long	"?dtor$37@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	8                       # ToState
+	.long	"?dtor$36@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	9                       # ToState
+	.long	"?dtor$35@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	10                      # ToState
+	.long	"?dtor$34@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	11                      # ToState
+	.long	"?dtor$33@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	12                      # ToState
+	.long	"?dtor$32@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+	.long	13                      # ToState
+	.long	"?dtor$31@?0??SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z@4HA"@IMGREL # Action
+"$ip2state$?SolveForNearStates@MicroPather@micropather@@QEAAHPEAXPEAV?$MPVector@UStateCost@micropather@@@2@M@Z":
+	.long	.Lfunc_begin3@IMGREL    # IP
+	.long	-1                      # ToState
+	.long	.Ltmp38@IMGREL+1        # IP
+	.long	3                       # ToState
+	.long	.Ltmp42@IMGREL+1        # IP
+	.long	4                       # ToState
+	.long	.Ltmp44@IMGREL+1        # IP
+	.long	5                       # ToState
+	.long	.Ltmp50@IMGREL+1        # IP
+	.long	8                       # ToState
+	.long	.Ltmp56@IMGREL+1        # IP
+	.long	14                      # ToState
+	.long	.Ltmp48@IMGREL+1        # IP
+	.long	7                       # ToState
+	.long	.Ltmp49@IMGREL+1        # IP
+	.long	-1                      # ToState
+	.text
+                                        # -- End function
+	.def	 "?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ"
+	.globl	"?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ" # -- Begin function ?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ
+	.p2align	4, 0x90
+"?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ": # @"?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ"
+.seh_proc "?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ"
+# %bb.0:
+	pushq	%rax
+	.seh_stackalloc 8
+	.seh_endprologue
+	movq	%rcx, (%rsp)
+	movl	$0, 4(%rcx)
+	popq	%rax
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z"
+	.globl	"?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z" # -- Begin function ?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z
+	.p2align	4, 0x90
+"?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z": # @"?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z"
+.seh_proc "?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$48, %rsp
+	.seh_stackalloc 48
+	.seh_endprologue
+	movq	%rcx, %rsi
+	movq	%rdx, 32(%rsp)
+	movq	%rcx, 40(%rsp)
+	movl	4(%rcx), %edx
+	addl	$1, %edx
+	callq	"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+	movq	32(%rsp), %r8
+	movq	8(%rsi), %rcx
+	movl	4(%rsi), %edx
+	leal	1(%rdx), %eax
+	movl	%eax, 4(%rsi)
+	shlq	$4, %rdx
+	movups	(%r8), %xmm0
+	movups	%xmm0, (%rcx,%rdx)
+	addq	$48, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+	.globl	"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z" # -- Begin function ?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z
+	.p2align	4, 0x90
+"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z": # @"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+.seh_proc "?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movl	%edx, 44(%rsp)
+	movq	%rcx, 56(%rsp)
+	cmpl	%edx, (%rcx)
+	jae	.LBB75_4
+# %bb.1:
+	movq	%rcx, %rsi
+	movl	44(%rsp), %eax
+	leal	(%rax,%rax,2), %ecx
+	shrl	%ecx
+	addl	$16, %ecx
+	movl	$8, %edx
+	movq	%rcx, %rax
+	mulq	%rdx
+	movl	%ecx, 40(%rsp)
+	movq	$-1, %rcx
+	cmovnoq	%rax, %rcx
+	callq	"??_U@YAPEAX_K@Z"
+	movq	%rax, 48(%rsp)
+	movq	8(%rsi), %rdx
+	movl	4(%rsi), %r8d
+	shlq	$3, %r8
+	movq	%rax, %rcx
+	callq	memcpy
+	movq	8(%rsi), %rcx
+	testq	%rcx, %rcx
+	je	.LBB75_3
+# %bb.2:
+	callq	"??_V@YAXPEAX@Z"
+.LBB75_3:
+	movq	48(%rsp), %rax
+	movq	%rax, 8(%rsi)
+	movl	40(%rsp), %eax
+	movl	%eax, (%rsi)
+.LBB75_4:
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?capacity@?$MPVector@M@micropather@@AEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?capacity@?$MPVector@M@micropather@@AEAAXI@Z"
+	.globl	"?capacity@?$MPVector@M@micropather@@AEAAXI@Z" # -- Begin function ?capacity@?$MPVector@M@micropather@@AEAAXI@Z
+	.p2align	4, 0x90
+"?capacity@?$MPVector@M@micropather@@AEAAXI@Z": # @"?capacity@?$MPVector@M@micropather@@AEAAXI@Z"
+.seh_proc "?capacity@?$MPVector@M@micropather@@AEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movl	%edx, 44(%rsp)
+	movq	%rcx, 56(%rsp)
+	cmpl	%edx, (%rcx)
+	jae	.LBB76_4
+# %bb.1:
+	movq	%rcx, %rsi
+	movl	44(%rsp), %eax
+	leal	(%rax,%rax,2), %ecx
+	shrl	%ecx
+	addl	$16, %ecx
+	movl	$4, %edx
+	movq	%rcx, %rax
+	mulq	%rdx
+	movl	%ecx, 40(%rsp)
+	movq	$-1, %rcx
+	cmovnoq	%rax, %rcx
+	callq	"??_U@YAPEAX_K@Z"
+	movq	%rax, 48(%rsp)
+	movq	8(%rsi), %rdx
+	movl	4(%rsi), %r8d
+	shlq	$2, %r8
+	movq	%rax, %rcx
+	callq	memcpy
+	movq	8(%rsi), %rcx
+	testq	%rcx, %rcx
+	je	.LBB76_3
+# %bb.2:
+	callq	"??_V@YAXPEAX@Z"
+.LBB76_3:
+	movq	48(%rsp), %rax
+	movq	%rax, 8(%rsi)
+	movl	40(%rsp), %eax
+	movl	%eax, (%rsi)
+.LBB76_4:
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?capacity@?$MPVector@M@micropather@@AEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z"
+	.globl	"?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z" # -- Begin function ?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z
+	.p2align	4, 0x90
+"?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z": # @"?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z"
+.seh_proc "?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movl	%edx, 44(%rsp)
+	movq	%rcx, 56(%rsp)
+	cmpl	%edx, (%rcx)
+	jae	.LBB77_4
+# %bb.1:
+	movq	%rcx, %rsi
+	movl	44(%rsp), %eax
+	leal	(%rax,%rax,2), %ecx
+	shrl	%ecx
+	addl	$16, %ecx
+	movl	$16, %edx
+	movq	%rcx, %rax
+	mulq	%rdx
+	movl	%ecx, 40(%rsp)
+	movq	$-1, %rcx
+	cmovnoq	%rax, %rcx
+	callq	"??_U@YAPEAX_K@Z"
+	movq	%rax, 48(%rsp)
+	movq	8(%rsi), %rdx
+	movl	4(%rsi), %r8d
+	shlq	$4, %r8
+	movq	%rax, %rcx
+	callq	memcpy
+	movq	8(%rsi), %rcx
+	testq	%rcx, %rcx
+	je	.LBB77_3
+# %bb.2:
+	callq	"??_V@YAXPEAX@Z"
+.LBB77_3:
+	movq	48(%rsp), %rax
+	movq	%rax, 8(%rsi)
+	movl	40(%rsp), %eax
+	movl	%eax, (%rsi)
+.LBB77_4:
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.def	 "?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z";
+	.scl	2;
+	.type	32;
+	.endef
+	.section	.text,"xr",discard,"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+	.globl	"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z" # -- Begin function ?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z
+	.p2align	4, 0x90
+"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z": # @"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+.seh_proc "?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+# %bb.0:
+	pushq	%rsi
+	.seh_pushreg 6
+	subq	$64, %rsp
+	.seh_stackalloc 64
+	.seh_endprologue
+	movl	%edx, 44(%rsp)
+	movq	%rcx, 56(%rsp)
+	cmpl	%edx, (%rcx)
+	jae	.LBB78_4
+# %bb.1:
+	movq	%rcx, %rsi
+	movl	44(%rsp), %eax
+	leal	(%rax,%rax,2), %ecx
+	shrl	%ecx
+	addl	$16, %ecx
+	movl	$16, %edx
+	movq	%rcx, %rax
+	mulq	%rdx
+	movl	%ecx, 40(%rsp)
+	movq	$-1, %rcx
+	cmovnoq	%rax, %rcx
+	callq	"??_U@YAPEAX_K@Z"
+	movq	%rax, 48(%rsp)
+	movq	8(%rsi), %rdx
+	movl	4(%rsi), %r8d
+	shlq	$4, %r8
+	movq	%rax, %rcx
+	callq	memcpy
+	movq	8(%rsi), %rcx
+	testq	%rcx, %rcx
+	je	.LBB78_3
+# %bb.2:
+	callq	"??_V@YAXPEAX@Z"
+.LBB78_3:
+	movq	48(%rsp), %rax
+	movq	%rax, 8(%rsi)
+	movl	40(%rsp), %eax
+	movl	%eax, (%rsi)
+.LBB78_4:
+	addq	$64, %rsp
+	popq	%rsi
+	retq
+	.seh_handlerdata
+	.section	.text,"xr",discard,"?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+	.seh_endproc
+                                        # -- End function
+	.section	.drectve,"yn"
+	.ascii	" /FAILIFMISMATCH:\"_CRT_STDIO_ISO_WIDE_SPECIFIERS=0\""
+
+	.addrsig
+	.addrsig_sym "?Push@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+	.addrsig_sym "?AddBefore@PathNode@micropather@@QEAAXPEAV12@@Z"
+	.addrsig_sym "?Pop@OpenQueue@@QEAAPEAVPathNode@micropather@@XZ"
+	.addrsig_sym "?Unlink@PathNode@micropather@@QEAAXXZ"
+	.addrsig_sym "?Update@OpenQueue@@QEAAXPEAVPathNode@micropather@@@Z"
+	.addrsig_sym "?InitSentinel@PathNode@micropather@@QEAAXXZ"
+	.addrsig_sym malloc
+	.addrsig_sym "?HashSize@PathNodePool@micropather@@AEBAIXZ"
+	.addrsig_sym calloc
+	.addrsig_sym "?NewBlock@PathNodePool@micropather@@AEAAPEAUBlock@12@XZ"
+	.addrsig_sym "?Clear@PathNodePool@micropather@@QEAAXXZ"
+	.addrsig_sym __CxxFrameHandler3
+	.addrsig_sym __std_terminate
+	.addrsig_sym free
+	.addrsig_sym "?PushCache@PathNodePool@micropather@@QEAA_NPEBUNodeCost@2@HPEAH@Z"
+	.addrsig_sym "?GetCache@PathNodePool@micropather@@QEAAXHHPEAUNodeCost@2@@Z"
+	.addrsig_sym "?Hash@PathNodePool@micropather@@AEAAIPEAX@Z"
+	.addrsig_sym "?HashMask@PathNodePool@micropather@@AEBAIXZ"
+	.addrsig_sym "?Alloc@PathNodePool@micropather@@AEAAPEAVPathNode@2@XZ"
+	.addrsig_sym "?AddPathNode@PathNodePool@micropather@@AEAAXIPEAVPathNode@2@@Z"
+	.addrsig_sym "?FetchPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@PEAX@Z"
+	.addrsig_sym "?GetPathNode@PathNodePool@micropather@@QEAAPEAVPathNode@2@IPEAXMMPEAV32@@Z"
+	.addrsig_sym "?Init@PathNode@micropather@@QEAAXIPEAXMMPEAV12@@Z"
+	.addrsig_sym "?Clear@PathNode@micropather@@QEAAXXZ"
+	.addrsig_sym "?CalcTotalCost@PathNode@micropather@@QEAAXXZ"
+	.addrsig_sym "??2@YAPEAX_K@Z"
+	.addrsig_sym "??3@YAXPEAX@Z"
+	.addrsig_sym "?Reset@PathCache@micropather@@QEAAXXZ"
+	.addrsig_sym "?GoalReached@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAX1PEAV?$MPVector@PEAX@2@@Z"
+	.addrsig_sym "?clear@?$MPVector@PEAX@micropather@@QEAAXXZ"
+	.addrsig_sym "?resize@?$MPVector@PEAX@micropather@@QEAAXI@Z"
+	.addrsig_sym "??A?$MPVector@PEAX@micropather@@QEAAAEAPEAXI@Z"
+	.addrsig_sym "?clear@?$MPVector@M@micropather@@QEAAXXZ"
+	.addrsig_sym "?size@?$MPVector@PEAX@micropather@@QEBAIXZ"
+	.addrsig_sym "?clear@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXXZ"
+	.addrsig_sym "?GetNodeNeighbors@MicroPather@micropather@@AEAAXPEAVPathNode@2@PEAV?$MPVector@UNodeCost@micropather@@@2@@Z"
+	.addrsig_sym "?size@?$MPVector@UNodeCost@micropather@@@micropather@@QEBAIXZ"
+	.addrsig_sym "??A?$MPVector@UNodeCost@micropather@@@micropather@@QEAAAEAUNodeCost@1@I@Z"
+	.addrsig_sym "?push_back@?$MPVector@M@micropather@@QEAAXAEBM@Z"
+	.addrsig_sym "?Add@PathCache@micropather@@QEAAXAEBV?$MPVector@PEAX@2@AEBV?$MPVector@M@2@@Z"
+	.addrsig_sym "?resize@?$MPVector@UNodeCost@micropather@@@micropather@@QEAAXI@Z"
+	.addrsig_sym "?resize@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXI@Z"
+	.addrsig_sym "?size@?$MPVector@UStateCost@micropather@@@micropather@@QEBAIXZ"
+	.addrsig_sym "??A?$MPVector@UStateCost@micropather@@@micropather@@QEAAAEAUStateCost@1@I@Z"
+	.addrsig_sym "?AllStates@PathNodePool@micropather@@QEAAXIPEAV?$MPVector@PEAX@2@@Z"
+	.addrsig_sym "?push_back@?$MPVector@PEAX@micropather@@QEAAXAEBQEAX@Z"
+	.addrsig_sym "??_U@YAPEAX_K@Z"
+	.addrsig_sym "??_V@YAXPEAX@Z"
+	.addrsig_sym "??A?$MPVector@PEAX@micropather@@QEBAAEBQEAXI@Z"
+	.addrsig_sym "??A?$MPVector@M@micropather@@QEBAAEBMI@Z"
+	.addrsig_sym "?AddItem@PathCache@micropather@@AEAAXAEBUItem@12@@Z"
+	.addrsig_sym "?AddNoSolution@PathCache@micropather@@QEAAXPEAXQEAPEAXH@Z"
+	.addrsig_sym "?Solve@PathCache@micropather@@QEAAHPEAX0PEAV?$MPVector@PEAX@2@PEAM@Z"
+	.addrsig_sym "?Find@PathCache@micropather@@AEAAPEBUItem@12@PEAX0@Z"
+	.addrsig_sym "?Hash@Item@PathCache@micropather@@QEBAIXZ"
+	.addrsig_sym "?Empty@Item@PathCache@micropather@@QEBA_NXZ"
+	.addrsig_sym "?KeyEqual@Item@PathCache@micropather@@QEBA_NAEBU123@@Z"
+	.addrsig_sym "?AllocatedBytes@PathCache@micropather@@QEBAHXZ"
+	.addrsig_sym "?UsedBytes@PathCache@micropather@@QEBAHXZ"
+	.addrsig_sym "?Empty@OpenQueue@@QEAA_NXZ"
+	.addrsig_sym "?Add@ClosedSet@@QEAAXPEAVPathNode@micropather@@@Z"
+	.addrsig_sym "?clear@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXXZ"
+	.addrsig_sym "?push_back@?$MPVector@UStateCost@micropather@@@micropather@@QEAAXAEBUStateCost@2@@Z"
+	.addrsig_sym "?capacity@?$MPVector@PEAX@micropather@@AEAAXI@Z"
+	.addrsig_sym "?capacity@?$MPVector@M@micropather@@AEAAXI@Z"
+	.addrsig_sym "?capacity@?$MPVector@UNodeCost@micropather@@@micropather@@AEAAXI@Z"
+	.addrsig_sym "?capacity@?$MPVector@UStateCost@micropather@@@micropather@@AEAAXI@Z"
+	.globl	_fltused

@@ -1,0 +1,2009 @@
+; ModuleID = 'genann.c'
+source_filename = "genann.c"
+target datalayout = "e-m:o-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-apple-macosx10.15.0"
+
+%struct.genann = type { i32, i32, i32, i32, {}*, {}*, i32, i32, double*, double*, double* }
+%struct.__sFILE = type { i8*, i32, i32, i16, i16, %struct.__sbuf, i32, i8*, i32 (i8*)*, i32 (i8*, i8*, i32)*, i64 (i8*, i64, i32)*, i32 (i8*, i8*, i32)*, %struct.__sbuf, %struct.__sFILEX*, i32, [3 x i8], [1 x i8], %struct.__sbuf, i32, i64 }
+%struct.__sFILEX = type opaque
+%struct.__sbuf = type { i8*, i32 }
+
+@sigmoid_dom_min = constant double -1.500000e+01, align 8
+@sigmoid_dom_max = constant double 1.500000e+01, align 8
+@interval = common global double 0.000000e+00, align 8
+@lookup = common global [4096 x double] zeroinitializer, align 16
+@__func__.genann_act_sigmoid_cached = private unnamed_addr constant [26 x i8] c"genann_act_sigmoid_cached\00", align 1
+@.str = private unnamed_addr constant [9 x i8] c"genann.c\00", align 1
+@.str.1 = private unnamed_addr constant [10 x i8] c"!isnan(a)\00", align 1
+@.str.2 = private unnamed_addr constant [12 x i8] c"%d %d %d %d\00", align 1
+@.str.3 = private unnamed_addr constant [7 x i8] c"fscanf\00", align 1
+@.str.4 = private unnamed_addr constant [5 x i8] c" %le\00", align 1
+@__func__.genann_run = private unnamed_addr constant [11 x i8] c"genann_run\00", align 1
+@.str.5 = private unnamed_addr constant [38 x i8] c"w - ann->weight == ann->total_weights\00", align 1
+@.str.6 = private unnamed_addr constant [38 x i8] c"o - ann->output == ann->total_neurons\00", align 1
+@__func__.genann_train = private unnamed_addr constant [13 x i8] c"genann_train\00", align 1
+@.str.7 = private unnamed_addr constant [7 x i8] c" %.20e\00", align 1
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @genann_act_hidden_indirect(%struct.genann* %ann, double %a) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %a.addr = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %activation_hidden = getelementptr inbounds %struct.genann, %struct.genann* %0, i32 0, i32 4
+  %activation_hidden1 = bitcast {}** %activation_hidden to double (%struct.genann*, double)**
+  %1 = load double (%struct.genann*, double)*, double (%struct.genann*, double)** %activation_hidden1, align 8
+  %2 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %3 = load double, double* %a.addr, align 8
+  %call = call double %1(%struct.genann* %2, double %3)
+  ret double %call
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @genann_act_output_indirect(%struct.genann* %ann, double %a) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %a.addr = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %activation_output = getelementptr inbounds %struct.genann, %struct.genann* %0, i32 0, i32 5
+  %activation_output1 = bitcast {}** %activation_output to double (%struct.genann*, double)**
+  %1 = load double (%struct.genann*, double)*, double (%struct.genann*, double)** %activation_output1, align 8
+  %2 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %3 = load double, double* %a.addr, align 8
+  %call = call double %1(%struct.genann* %2, double %3)
+  ret double %call
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @genann_act_sigmoid(%struct.genann* %ann, double %a) #0 {
+entry:
+  %retval = alloca double, align 8
+  %ann.addr = alloca %struct.genann*, align 8
+  %a.addr = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %cmp = fcmp olt double %0, -4.500000e+01
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  store double 0.000000e+00, double* %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %1 = load double, double* %a.addr, align 8
+  %cmp1 = fcmp ogt double %1, 4.500000e+01
+  br i1 %cmp1, label %if.then2, label %if.end3
+
+if.then2:                                         ; preds = %if.end
+  store double 1.000000e+00, double* %retval, align 8
+  br label %return
+
+if.end3:                                          ; preds = %if.end
+  %2 = load double, double* %a.addr, align 8
+  %sub = fsub double -0.000000e+00, %2
+  %3 = call double @llvm.exp.f64(double %sub)
+  %add = fadd double 1.000000e+00, %3
+  %div = fdiv double 1.000000e+00, %add
+  store double %div, double* %retval, align 8
+  br label %return
+
+return:                                           ; preds = %if.end3, %if.then2, %if.then
+  %4 = load double, double* %retval, align 8
+  ret double %4
+}
+
+; Function Attrs: nounwind readnone speculatable
+declare double @llvm.exp.f64(double) #1
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @genann_init_sigmoid_lookup(%struct.genann* %ann) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %f = alloca double, align 8
+  %i = alloca i32, align 4
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double 0x3F7E000000000000, double* %f, align 8
+  store double 0x4061111111111111, double* @interval, align 8
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %0 = load i32, i32* %i, align 4
+  %cmp = icmp slt i32 %0, 4096
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %1 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %2 = load i32, i32* %i, align 4
+  %conv = sitofp i32 %2 to double
+  %mul = fmul double 0x3F7E000000000000, %conv
+  %add = fadd double -1.500000e+01, %mul
+  %call = call double @genann_act_sigmoid(%struct.genann* %1, double %add)
+  %3 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %3 to i64
+  %arrayidx = getelementptr inbounds [4096 x double], [4096 x double]* @lookup, i64 0, i64 %idxprom
+  store double %call, double* %arrayidx, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %4 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %4, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @genann_act_sigmoid_cached(%struct.genann* %ann, double %a) #0 {
+entry:
+  %__x.addr.i = alloca double, align 8
+  %retval = alloca double, align 8
+  %ann.addr = alloca %struct.genann*, align 8
+  %a.addr = alloca double, align 8
+  %j = alloca i64, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  store double %0, double* %__x.addr.i, align 8
+  %1 = load double, double* %__x.addr.i, align 8
+  %2 = load double, double* %__x.addr.i, align 8
+  %cmp.i = fcmp une double %1, %2
+  %conv.i = zext i1 %cmp.i to i32
+  %tobool = icmp ne i32 %conv.i, 0
+  %lnot = xor i1 %tobool, true
+  %lnot1 = xor i1 %lnot, true
+  %lnot.ext = zext i1 %lnot1 to i32
+  %conv = sext i32 %lnot.ext to i64
+  %tobool2 = icmp ne i64 %conv, 0
+  br i1 %tobool2, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %entry
+  call void @__assert_rtn(i8* getelementptr inbounds ([26 x i8], [26 x i8]* @__func__.genann_act_sigmoid_cached, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str, i64 0, i64 0), i32 87, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str.1, i64 0, i64 0)) #7
+  unreachable
+
+3:                                                ; No predecessors!
+  br label %cond.end
+
+cond.false:                                       ; preds = %entry
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %3
+  %4 = load double, double* %a.addr, align 8
+  %cmp = fcmp olt double %4, -1.500000e+01
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %cond.end
+  %5 = load double, double* getelementptr inbounds ([4096 x double], [4096 x double]* @lookup, i64 0, i64 0), align 16
+  store double %5, double* %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %cond.end
+  %6 = load double, double* %a.addr, align 8
+  %cmp4 = fcmp oge double %6, 1.500000e+01
+  br i1 %cmp4, label %if.then6, label %if.end7
+
+if.then6:                                         ; preds = %if.end
+  %7 = load double, double* getelementptr inbounds ([4096 x double], [4096 x double]* @lookup, i64 0, i64 4095), align 8
+  store double %7, double* %retval, align 8
+  br label %return
+
+if.end7:                                          ; preds = %if.end
+  %8 = load double, double* %a.addr, align 8
+  %sub = fsub double %8, -1.500000e+01
+  %9 = load double, double* @interval, align 8
+  %mul = fmul double %sub, %9
+  %add = fadd double %mul, 5.000000e-01
+  %conv8 = fptoui double %add to i64
+  store i64 %conv8, i64* %j, align 8
+  %10 = load i64, i64* %j, align 8
+  %cmp9 = icmp uge i64 %10, 4096
+  %lnot11 = xor i1 %cmp9, true
+  %lnot13 = xor i1 %lnot11, true
+  %lnot.ext14 = zext i1 %lnot13 to i32
+  %conv15 = sext i32 %lnot.ext14 to i64
+  %tobool16 = icmp ne i64 %conv15, 0
+  br i1 %tobool16, label %if.then17, label %if.end18
+
+if.then17:                                        ; preds = %if.end7
+  %11 = load double, double* getelementptr inbounds ([4096 x double], [4096 x double]* @lookup, i64 0, i64 4095), align 8
+  store double %11, double* %retval, align 8
+  br label %return
+
+if.end18:                                         ; preds = %if.end7
+  %12 = load i64, i64* %j, align 8
+  %arrayidx = getelementptr inbounds [4096 x double], [4096 x double]* @lookup, i64 0, i64 %12
+  %13 = load double, double* %arrayidx, align 8
+  store double %13, double* %retval, align 8
+  br label %return
+
+return:                                           ; preds = %if.end18, %if.then17, %if.then6, %if.then
+  %14 = load double, double* %retval, align 8
+  ret double %14
+}
+
+; Function Attrs: cold noreturn
+declare void @__assert_rtn(i8*, i8*, i32, i8*) #2
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @genann_act_linear(%struct.genann* %ann, double %a) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %a.addr = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  ret double %0
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double @genann_act_threshold(%struct.genann* %ann, double %a) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %a.addr = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double %a, double* %a.addr, align 8
+  %0 = load double, double* %a.addr, align 8
+  %cmp = fcmp ogt double %0, 0.000000e+00
+  %conv = zext i1 %cmp to i32
+  %conv1 = sitofp i32 %conv to double
+  ret double %conv1
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define %struct.genann* @genann_init(i32 %inputs, i32 %hidden_layers, i32 %hidden, i32 %outputs) #0 {
+entry:
+  %retval = alloca %struct.genann*, align 8
+  %inputs.addr = alloca i32, align 4
+  %hidden_layers.addr = alloca i32, align 4
+  %hidden.addr = alloca i32, align 4
+  %outputs.addr = alloca i32, align 4
+  %hidden_weights = alloca i32, align 4
+  %output_weights = alloca i32, align 4
+  %total_weights = alloca i32, align 4
+  %total_neurons = alloca i32, align 4
+  %size = alloca i32, align 4
+  %ret = alloca %struct.genann*, align 8
+  store i32 %inputs, i32* %inputs.addr, align 4
+  store i32 %hidden_layers, i32* %hidden_layers.addr, align 4
+  store i32 %hidden, i32* %hidden.addr, align 4
+  store i32 %outputs, i32* %outputs.addr, align 4
+  %0 = load i32, i32* %hidden_layers.addr, align 4
+  %cmp = icmp slt i32 %0, 0
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %1 = load i32, i32* %inputs.addr, align 4
+  %cmp1 = icmp slt i32 %1, 1
+  br i1 %cmp1, label %if.then2, label %if.end3
+
+if.then2:                                         ; preds = %if.end
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end3:                                          ; preds = %if.end
+  %2 = load i32, i32* %outputs.addr, align 4
+  %cmp4 = icmp slt i32 %2, 1
+  br i1 %cmp4, label %if.then5, label %if.end6
+
+if.then5:                                         ; preds = %if.end3
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end6:                                          ; preds = %if.end3
+  %3 = load i32, i32* %hidden_layers.addr, align 4
+  %cmp7 = icmp sgt i32 %3, 0
+  br i1 %cmp7, label %land.lhs.true, label %if.end10
+
+land.lhs.true:                                    ; preds = %if.end6
+  %4 = load i32, i32* %hidden.addr, align 4
+  %cmp8 = icmp slt i32 %4, 1
+  br i1 %cmp8, label %if.then9, label %if.end10
+
+if.then9:                                         ; preds = %land.lhs.true
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end10:                                         ; preds = %land.lhs.true, %if.end6
+  %5 = load i32, i32* %hidden_layers.addr, align 4
+  %tobool = icmp ne i32 %5, 0
+  br i1 %tobool, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %if.end10
+  %6 = load i32, i32* %inputs.addr, align 4
+  %add = add nsw i32 %6, 1
+  %7 = load i32, i32* %hidden.addr, align 4
+  %mul = mul nsw i32 %add, %7
+  %8 = load i32, i32* %hidden_layers.addr, align 4
+  %sub = sub nsw i32 %8, 1
+  %9 = load i32, i32* %hidden.addr, align 4
+  %add11 = add nsw i32 %9, 1
+  %mul12 = mul nsw i32 %sub, %add11
+  %10 = load i32, i32* %hidden.addr, align 4
+  %mul13 = mul nsw i32 %mul12, %10
+  %add14 = add nsw i32 %mul, %mul13
+  br label %cond.end
+
+cond.false:                                       ; preds = %if.end10
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %add14, %cond.true ], [ 0, %cond.false ]
+  store i32 %cond, i32* %hidden_weights, align 4
+  %11 = load i32, i32* %hidden_layers.addr, align 4
+  %tobool15 = icmp ne i32 %11, 0
+  br i1 %tobool15, label %cond.true16, label %cond.false18
+
+cond.true16:                                      ; preds = %cond.end
+  %12 = load i32, i32* %hidden.addr, align 4
+  %add17 = add nsw i32 %12, 1
+  br label %cond.end20
+
+cond.false18:                                     ; preds = %cond.end
+  %13 = load i32, i32* %inputs.addr, align 4
+  %add19 = add nsw i32 %13, 1
+  br label %cond.end20
+
+cond.end20:                                       ; preds = %cond.false18, %cond.true16
+  %cond21 = phi i32 [ %add17, %cond.true16 ], [ %add19, %cond.false18 ]
+  %14 = load i32, i32* %outputs.addr, align 4
+  %mul22 = mul nsw i32 %cond21, %14
+  store i32 %mul22, i32* %output_weights, align 4
+  %15 = load i32, i32* %hidden_weights, align 4
+  %16 = load i32, i32* %output_weights, align 4
+  %add23 = add nsw i32 %15, %16
+  store i32 %add23, i32* %total_weights, align 4
+  %17 = load i32, i32* %inputs.addr, align 4
+  %18 = load i32, i32* %hidden.addr, align 4
+  %19 = load i32, i32* %hidden_layers.addr, align 4
+  %mul24 = mul nsw i32 %18, %19
+  %add25 = add nsw i32 %17, %mul24
+  %20 = load i32, i32* %outputs.addr, align 4
+  %add26 = add nsw i32 %add25, %20
+  store i32 %add26, i32* %total_neurons, align 4
+  %21 = load i32, i32* %total_weights, align 4
+  %22 = load i32, i32* %total_neurons, align 4
+  %add27 = add nsw i32 %21, %22
+  %23 = load i32, i32* %total_neurons, align 4
+  %24 = load i32, i32* %inputs.addr, align 4
+  %sub28 = sub nsw i32 %23, %24
+  %add29 = add nsw i32 %add27, %sub28
+  %conv = sext i32 %add29 to i64
+  %mul30 = mul i64 8, %conv
+  %add31 = add i64 64, %mul30
+  %conv32 = trunc i64 %add31 to i32
+  store i32 %conv32, i32* %size, align 4
+  %25 = load i32, i32* %size, align 4
+  %conv33 = sext i32 %25 to i64
+  %call = call i8* @malloc(i64 %conv33) #8
+  %26 = bitcast i8* %call to %struct.genann*
+  store %struct.genann* %26, %struct.genann** %ret, align 8
+  %27 = load %struct.genann*, %struct.genann** %ret, align 8
+  %tobool34 = icmp ne %struct.genann* %27, null
+  br i1 %tobool34, label %if.end36, label %if.then35
+
+if.then35:                                        ; preds = %cond.end20
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end36:                                         ; preds = %cond.end20
+  %28 = load i32, i32* %inputs.addr, align 4
+  %29 = load %struct.genann*, %struct.genann** %ret, align 8
+  %inputs37 = getelementptr inbounds %struct.genann, %struct.genann* %29, i32 0, i32 0
+  store i32 %28, i32* %inputs37, align 8
+  %30 = load i32, i32* %hidden_layers.addr, align 4
+  %31 = load %struct.genann*, %struct.genann** %ret, align 8
+  %hidden_layers38 = getelementptr inbounds %struct.genann, %struct.genann* %31, i32 0, i32 1
+  store i32 %30, i32* %hidden_layers38, align 4
+  %32 = load i32, i32* %hidden.addr, align 4
+  %33 = load %struct.genann*, %struct.genann** %ret, align 8
+  %hidden39 = getelementptr inbounds %struct.genann, %struct.genann* %33, i32 0, i32 2
+  store i32 %32, i32* %hidden39, align 8
+  %34 = load i32, i32* %outputs.addr, align 4
+  %35 = load %struct.genann*, %struct.genann** %ret, align 8
+  %outputs40 = getelementptr inbounds %struct.genann, %struct.genann* %35, i32 0, i32 3
+  store i32 %34, i32* %outputs40, align 4
+  %36 = load i32, i32* %total_weights, align 4
+  %37 = load %struct.genann*, %struct.genann** %ret, align 8
+  %total_weights41 = getelementptr inbounds %struct.genann, %struct.genann* %37, i32 0, i32 6
+  store i32 %36, i32* %total_weights41, align 8
+  %38 = load i32, i32* %total_neurons, align 4
+  %39 = load %struct.genann*, %struct.genann** %ret, align 8
+  %total_neurons42 = getelementptr inbounds %struct.genann, %struct.genann* %39, i32 0, i32 7
+  store i32 %38, i32* %total_neurons42, align 4
+  %40 = load %struct.genann*, %struct.genann** %ret, align 8
+  %41 = bitcast %struct.genann* %40 to i8*
+  %add.ptr = getelementptr inbounds i8, i8* %41, i64 64
+  %42 = bitcast i8* %add.ptr to double*
+  %43 = load %struct.genann*, %struct.genann** %ret, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %43, i32 0, i32 8
+  store double* %42, double** %weight, align 8
+  %44 = load %struct.genann*, %struct.genann** %ret, align 8
+  %weight43 = getelementptr inbounds %struct.genann, %struct.genann* %44, i32 0, i32 8
+  %45 = load double*, double** %weight43, align 8
+  %46 = load %struct.genann*, %struct.genann** %ret, align 8
+  %total_weights44 = getelementptr inbounds %struct.genann, %struct.genann* %46, i32 0, i32 6
+  %47 = load i32, i32* %total_weights44, align 8
+  %idx.ext = sext i32 %47 to i64
+  %add.ptr45 = getelementptr inbounds double, double* %45, i64 %idx.ext
+  %48 = load %struct.genann*, %struct.genann** %ret, align 8
+  %output = getelementptr inbounds %struct.genann, %struct.genann* %48, i32 0, i32 9
+  store double* %add.ptr45, double** %output, align 8
+  %49 = load %struct.genann*, %struct.genann** %ret, align 8
+  %output46 = getelementptr inbounds %struct.genann, %struct.genann* %49, i32 0, i32 9
+  %50 = load double*, double** %output46, align 8
+  %51 = load %struct.genann*, %struct.genann** %ret, align 8
+  %total_neurons47 = getelementptr inbounds %struct.genann, %struct.genann* %51, i32 0, i32 7
+  %52 = load i32, i32* %total_neurons47, align 4
+  %idx.ext48 = sext i32 %52 to i64
+  %add.ptr49 = getelementptr inbounds double, double* %50, i64 %idx.ext48
+  %53 = load %struct.genann*, %struct.genann** %ret, align 8
+  %delta = getelementptr inbounds %struct.genann, %struct.genann* %53, i32 0, i32 10
+  store double* %add.ptr49, double** %delta, align 8
+  %54 = load %struct.genann*, %struct.genann** %ret, align 8
+  call void @genann_randomize(%struct.genann* %54)
+  %55 = load %struct.genann*, %struct.genann** %ret, align 8
+  %activation_hidden = getelementptr inbounds %struct.genann, %struct.genann* %55, i32 0, i32 4
+  %activation_hidden50 = bitcast {}** %activation_hidden to double (%struct.genann*, double)**
+  store double (%struct.genann*, double)* @genann_act_sigmoid_cached, double (%struct.genann*, double)** %activation_hidden50, align 8
+  %56 = load %struct.genann*, %struct.genann** %ret, align 8
+  %activation_output = getelementptr inbounds %struct.genann, %struct.genann* %56, i32 0, i32 5
+  %activation_output51 = bitcast {}** %activation_output to double (%struct.genann*, double)**
+  store double (%struct.genann*, double)* @genann_act_sigmoid_cached, double (%struct.genann*, double)** %activation_output51, align 8
+  %57 = load %struct.genann*, %struct.genann** %ret, align 8
+  call void @genann_init_sigmoid_lookup(%struct.genann* %57)
+  %58 = load %struct.genann*, %struct.genann** %ret, align 8
+  store %struct.genann* %58, %struct.genann** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %if.end36, %if.then35, %if.then9, %if.then5, %if.then2, %if.then
+  %59 = load %struct.genann*, %struct.genann** %retval, align 8
+  ret %struct.genann* %59
+}
+
+; Function Attrs: allocsize(0)
+declare i8* @malloc(i64) #3
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @genann_randomize(%struct.genann* %ann) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %i = alloca i32, align 4
+  %r = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %0 = load i32, i32* %i, align 4
+  %1 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_weights = getelementptr inbounds %struct.genann, %struct.genann* %1, i32 0, i32 6
+  %2 = load i32, i32* %total_weights, align 8
+  %cmp = icmp slt i32 %0, %2
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %call = call i32 @rand()
+  %conv = sitofp i32 %call to double
+  %div = fdiv double %conv, 0x41DFFFFFFFC00000
+  store double %div, double* %r, align 8
+  %3 = load double, double* %r, align 8
+  %sub = fsub double %3, 5.000000e-01
+  %4 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %4, i32 0, i32 8
+  %5 = load double*, double** %weight, align 8
+  %6 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %6 to i64
+  %arrayidx = getelementptr inbounds double, double* %5, i64 %idxprom
+  store double %sub, double* %arrayidx, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %7 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %7, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define %struct.genann* @genann_read(%struct.__sFILE* %in) #0 {
+entry:
+  %retval = alloca %struct.genann*, align 8
+  %in.addr = alloca %struct.__sFILE*, align 8
+  %inputs = alloca i32, align 4
+  %hidden_layers = alloca i32, align 4
+  %hidden = alloca i32, align 4
+  %outputs = alloca i32, align 4
+  %rc = alloca i32, align 4
+  %ann = alloca %struct.genann*, align 8
+  %i = alloca i32, align 4
+  store %struct.__sFILE* %in, %struct.__sFILE** %in.addr, align 8
+  %call = call i32* @__error()
+  store i32 0, i32* %call, align 4
+  %0 = load %struct.__sFILE*, %struct.__sFILE** %in.addr, align 8
+  %call1 = call i32 (%struct.__sFILE*, i8*, ...) @fscanf(%struct.__sFILE* %0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str.2, i64 0, i64 0), i32* %inputs, i32* %hidden_layers, i32* %hidden, i32* %outputs)
+  store i32 %call1, i32* %rc, align 4
+  %1 = load i32, i32* %rc, align 4
+  %cmp = icmp slt i32 %1, 4
+  br i1 %cmp, label %if.then, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %entry
+  %call2 = call i32* @__error()
+  %2 = load i32, i32* %call2, align 4
+  %cmp3 = icmp ne i32 %2, 0
+  br i1 %cmp3, label %if.then, label %if.end
+
+if.then:                                          ; preds = %lor.lhs.false, %entry
+  call void @perror(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.3, i64 0, i64 0)) #9
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %lor.lhs.false
+  %3 = load i32, i32* %inputs, align 4
+  %4 = load i32, i32* %hidden_layers, align 4
+  %5 = load i32, i32* %hidden, align 4
+  %6 = load i32, i32* %outputs, align 4
+  %call4 = call %struct.genann* @genann_init(i32 %3, i32 %4, i32 %5, i32 %6)
+  store %struct.genann* %call4, %struct.genann** %ann, align 8
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.end
+  %7 = load i32, i32* %i, align 4
+  %8 = load %struct.genann*, %struct.genann** %ann, align 8
+  %total_weights = getelementptr inbounds %struct.genann, %struct.genann* %8, i32 0, i32 6
+  %9 = load i32, i32* %total_weights, align 8
+  %cmp5 = icmp slt i32 %7, %9
+  br i1 %cmp5, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %call6 = call i32* @__error()
+  store i32 0, i32* %call6, align 4
+  %10 = load %struct.__sFILE*, %struct.__sFILE** %in.addr, align 8
+  %11 = load %struct.genann*, %struct.genann** %ann, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %11, i32 0, i32 8
+  %12 = load double*, double** %weight, align 8
+  %13 = load i32, i32* %i, align 4
+  %idx.ext = sext i32 %13 to i64
+  %add.ptr = getelementptr inbounds double, double* %12, i64 %idx.ext
+  %call7 = call i32 (%struct.__sFILE*, i8*, ...) @fscanf(%struct.__sFILE* %10, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.4, i64 0, i64 0), double* %add.ptr)
+  store i32 %call7, i32* %rc, align 4
+  %14 = load i32, i32* %rc, align 4
+  %cmp8 = icmp slt i32 %14, 1
+  br i1 %cmp8, label %if.then12, label %lor.lhs.false9
+
+lor.lhs.false9:                                   ; preds = %for.body
+  %call10 = call i32* @__error()
+  %15 = load i32, i32* %call10, align 4
+  %cmp11 = icmp ne i32 %15, 0
+  br i1 %cmp11, label %if.then12, label %if.end13
+
+if.then12:                                        ; preds = %lor.lhs.false9, %for.body
+  call void @perror(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.3, i64 0, i64 0)) #9
+  %16 = load %struct.genann*, %struct.genann** %ann, align 8
+  call void @genann_free(%struct.genann* %16)
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end13:                                         ; preds = %lor.lhs.false9
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end13
+  %17 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %17, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  %18 = load %struct.genann*, %struct.genann** %ann, align 8
+  store %struct.genann* %18, %struct.genann** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %for.end, %if.then12, %if.then
+  %19 = load %struct.genann*, %struct.genann** %retval, align 8
+  ret %struct.genann* %19
+}
+
+declare i32* @__error() #4
+
+declare i32 @fscanf(%struct.__sFILE*, i8*, ...) #4
+
+; Function Attrs: cold
+declare void @perror(i8*) #5
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @genann_free(%struct.genann* %ann) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  %0 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %1 = bitcast %struct.genann* %0 to i8*
+  call void @free(i8* %1)
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define %struct.genann* @genann_copy(%struct.genann* %ann) #0 {
+entry:
+  %retval = alloca %struct.genann*, align 8
+  %ann.addr = alloca %struct.genann*, align 8
+  %size = alloca i32, align 4
+  %ret = alloca %struct.genann*, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  %0 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_weights = getelementptr inbounds %struct.genann, %struct.genann* %0, i32 0, i32 6
+  %1 = load i32, i32* %total_weights, align 8
+  %2 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_neurons = getelementptr inbounds %struct.genann, %struct.genann* %2, i32 0, i32 7
+  %3 = load i32, i32* %total_neurons, align 4
+  %add = add nsw i32 %1, %3
+  %4 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_neurons1 = getelementptr inbounds %struct.genann, %struct.genann* %4, i32 0, i32 7
+  %5 = load i32, i32* %total_neurons1, align 4
+  %6 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs = getelementptr inbounds %struct.genann, %struct.genann* %6, i32 0, i32 0
+  %7 = load i32, i32* %inputs, align 8
+  %sub = sub nsw i32 %5, %7
+  %add2 = add nsw i32 %add, %sub
+  %conv = sext i32 %add2 to i64
+  %mul = mul i64 8, %conv
+  %add3 = add i64 64, %mul
+  %conv4 = trunc i64 %add3 to i32
+  store i32 %conv4, i32* %size, align 4
+  %8 = load i32, i32* %size, align 4
+  %conv5 = sext i32 %8 to i64
+  %call = call i8* @malloc(i64 %conv5) #8
+  %9 = bitcast i8* %call to %struct.genann*
+  store %struct.genann* %9, %struct.genann** %ret, align 8
+  %10 = load %struct.genann*, %struct.genann** %ret, align 8
+  %tobool = icmp ne %struct.genann* %10, null
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  store %struct.genann* null, %struct.genann** %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %11 = load %struct.genann*, %struct.genann** %ret, align 8
+  %12 = bitcast %struct.genann* %11 to i8*
+  %13 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %14 = bitcast %struct.genann* %13 to i8*
+  %15 = load i32, i32* %size, align 4
+  %conv6 = sext i32 %15 to i64
+  %16 = load %struct.genann*, %struct.genann** %ret, align 8
+  %17 = bitcast %struct.genann* %16 to i8*
+  %18 = call i64 @llvm.objectsize.i64.p0i8(i8* %17, i1 false, i1 true, i1 false)
+  %call7 = call i8* @__memcpy_chk(i8* %12, i8* %14, i64 %conv6, i64 %18) #10
+  %19 = load %struct.genann*, %struct.genann** %ret, align 8
+  %20 = bitcast %struct.genann* %19 to i8*
+  %add.ptr = getelementptr inbounds i8, i8* %20, i64 64
+  %21 = bitcast i8* %add.ptr to double*
+  %22 = load %struct.genann*, %struct.genann** %ret, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %22, i32 0, i32 8
+  store double* %21, double** %weight, align 8
+  %23 = load %struct.genann*, %struct.genann** %ret, align 8
+  %weight8 = getelementptr inbounds %struct.genann, %struct.genann* %23, i32 0, i32 8
+  %24 = load double*, double** %weight8, align 8
+  %25 = load %struct.genann*, %struct.genann** %ret, align 8
+  %total_weights9 = getelementptr inbounds %struct.genann, %struct.genann* %25, i32 0, i32 6
+  %26 = load i32, i32* %total_weights9, align 8
+  %idx.ext = sext i32 %26 to i64
+  %add.ptr10 = getelementptr inbounds double, double* %24, i64 %idx.ext
+  %27 = load %struct.genann*, %struct.genann** %ret, align 8
+  %output = getelementptr inbounds %struct.genann, %struct.genann* %27, i32 0, i32 9
+  store double* %add.ptr10, double** %output, align 8
+  %28 = load %struct.genann*, %struct.genann** %ret, align 8
+  %output11 = getelementptr inbounds %struct.genann, %struct.genann* %28, i32 0, i32 9
+  %29 = load double*, double** %output11, align 8
+  %30 = load %struct.genann*, %struct.genann** %ret, align 8
+  %total_neurons12 = getelementptr inbounds %struct.genann, %struct.genann* %30, i32 0, i32 7
+  %31 = load i32, i32* %total_neurons12, align 4
+  %idx.ext13 = sext i32 %31 to i64
+  %add.ptr14 = getelementptr inbounds double, double* %29, i64 %idx.ext13
+  %32 = load %struct.genann*, %struct.genann** %ret, align 8
+  %delta = getelementptr inbounds %struct.genann, %struct.genann* %32, i32 0, i32 10
+  store double* %add.ptr14, double** %delta, align 8
+  %33 = load %struct.genann*, %struct.genann** %ret, align 8
+  store %struct.genann* %33, %struct.genann** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %if.end, %if.then
+  %34 = load %struct.genann*, %struct.genann** %retval, align 8
+  ret %struct.genann* %34
+}
+
+; Function Attrs: nounwind
+declare i8* @__memcpy_chk(i8*, i8*, i64, i64) #6
+
+; Function Attrs: nounwind readnone speculatable
+declare i64 @llvm.objectsize.i64.p0i8(i8*, i1 immarg, i1 immarg, i1 immarg) #1
+
+declare i32 @rand() #4
+
+declare void @free(i8*) #4
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define double* @genann_run(%struct.genann* %ann, double* %inputs) #0 {
+entry:
+  %retval = alloca double*, align 8
+  %ann.addr = alloca %struct.genann*, align 8
+  %inputs.addr = alloca double*, align 8
+  %w = alloca double*, align 8
+  %o = alloca double*, align 8
+  %i = alloca double*, align 8
+  %h = alloca i32, align 4
+  %j = alloca i32, align 4
+  %k = alloca i32, align 4
+  %ret = alloca double*, align 8
+  %sum = alloca double, align 8
+  %sum24 = alloca double, align 8
+  %sum58 = alloca double, align 8
+  %ret85 = alloca double*, align 8
+  %sum91 = alloca double, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double* %inputs, double** %inputs.addr, align 8
+  %0 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %0, i32 0, i32 8
+  %1 = load double*, double** %weight, align 8
+  store double* %1, double** %w, align 8
+  %2 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output = getelementptr inbounds %struct.genann, %struct.genann* %2, i32 0, i32 9
+  %3 = load double*, double** %output, align 8
+  %4 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs1 = getelementptr inbounds %struct.genann, %struct.genann* %4, i32 0, i32 0
+  %5 = load i32, i32* %inputs1, align 8
+  %idx.ext = sext i32 %5 to i64
+  %add.ptr = getelementptr inbounds double, double* %3, i64 %idx.ext
+  store double* %add.ptr, double** %o, align 8
+  %6 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output2 = getelementptr inbounds %struct.genann, %struct.genann* %6, i32 0, i32 9
+  %7 = load double*, double** %output2, align 8
+  store double* %7, double** %i, align 8
+  %8 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output3 = getelementptr inbounds %struct.genann, %struct.genann* %8, i32 0, i32 9
+  %9 = load double*, double** %output3, align 8
+  %10 = bitcast double* %9 to i8*
+  %11 = load double*, double** %inputs.addr, align 8
+  %12 = bitcast double* %11 to i8*
+  %13 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs4 = getelementptr inbounds %struct.genann, %struct.genann* %13, i32 0, i32 0
+  %14 = load i32, i32* %inputs4, align 8
+  %conv = sext i32 %14 to i64
+  %mul = mul i64 8, %conv
+  %15 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output5 = getelementptr inbounds %struct.genann, %struct.genann* %15, i32 0, i32 9
+  %16 = load double*, double** %output5, align 8
+  %17 = bitcast double* %16 to i8*
+  %18 = call i64 @llvm.objectsize.i64.p0i8(i8* %17, i1 false, i1 true, i1 false)
+  %call = call i8* @__memcpy_chk(i8* %10, i8* %12, i64 %mul, i64 %18) #10
+  %19 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers = getelementptr inbounds %struct.genann, %struct.genann* %19, i32 0, i32 1
+  %20 = load i32, i32* %hidden_layers, align 4
+  %tobool = icmp ne i32 %20, 0
+  br i1 %tobool, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  %21 = load double*, double** %o, align 8
+  store double* %21, double** %ret, align 8
+  store i32 0, i32* %j, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc17, %if.then
+  %22 = load i32, i32* %j, align 4
+  %23 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs = getelementptr inbounds %struct.genann, %struct.genann* %23, i32 0, i32 3
+  %24 = load i32, i32* %outputs, align 4
+  %cmp = icmp slt i32 %22, %24
+  br i1 %cmp, label %for.body, label %for.end19
+
+for.body:                                         ; preds = %for.cond
+  %25 = load double*, double** %w, align 8
+  %incdec.ptr = getelementptr inbounds double, double* %25, i32 1
+  store double* %incdec.ptr, double** %w, align 8
+  %26 = load double, double* %25, align 8
+  %mul7 = fmul double %26, -1.000000e+00
+  store double %mul7, double* %sum, align 8
+  store i32 0, i32* %k, align 4
+  br label %for.cond8
+
+for.cond8:                                        ; preds = %for.inc, %for.body
+  %27 = load i32, i32* %k, align 4
+  %28 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs9 = getelementptr inbounds %struct.genann, %struct.genann* %28, i32 0, i32 0
+  %29 = load i32, i32* %inputs9, align 8
+  %cmp10 = icmp slt i32 %27, %29
+  br i1 %cmp10, label %for.body12, label %for.end
+
+for.body12:                                       ; preds = %for.cond8
+  %30 = load double*, double** %w, align 8
+  %incdec.ptr13 = getelementptr inbounds double, double* %30, i32 1
+  store double* %incdec.ptr13, double** %w, align 8
+  %31 = load double, double* %30, align 8
+  %32 = load double*, double** %i, align 8
+  %33 = load i32, i32* %k, align 4
+  %idxprom = sext i32 %33 to i64
+  %arrayidx = getelementptr inbounds double, double* %32, i64 %idxprom
+  %34 = load double, double* %arrayidx, align 8
+  %mul14 = fmul double %31, %34
+  %35 = load double, double* %sum, align 8
+  %add = fadd double %35, %mul14
+  store double %add, double* %sum, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body12
+  %36 = load i32, i32* %k, align 4
+  %inc = add nsw i32 %36, 1
+  store i32 %inc, i32* %k, align 4
+  br label %for.cond8
+
+for.end:                                          ; preds = %for.cond8
+  %37 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %38 = load double, double* %sum, align 8
+  %call15 = call double @genann_act_output_indirect(%struct.genann* %37, double %38)
+  %39 = load double*, double** %o, align 8
+  %incdec.ptr16 = getelementptr inbounds double, double* %39, i32 1
+  store double* %incdec.ptr16, double** %o, align 8
+  store double %call15, double* %39, align 8
+  br label %for.inc17
+
+for.inc17:                                        ; preds = %for.end
+  %40 = load i32, i32* %j, align 4
+  %inc18 = add nsw i32 %40, 1
+  store i32 %inc18, i32* %j, align 4
+  br label %for.cond
+
+for.end19:                                        ; preds = %for.cond
+  %41 = load double*, double** %ret, align 8
+  store double* %41, double** %retval, align 8
+  br label %return
+
+if.end:                                           ; preds = %entry
+  store i32 0, i32* %j, align 4
+  br label %for.cond20
+
+for.cond20:                                       ; preds = %for.inc42, %if.end
+  %42 = load i32, i32* %j, align 4
+  %43 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden = getelementptr inbounds %struct.genann, %struct.genann* %43, i32 0, i32 2
+  %44 = load i32, i32* %hidden, align 8
+  %cmp21 = icmp slt i32 %42, %44
+  br i1 %cmp21, label %for.body23, label %for.end44
+
+for.body23:                                       ; preds = %for.cond20
+  %45 = load double*, double** %w, align 8
+  %incdec.ptr25 = getelementptr inbounds double, double* %45, i32 1
+  store double* %incdec.ptr25, double** %w, align 8
+  %46 = load double, double* %45, align 8
+  %mul26 = fmul double %46, -1.000000e+00
+  store double %mul26, double* %sum24, align 8
+  store i32 0, i32* %k, align 4
+  br label %for.cond27
+
+for.cond27:                                       ; preds = %for.inc37, %for.body23
+  %47 = load i32, i32* %k, align 4
+  %48 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs28 = getelementptr inbounds %struct.genann, %struct.genann* %48, i32 0, i32 0
+  %49 = load i32, i32* %inputs28, align 8
+  %cmp29 = icmp slt i32 %47, %49
+  br i1 %cmp29, label %for.body31, label %for.end39
+
+for.body31:                                       ; preds = %for.cond27
+  %50 = load double*, double** %w, align 8
+  %incdec.ptr32 = getelementptr inbounds double, double* %50, i32 1
+  store double* %incdec.ptr32, double** %w, align 8
+  %51 = load double, double* %50, align 8
+  %52 = load double*, double** %i, align 8
+  %53 = load i32, i32* %k, align 4
+  %idxprom33 = sext i32 %53 to i64
+  %arrayidx34 = getelementptr inbounds double, double* %52, i64 %idxprom33
+  %54 = load double, double* %arrayidx34, align 8
+  %mul35 = fmul double %51, %54
+  %55 = load double, double* %sum24, align 8
+  %add36 = fadd double %55, %mul35
+  store double %add36, double* %sum24, align 8
+  br label %for.inc37
+
+for.inc37:                                        ; preds = %for.body31
+  %56 = load i32, i32* %k, align 4
+  %inc38 = add nsw i32 %56, 1
+  store i32 %inc38, i32* %k, align 4
+  br label %for.cond27
+
+for.end39:                                        ; preds = %for.cond27
+  %57 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %58 = load double, double* %sum24, align 8
+  %call40 = call double @genann_act_hidden_indirect(%struct.genann* %57, double %58)
+  %59 = load double*, double** %o, align 8
+  %incdec.ptr41 = getelementptr inbounds double, double* %59, i32 1
+  store double* %incdec.ptr41, double** %o, align 8
+  store double %call40, double* %59, align 8
+  br label %for.inc42
+
+for.inc42:                                        ; preds = %for.end39
+  %60 = load i32, i32* %j, align 4
+  %inc43 = add nsw i32 %60, 1
+  store i32 %inc43, i32* %j, align 4
+  br label %for.cond20
+
+for.end44:                                        ; preds = %for.cond20
+  %61 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs45 = getelementptr inbounds %struct.genann, %struct.genann* %61, i32 0, i32 0
+  %62 = load i32, i32* %inputs45, align 8
+  %63 = load double*, double** %i, align 8
+  %idx.ext46 = sext i32 %62 to i64
+  %add.ptr47 = getelementptr inbounds double, double* %63, i64 %idx.ext46
+  store double* %add.ptr47, double** %i, align 8
+  store i32 1, i32* %h, align 4
+  br label %for.cond48
+
+for.cond48:                                       ; preds = %for.inc82, %for.end44
+  %64 = load i32, i32* %h, align 4
+  %65 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers49 = getelementptr inbounds %struct.genann, %struct.genann* %65, i32 0, i32 1
+  %66 = load i32, i32* %hidden_layers49, align 4
+  %cmp50 = icmp slt i32 %64, %66
+  br i1 %cmp50, label %for.body52, label %for.end84
+
+for.body52:                                       ; preds = %for.cond48
+  store i32 0, i32* %j, align 4
+  br label %for.cond53
+
+for.cond53:                                       ; preds = %for.inc76, %for.body52
+  %67 = load i32, i32* %j, align 4
+  %68 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden54 = getelementptr inbounds %struct.genann, %struct.genann* %68, i32 0, i32 2
+  %69 = load i32, i32* %hidden54, align 8
+  %cmp55 = icmp slt i32 %67, %69
+  br i1 %cmp55, label %for.body57, label %for.end78
+
+for.body57:                                       ; preds = %for.cond53
+  %70 = load double*, double** %w, align 8
+  %incdec.ptr59 = getelementptr inbounds double, double* %70, i32 1
+  store double* %incdec.ptr59, double** %w, align 8
+  %71 = load double, double* %70, align 8
+  %mul60 = fmul double %71, -1.000000e+00
+  store double %mul60, double* %sum58, align 8
+  store i32 0, i32* %k, align 4
+  br label %for.cond61
+
+for.cond61:                                       ; preds = %for.inc71, %for.body57
+  %72 = load i32, i32* %k, align 4
+  %73 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden62 = getelementptr inbounds %struct.genann, %struct.genann* %73, i32 0, i32 2
+  %74 = load i32, i32* %hidden62, align 8
+  %cmp63 = icmp slt i32 %72, %74
+  br i1 %cmp63, label %for.body65, label %for.end73
+
+for.body65:                                       ; preds = %for.cond61
+  %75 = load double*, double** %w, align 8
+  %incdec.ptr66 = getelementptr inbounds double, double* %75, i32 1
+  store double* %incdec.ptr66, double** %w, align 8
+  %76 = load double, double* %75, align 8
+  %77 = load double*, double** %i, align 8
+  %78 = load i32, i32* %k, align 4
+  %idxprom67 = sext i32 %78 to i64
+  %arrayidx68 = getelementptr inbounds double, double* %77, i64 %idxprom67
+  %79 = load double, double* %arrayidx68, align 8
+  %mul69 = fmul double %76, %79
+  %80 = load double, double* %sum58, align 8
+  %add70 = fadd double %80, %mul69
+  store double %add70, double* %sum58, align 8
+  br label %for.inc71
+
+for.inc71:                                        ; preds = %for.body65
+  %81 = load i32, i32* %k, align 4
+  %inc72 = add nsw i32 %81, 1
+  store i32 %inc72, i32* %k, align 4
+  br label %for.cond61
+
+for.end73:                                        ; preds = %for.cond61
+  %82 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %83 = load double, double* %sum58, align 8
+  %call74 = call double @genann_act_hidden_indirect(%struct.genann* %82, double %83)
+  %84 = load double*, double** %o, align 8
+  %incdec.ptr75 = getelementptr inbounds double, double* %84, i32 1
+  store double* %incdec.ptr75, double** %o, align 8
+  store double %call74, double* %84, align 8
+  br label %for.inc76
+
+for.inc76:                                        ; preds = %for.end73
+  %85 = load i32, i32* %j, align 4
+  %inc77 = add nsw i32 %85, 1
+  store i32 %inc77, i32* %j, align 4
+  br label %for.cond53
+
+for.end78:                                        ; preds = %for.cond53
+  %86 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden79 = getelementptr inbounds %struct.genann, %struct.genann* %86, i32 0, i32 2
+  %87 = load i32, i32* %hidden79, align 8
+  %88 = load double*, double** %i, align 8
+  %idx.ext80 = sext i32 %87 to i64
+  %add.ptr81 = getelementptr inbounds double, double* %88, i64 %idx.ext80
+  store double* %add.ptr81, double** %i, align 8
+  br label %for.inc82
+
+for.inc82:                                        ; preds = %for.end78
+  %89 = load i32, i32* %h, align 4
+  %inc83 = add nsw i32 %89, 1
+  store i32 %inc83, i32* %h, align 4
+  br label %for.cond48
+
+for.end84:                                        ; preds = %for.cond48
+  %90 = load double*, double** %o, align 8
+  store double* %90, double** %ret85, align 8
+  store i32 0, i32* %j, align 4
+  br label %for.cond86
+
+for.cond86:                                       ; preds = %for.inc109, %for.end84
+  %91 = load i32, i32* %j, align 4
+  %92 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs87 = getelementptr inbounds %struct.genann, %struct.genann* %92, i32 0, i32 3
+  %93 = load i32, i32* %outputs87, align 4
+  %cmp88 = icmp slt i32 %91, %93
+  br i1 %cmp88, label %for.body90, label %for.end111
+
+for.body90:                                       ; preds = %for.cond86
+  %94 = load double*, double** %w, align 8
+  %incdec.ptr92 = getelementptr inbounds double, double* %94, i32 1
+  store double* %incdec.ptr92, double** %w, align 8
+  %95 = load double, double* %94, align 8
+  %mul93 = fmul double %95, -1.000000e+00
+  store double %mul93, double* %sum91, align 8
+  store i32 0, i32* %k, align 4
+  br label %for.cond94
+
+for.cond94:                                       ; preds = %for.inc104, %for.body90
+  %96 = load i32, i32* %k, align 4
+  %97 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden95 = getelementptr inbounds %struct.genann, %struct.genann* %97, i32 0, i32 2
+  %98 = load i32, i32* %hidden95, align 8
+  %cmp96 = icmp slt i32 %96, %98
+  br i1 %cmp96, label %for.body98, label %for.end106
+
+for.body98:                                       ; preds = %for.cond94
+  %99 = load double*, double** %w, align 8
+  %incdec.ptr99 = getelementptr inbounds double, double* %99, i32 1
+  store double* %incdec.ptr99, double** %w, align 8
+  %100 = load double, double* %99, align 8
+  %101 = load double*, double** %i, align 8
+  %102 = load i32, i32* %k, align 4
+  %idxprom100 = sext i32 %102 to i64
+  %arrayidx101 = getelementptr inbounds double, double* %101, i64 %idxprom100
+  %103 = load double, double* %arrayidx101, align 8
+  %mul102 = fmul double %100, %103
+  %104 = load double, double* %sum91, align 8
+  %add103 = fadd double %104, %mul102
+  store double %add103, double* %sum91, align 8
+  br label %for.inc104
+
+for.inc104:                                       ; preds = %for.body98
+  %105 = load i32, i32* %k, align 4
+  %inc105 = add nsw i32 %105, 1
+  store i32 %inc105, i32* %k, align 4
+  br label %for.cond94
+
+for.end106:                                       ; preds = %for.cond94
+  %106 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %107 = load double, double* %sum91, align 8
+  %call107 = call double @genann_act_output_indirect(%struct.genann* %106, double %107)
+  %108 = load double*, double** %o, align 8
+  %incdec.ptr108 = getelementptr inbounds double, double* %108, i32 1
+  store double* %incdec.ptr108, double** %o, align 8
+  store double %call107, double* %108, align 8
+  br label %for.inc109
+
+for.inc109:                                       ; preds = %for.end106
+  %109 = load i32, i32* %j, align 4
+  %inc110 = add nsw i32 %109, 1
+  store i32 %inc110, i32* %j, align 4
+  br label %for.cond86
+
+for.end111:                                       ; preds = %for.cond86
+  %110 = load double*, double** %w, align 8
+  %111 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight112 = getelementptr inbounds %struct.genann, %struct.genann* %111, i32 0, i32 8
+  %112 = load double*, double** %weight112, align 8
+  %sub.ptr.lhs.cast = ptrtoint double* %110 to i64
+  %sub.ptr.rhs.cast = ptrtoint double* %112 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %sub.ptr.div = sdiv exact i64 %sub.ptr.sub, 8
+  %113 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_weights = getelementptr inbounds %struct.genann, %struct.genann* %113, i32 0, i32 6
+  %114 = load i32, i32* %total_weights, align 8
+  %conv113 = sext i32 %114 to i64
+  %cmp114 = icmp eq i64 %sub.ptr.div, %conv113
+  %lnot = xor i1 %cmp114, true
+  %lnot.ext = zext i1 %lnot to i32
+  %conv116 = sext i32 %lnot.ext to i64
+  %tobool117 = icmp ne i64 %conv116, 0
+  br i1 %tobool117, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %for.end111
+  call void @__assert_rtn(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @__func__.genann_run, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str, i64 0, i64 0), i32 271, i8* getelementptr inbounds ([38 x i8], [38 x i8]* @.str.5, i64 0, i64 0)) #7
+  unreachable
+
+115:                                              ; No predecessors!
+  br label %cond.end
+
+cond.false:                                       ; preds = %for.end111
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %115
+  %116 = load double*, double** %o, align 8
+  %117 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output118 = getelementptr inbounds %struct.genann, %struct.genann* %117, i32 0, i32 9
+  %118 = load double*, double** %output118, align 8
+  %sub.ptr.lhs.cast119 = ptrtoint double* %116 to i64
+  %sub.ptr.rhs.cast120 = ptrtoint double* %118 to i64
+  %sub.ptr.sub121 = sub i64 %sub.ptr.lhs.cast119, %sub.ptr.rhs.cast120
+  %sub.ptr.div122 = sdiv exact i64 %sub.ptr.sub121, 8
+  %119 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_neurons = getelementptr inbounds %struct.genann, %struct.genann* %119, i32 0, i32 7
+  %120 = load i32, i32* %total_neurons, align 4
+  %conv123 = sext i32 %120 to i64
+  %cmp124 = icmp eq i64 %sub.ptr.div122, %conv123
+  %lnot126 = xor i1 %cmp124, true
+  %lnot.ext127 = zext i1 %lnot126 to i32
+  %conv128 = sext i32 %lnot.ext127 to i64
+  %tobool129 = icmp ne i64 %conv128, 0
+  br i1 %tobool129, label %cond.true130, label %cond.false131
+
+cond.true130:                                     ; preds = %cond.end
+  call void @__assert_rtn(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @__func__.genann_run, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str, i64 0, i64 0), i32 272, i8* getelementptr inbounds ([38 x i8], [38 x i8]* @.str.6, i64 0, i64 0)) #7
+  unreachable
+
+121:                                              ; No predecessors!
+  br label %cond.end132
+
+cond.false131:                                    ; preds = %cond.end
+  br label %cond.end132
+
+cond.end132:                                      ; preds = %cond.false131, %121
+  %122 = load double*, double** %ret85, align 8
+  store double* %122, double** %retval, align 8
+  br label %return
+
+return:                                           ; preds = %cond.end132, %for.end19
+  %123 = load double*, double** %retval, align 8
+  ret double* %123
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @genann_train(%struct.genann* %ann, double* %inputs, double* %desired_outputs, double %learning_rate) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %inputs.addr = alloca double*, align 8
+  %desired_outputs.addr = alloca double*, align 8
+  %learning_rate.addr = alloca double, align 8
+  %h = alloca i32, align 4
+  %j = alloca i32, align 4
+  %k = alloca i32, align 4
+  %o = alloca double*, align 8
+  %d = alloca double*, align 8
+  %t = alloca double*, align 8
+  %o32 = alloca double*, align 8
+  %d41 = alloca double*, align 8
+  %dd = alloca double*, align 8
+  %ww = alloca double*, align 8
+  %delta69 = alloca double, align 8
+  %forward_delta = alloca double, align 8
+  %windex = alloca i32, align 4
+  %forward_weight = alloca double, align 8
+  %d100 = alloca double*, align 8
+  %w = alloca double*, align 8
+  %i = alloca double*, align 8
+  %d190 = alloca double*, align 8
+  %i196 = alloca double*, align 8
+  %w210 = alloca double*, align 8
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store double* %inputs, double** %inputs.addr, align 8
+  store double* %desired_outputs, double** %desired_outputs.addr, align 8
+  store double %learning_rate, double* %learning_rate.addr, align 8
+  %0 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %1 = load double*, double** %inputs.addr, align 8
+  %call = call double* @genann_run(%struct.genann* %0, double* %1)
+  %2 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output = getelementptr inbounds %struct.genann, %struct.genann* %2, i32 0, i32 9
+  %3 = load double*, double** %output, align 8
+  %4 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs1 = getelementptr inbounds %struct.genann, %struct.genann* %4, i32 0, i32 0
+  %5 = load i32, i32* %inputs1, align 8
+  %idx.ext = sext i32 %5 to i64
+  %add.ptr = getelementptr inbounds double, double* %3, i64 %idx.ext
+  %6 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden = getelementptr inbounds %struct.genann, %struct.genann* %6, i32 0, i32 2
+  %7 = load i32, i32* %hidden, align 8
+  %8 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers = getelementptr inbounds %struct.genann, %struct.genann* %8, i32 0, i32 1
+  %9 = load i32, i32* %hidden_layers, align 4
+  %mul = mul nsw i32 %7, %9
+  %idx.ext2 = sext i32 %mul to i64
+  %add.ptr3 = getelementptr inbounds double, double* %add.ptr, i64 %idx.ext2
+  store double* %add.ptr3, double** %o, align 8
+  %10 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %delta = getelementptr inbounds %struct.genann, %struct.genann* %10, i32 0, i32 10
+  %11 = load double*, double** %delta, align 8
+  %12 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden4 = getelementptr inbounds %struct.genann, %struct.genann* %12, i32 0, i32 2
+  %13 = load i32, i32* %hidden4, align 8
+  %14 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers5 = getelementptr inbounds %struct.genann, %struct.genann* %14, i32 0, i32 1
+  %15 = load i32, i32* %hidden_layers5, align 4
+  %mul6 = mul nsw i32 %13, %15
+  %idx.ext7 = sext i32 %mul6 to i64
+  %add.ptr8 = getelementptr inbounds double, double* %11, i64 %idx.ext7
+  store double* %add.ptr8, double** %d, align 8
+  %16 = load double*, double** %desired_outputs.addr, align 8
+  store double* %16, double** %t, align 8
+  %17 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %activation_output = getelementptr inbounds %struct.genann, %struct.genann* %17, i32 0, i32 5
+  %activation_output9 = bitcast {}** %activation_output to double (%struct.genann*, double)**
+  %18 = load double (%struct.genann*, double)*, double (%struct.genann*, double)** %activation_output9, align 8
+  %cmp = icmp eq double (%struct.genann*, double)* %18, @genann_act_linear
+  br i1 %cmp, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  store i32 0, i32* %j, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.then
+  %19 = load i32, i32* %j, align 4
+  %20 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs = getelementptr inbounds %struct.genann, %struct.genann* %20, i32 0, i32 3
+  %21 = load i32, i32* %outputs, align 4
+  %cmp10 = icmp slt i32 %19, %21
+  br i1 %cmp10, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %22 = load double*, double** %t, align 8
+  %incdec.ptr = getelementptr inbounds double, double* %22, i32 1
+  store double* %incdec.ptr, double** %t, align 8
+  %23 = load double, double* %22, align 8
+  %24 = load double*, double** %o, align 8
+  %incdec.ptr11 = getelementptr inbounds double, double* %24, i32 1
+  store double* %incdec.ptr11, double** %o, align 8
+  %25 = load double, double* %24, align 8
+  %sub = fsub double %23, %25
+  %26 = load double*, double** %d, align 8
+  %incdec.ptr12 = getelementptr inbounds double, double* %26, i32 1
+  store double* %incdec.ptr12, double** %d, align 8
+  store double %sub, double* %26, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %27 = load i32, i32* %j, align 4
+  %inc = add nsw i32 %27, 1
+  store i32 %inc, i32* %j, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  br label %if.end
+
+if.else:                                          ; preds = %entry
+  store i32 0, i32* %j, align 4
+  br label %for.cond13
+
+for.cond13:                                       ; preds = %for.inc24, %if.else
+  %28 = load i32, i32* %j, align 4
+  %29 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs14 = getelementptr inbounds %struct.genann, %struct.genann* %29, i32 0, i32 3
+  %30 = load i32, i32* %outputs14, align 4
+  %cmp15 = icmp slt i32 %28, %30
+  br i1 %cmp15, label %for.body16, label %for.end26
+
+for.body16:                                       ; preds = %for.cond13
+  %31 = load double*, double** %t, align 8
+  %32 = load double, double* %31, align 8
+  %33 = load double*, double** %o, align 8
+  %34 = load double, double* %33, align 8
+  %sub17 = fsub double %32, %34
+  %35 = load double*, double** %o, align 8
+  %36 = load double, double* %35, align 8
+  %mul18 = fmul double %sub17, %36
+  %37 = load double*, double** %o, align 8
+  %38 = load double, double* %37, align 8
+  %sub19 = fsub double 1.000000e+00, %38
+  %mul20 = fmul double %mul18, %sub19
+  %39 = load double*, double** %d, align 8
+  %incdec.ptr21 = getelementptr inbounds double, double* %39, i32 1
+  store double* %incdec.ptr21, double** %d, align 8
+  store double %mul20, double* %39, align 8
+  %40 = load double*, double** %o, align 8
+  %incdec.ptr22 = getelementptr inbounds double, double* %40, i32 1
+  store double* %incdec.ptr22, double** %o, align 8
+  %41 = load double*, double** %t, align 8
+  %incdec.ptr23 = getelementptr inbounds double, double* %41, i32 1
+  store double* %incdec.ptr23, double** %t, align 8
+  br label %for.inc24
+
+for.inc24:                                        ; preds = %for.body16
+  %42 = load i32, i32* %j, align 4
+  %inc25 = add nsw i32 %42, 1
+  store i32 %inc25, i32* %j, align 4
+  br label %for.cond13
+
+for.end26:                                        ; preds = %for.cond13
+  br label %if.end
+
+if.end:                                           ; preds = %for.end26, %for.end
+  %43 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers27 = getelementptr inbounds %struct.genann, %struct.genann* %43, i32 0, i32 1
+  %44 = load i32, i32* %hidden_layers27, align 4
+  %sub28 = sub nsw i32 %44, 1
+  store i32 %sub28, i32* %h, align 4
+  br label %for.cond29
+
+for.cond29:                                       ; preds = %for.inc98, %if.end
+  %45 = load i32, i32* %h, align 4
+  %cmp30 = icmp sge i32 %45, 0
+  br i1 %cmp30, label %for.body31, label %for.end99
+
+for.body31:                                       ; preds = %for.cond29
+  %46 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output33 = getelementptr inbounds %struct.genann, %struct.genann* %46, i32 0, i32 9
+  %47 = load double*, double** %output33, align 8
+  %48 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs34 = getelementptr inbounds %struct.genann, %struct.genann* %48, i32 0, i32 0
+  %49 = load i32, i32* %inputs34, align 8
+  %idx.ext35 = sext i32 %49 to i64
+  %add.ptr36 = getelementptr inbounds double, double* %47, i64 %idx.ext35
+  %50 = load i32, i32* %h, align 4
+  %51 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden37 = getelementptr inbounds %struct.genann, %struct.genann* %51, i32 0, i32 2
+  %52 = load i32, i32* %hidden37, align 8
+  %mul38 = mul nsw i32 %50, %52
+  %idx.ext39 = sext i32 %mul38 to i64
+  %add.ptr40 = getelementptr inbounds double, double* %add.ptr36, i64 %idx.ext39
+  store double* %add.ptr40, double** %o32, align 8
+  %53 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %delta42 = getelementptr inbounds %struct.genann, %struct.genann* %53, i32 0, i32 10
+  %54 = load double*, double** %delta42, align 8
+  %55 = load i32, i32* %h, align 4
+  %56 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden43 = getelementptr inbounds %struct.genann, %struct.genann* %56, i32 0, i32 2
+  %57 = load i32, i32* %hidden43, align 8
+  %mul44 = mul nsw i32 %55, %57
+  %idx.ext45 = sext i32 %mul44 to i64
+  %add.ptr46 = getelementptr inbounds double, double* %54, i64 %idx.ext45
+  store double* %add.ptr46, double** %d41, align 8
+  %58 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %delta47 = getelementptr inbounds %struct.genann, %struct.genann* %58, i32 0, i32 10
+  %59 = load double*, double** %delta47, align 8
+  %60 = load i32, i32* %h, align 4
+  %add = add nsw i32 %60, 1
+  %61 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden48 = getelementptr inbounds %struct.genann, %struct.genann* %61, i32 0, i32 2
+  %62 = load i32, i32* %hidden48, align 8
+  %mul49 = mul nsw i32 %add, %62
+  %idx.ext50 = sext i32 %mul49 to i64
+  %add.ptr51 = getelementptr inbounds double, double* %59, i64 %idx.ext50
+  store double* %add.ptr51, double** %dd, align 8
+  %63 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %63, i32 0, i32 8
+  %64 = load double*, double** %weight, align 8
+  %65 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs52 = getelementptr inbounds %struct.genann, %struct.genann* %65, i32 0, i32 0
+  %66 = load i32, i32* %inputs52, align 8
+  %add53 = add nsw i32 %66, 1
+  %67 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden54 = getelementptr inbounds %struct.genann, %struct.genann* %67, i32 0, i32 2
+  %68 = load i32, i32* %hidden54, align 8
+  %mul55 = mul nsw i32 %add53, %68
+  %idx.ext56 = sext i32 %mul55 to i64
+  %add.ptr57 = getelementptr inbounds double, double* %64, i64 %idx.ext56
+  %69 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden58 = getelementptr inbounds %struct.genann, %struct.genann* %69, i32 0, i32 2
+  %70 = load i32, i32* %hidden58, align 8
+  %add59 = add nsw i32 %70, 1
+  %71 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden60 = getelementptr inbounds %struct.genann, %struct.genann* %71, i32 0, i32 2
+  %72 = load i32, i32* %hidden60, align 8
+  %mul61 = mul nsw i32 %add59, %72
+  %73 = load i32, i32* %h, align 4
+  %mul62 = mul nsw i32 %mul61, %73
+  %idx.ext63 = sext i32 %mul62 to i64
+  %add.ptr64 = getelementptr inbounds double, double* %add.ptr57, i64 %idx.ext63
+  store double* %add.ptr64, double** %ww, align 8
+  store i32 0, i32* %j, align 4
+  br label %for.cond65
+
+for.cond65:                                       ; preds = %for.inc95, %for.body31
+  %74 = load i32, i32* %j, align 4
+  %75 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden66 = getelementptr inbounds %struct.genann, %struct.genann* %75, i32 0, i32 2
+  %76 = load i32, i32* %hidden66, align 8
+  %cmp67 = icmp slt i32 %74, %76
+  br i1 %cmp67, label %for.body68, label %for.end97
+
+for.body68:                                       ; preds = %for.cond65
+  store double 0.000000e+00, double* %delta69, align 8
+  store i32 0, i32* %k, align 4
+  br label %for.cond70
+
+for.cond70:                                       ; preds = %for.inc87, %for.body68
+  %77 = load i32, i32* %k, align 4
+  %78 = load i32, i32* %h, align 4
+  %79 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers71 = getelementptr inbounds %struct.genann, %struct.genann* %79, i32 0, i32 1
+  %80 = load i32, i32* %hidden_layers71, align 4
+  %sub72 = sub nsw i32 %80, 1
+  %cmp73 = icmp eq i32 %78, %sub72
+  br i1 %cmp73, label %cond.true, label %cond.false
+
+cond.true:                                        ; preds = %for.cond70
+  %81 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs74 = getelementptr inbounds %struct.genann, %struct.genann* %81, i32 0, i32 3
+  %82 = load i32, i32* %outputs74, align 4
+  br label %cond.end
+
+cond.false:                                       ; preds = %for.cond70
+  %83 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden75 = getelementptr inbounds %struct.genann, %struct.genann* %83, i32 0, i32 2
+  %84 = load i32, i32* %hidden75, align 8
+  br label %cond.end
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi i32 [ %82, %cond.true ], [ %84, %cond.false ]
+  %cmp76 = icmp slt i32 %77, %cond
+  br i1 %cmp76, label %for.body77, label %for.end89
+
+for.body77:                                       ; preds = %cond.end
+  %85 = load double*, double** %dd, align 8
+  %86 = load i32, i32* %k, align 4
+  %idxprom = sext i32 %86 to i64
+  %arrayidx = getelementptr inbounds double, double* %85, i64 %idxprom
+  %87 = load double, double* %arrayidx, align 8
+  store double %87, double* %forward_delta, align 8
+  %88 = load i32, i32* %k, align 4
+  %89 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden78 = getelementptr inbounds %struct.genann, %struct.genann* %89, i32 0, i32 2
+  %90 = load i32, i32* %hidden78, align 8
+  %add79 = add nsw i32 %90, 1
+  %mul80 = mul nsw i32 %88, %add79
+  %91 = load i32, i32* %j, align 4
+  %add81 = add nsw i32 %91, 1
+  %add82 = add nsw i32 %mul80, %add81
+  store i32 %add82, i32* %windex, align 4
+  %92 = load double*, double** %ww, align 8
+  %93 = load i32, i32* %windex, align 4
+  %idxprom83 = sext i32 %93 to i64
+  %arrayidx84 = getelementptr inbounds double, double* %92, i64 %idxprom83
+  %94 = load double, double* %arrayidx84, align 8
+  store double %94, double* %forward_weight, align 8
+  %95 = load double, double* %forward_delta, align 8
+  %96 = load double, double* %forward_weight, align 8
+  %mul85 = fmul double %95, %96
+  %97 = load double, double* %delta69, align 8
+  %add86 = fadd double %97, %mul85
+  store double %add86, double* %delta69, align 8
+  br label %for.inc87
+
+for.inc87:                                        ; preds = %for.body77
+  %98 = load i32, i32* %k, align 4
+  %inc88 = add nsw i32 %98, 1
+  store i32 %inc88, i32* %k, align 4
+  br label %for.cond70
+
+for.end89:                                        ; preds = %cond.end
+  %99 = load double*, double** %o32, align 8
+  %100 = load double, double* %99, align 8
+  %101 = load double*, double** %o32, align 8
+  %102 = load double, double* %101, align 8
+  %sub90 = fsub double 1.000000e+00, %102
+  %mul91 = fmul double %100, %sub90
+  %103 = load double, double* %delta69, align 8
+  %mul92 = fmul double %mul91, %103
+  %104 = load double*, double** %d41, align 8
+  store double %mul92, double* %104, align 8
+  %105 = load double*, double** %d41, align 8
+  %incdec.ptr93 = getelementptr inbounds double, double* %105, i32 1
+  store double* %incdec.ptr93, double** %d41, align 8
+  %106 = load double*, double** %o32, align 8
+  %incdec.ptr94 = getelementptr inbounds double, double* %106, i32 1
+  store double* %incdec.ptr94, double** %o32, align 8
+  br label %for.inc95
+
+for.inc95:                                        ; preds = %for.end89
+  %107 = load i32, i32* %j, align 4
+  %inc96 = add nsw i32 %107, 1
+  store i32 %inc96, i32* %j, align 4
+  br label %for.cond65
+
+for.end97:                                        ; preds = %for.cond65
+  br label %for.inc98
+
+for.inc98:                                        ; preds = %for.end97
+  %108 = load i32, i32* %h, align 4
+  %dec = add nsw i32 %108, -1
+  store i32 %dec, i32* %h, align 4
+  br label %for.cond29
+
+for.end99:                                        ; preds = %for.cond29
+  %109 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %delta101 = getelementptr inbounds %struct.genann, %struct.genann* %109, i32 0, i32 10
+  %110 = load double*, double** %delta101, align 8
+  %111 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden102 = getelementptr inbounds %struct.genann, %struct.genann* %111, i32 0, i32 2
+  %112 = load i32, i32* %hidden102, align 8
+  %113 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers103 = getelementptr inbounds %struct.genann, %struct.genann* %113, i32 0, i32 1
+  %114 = load i32, i32* %hidden_layers103, align 4
+  %mul104 = mul nsw i32 %112, %114
+  %idx.ext105 = sext i32 %mul104 to i64
+  %add.ptr106 = getelementptr inbounds double, double* %110, i64 %idx.ext105
+  store double* %add.ptr106, double** %d100, align 8
+  %115 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight107 = getelementptr inbounds %struct.genann, %struct.genann* %115, i32 0, i32 8
+  %116 = load double*, double** %weight107, align 8
+  %117 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers108 = getelementptr inbounds %struct.genann, %struct.genann* %117, i32 0, i32 1
+  %118 = load i32, i32* %hidden_layers108, align 4
+  %tobool = icmp ne i32 %118, 0
+  br i1 %tobool, label %cond.true109, label %cond.false122
+
+cond.true109:                                     ; preds = %for.end99
+  %119 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs110 = getelementptr inbounds %struct.genann, %struct.genann* %119, i32 0, i32 0
+  %120 = load i32, i32* %inputs110, align 8
+  %add111 = add nsw i32 %120, 1
+  %121 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden112 = getelementptr inbounds %struct.genann, %struct.genann* %121, i32 0, i32 2
+  %122 = load i32, i32* %hidden112, align 8
+  %mul113 = mul nsw i32 %add111, %122
+  %123 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden114 = getelementptr inbounds %struct.genann, %struct.genann* %123, i32 0, i32 2
+  %124 = load i32, i32* %hidden114, align 8
+  %add115 = add nsw i32 %124, 1
+  %125 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden116 = getelementptr inbounds %struct.genann, %struct.genann* %125, i32 0, i32 2
+  %126 = load i32, i32* %hidden116, align 8
+  %mul117 = mul nsw i32 %add115, %126
+  %127 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers118 = getelementptr inbounds %struct.genann, %struct.genann* %127, i32 0, i32 1
+  %128 = load i32, i32* %hidden_layers118, align 4
+  %sub119 = sub nsw i32 %128, 1
+  %mul120 = mul nsw i32 %mul117, %sub119
+  %add121 = add nsw i32 %mul113, %mul120
+  br label %cond.end123
+
+cond.false122:                                    ; preds = %for.end99
+  br label %cond.end123
+
+cond.end123:                                      ; preds = %cond.false122, %cond.true109
+  %cond124 = phi i32 [ %add121, %cond.true109 ], [ 0, %cond.false122 ]
+  %idx.ext125 = sext i32 %cond124 to i64
+  %add.ptr126 = getelementptr inbounds double, double* %116, i64 %idx.ext125
+  store double* %add.ptr126, double** %w, align 8
+  %129 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output127 = getelementptr inbounds %struct.genann, %struct.genann* %129, i32 0, i32 9
+  %130 = load double*, double** %output127, align 8
+  %131 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers128 = getelementptr inbounds %struct.genann, %struct.genann* %131, i32 0, i32 1
+  %132 = load i32, i32* %hidden_layers128, align 4
+  %tobool129 = icmp ne i32 %132, 0
+  br i1 %tobool129, label %cond.true130, label %cond.false137
+
+cond.true130:                                     ; preds = %cond.end123
+  %133 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs131 = getelementptr inbounds %struct.genann, %struct.genann* %133, i32 0, i32 0
+  %134 = load i32, i32* %inputs131, align 8
+  %135 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden132 = getelementptr inbounds %struct.genann, %struct.genann* %135, i32 0, i32 2
+  %136 = load i32, i32* %hidden132, align 8
+  %137 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers133 = getelementptr inbounds %struct.genann, %struct.genann* %137, i32 0, i32 1
+  %138 = load i32, i32* %hidden_layers133, align 4
+  %sub134 = sub nsw i32 %138, 1
+  %mul135 = mul nsw i32 %136, %sub134
+  %add136 = add nsw i32 %134, %mul135
+  br label %cond.end138
+
+cond.false137:                                    ; preds = %cond.end123
+  br label %cond.end138
+
+cond.end138:                                      ; preds = %cond.false137, %cond.true130
+  %cond139 = phi i32 [ %add136, %cond.true130 ], [ 0, %cond.false137 ]
+  %idx.ext140 = sext i32 %cond139 to i64
+  %add.ptr141 = getelementptr inbounds double, double* %130, i64 %idx.ext140
+  store double* %add.ptr141, double** %i, align 8
+  store i32 0, i32* %j, align 4
+  br label %for.cond142
+
+for.cond142:                                      ; preds = %for.inc173, %cond.end138
+  %139 = load i32, i32* %j, align 4
+  %140 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs143 = getelementptr inbounds %struct.genann, %struct.genann* %140, i32 0, i32 3
+  %141 = load i32, i32* %outputs143, align 4
+  %cmp144 = icmp slt i32 %139, %141
+  br i1 %cmp144, label %for.body145, label %for.end175
+
+for.body145:                                      ; preds = %for.cond142
+  %142 = load double*, double** %d100, align 8
+  %143 = load double, double* %142, align 8
+  %144 = load double, double* %learning_rate.addr, align 8
+  %mul146 = fmul double %143, %144
+  %mul147 = fmul double %mul146, -1.000000e+00
+  %145 = load double*, double** %w, align 8
+  %incdec.ptr148 = getelementptr inbounds double, double* %145, i32 1
+  store double* %incdec.ptr148, double** %w, align 8
+  %146 = load double, double* %145, align 8
+  %add149 = fadd double %146, %mul147
+  store double %add149, double* %145, align 8
+  store i32 1, i32* %k, align 4
+  br label %for.cond150
+
+for.cond150:                                      ; preds = %for.inc169, %for.body145
+  %147 = load i32, i32* %k, align 4
+  %148 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers151 = getelementptr inbounds %struct.genann, %struct.genann* %148, i32 0, i32 1
+  %149 = load i32, i32* %hidden_layers151, align 4
+  %tobool152 = icmp ne i32 %149, 0
+  br i1 %tobool152, label %cond.true153, label %cond.false155
+
+cond.true153:                                     ; preds = %for.cond150
+  %150 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden154 = getelementptr inbounds %struct.genann, %struct.genann* %150, i32 0, i32 2
+  %151 = load i32, i32* %hidden154, align 8
+  br label %cond.end157
+
+cond.false155:                                    ; preds = %for.cond150
+  %152 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs156 = getelementptr inbounds %struct.genann, %struct.genann* %152, i32 0, i32 0
+  %153 = load i32, i32* %inputs156, align 8
+  br label %cond.end157
+
+cond.end157:                                      ; preds = %cond.false155, %cond.true153
+  %cond158 = phi i32 [ %151, %cond.true153 ], [ %153, %cond.false155 ]
+  %add159 = add nsw i32 %cond158, 1
+  %cmp160 = icmp slt i32 %147, %add159
+  br i1 %cmp160, label %for.body161, label %for.end171
+
+for.body161:                                      ; preds = %cond.end157
+  %154 = load double*, double** %d100, align 8
+  %155 = load double, double* %154, align 8
+  %156 = load double, double* %learning_rate.addr, align 8
+  %mul162 = fmul double %155, %156
+  %157 = load double*, double** %i, align 8
+  %158 = load i32, i32* %k, align 4
+  %sub163 = sub nsw i32 %158, 1
+  %idxprom164 = sext i32 %sub163 to i64
+  %arrayidx165 = getelementptr inbounds double, double* %157, i64 %idxprom164
+  %159 = load double, double* %arrayidx165, align 8
+  %mul166 = fmul double %mul162, %159
+  %160 = load double*, double** %w, align 8
+  %incdec.ptr167 = getelementptr inbounds double, double* %160, i32 1
+  store double* %incdec.ptr167, double** %w, align 8
+  %161 = load double, double* %160, align 8
+  %add168 = fadd double %161, %mul166
+  store double %add168, double* %160, align 8
+  br label %for.inc169
+
+for.inc169:                                       ; preds = %for.body161
+  %162 = load i32, i32* %k, align 4
+  %inc170 = add nsw i32 %162, 1
+  store i32 %inc170, i32* %k, align 4
+  br label %for.cond150
+
+for.end171:                                       ; preds = %cond.end157
+  %163 = load double*, double** %d100, align 8
+  %incdec.ptr172 = getelementptr inbounds double, double* %163, i32 1
+  store double* %incdec.ptr172, double** %d100, align 8
+  br label %for.inc173
+
+for.inc173:                                       ; preds = %for.end171
+  %164 = load i32, i32* %j, align 4
+  %inc174 = add nsw i32 %164, 1
+  store i32 %inc174, i32* %j, align 4
+  br label %for.cond142
+
+for.end175:                                       ; preds = %for.cond142
+  %165 = load double*, double** %w, align 8
+  %166 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight176 = getelementptr inbounds %struct.genann, %struct.genann* %166, i32 0, i32 8
+  %167 = load double*, double** %weight176, align 8
+  %sub.ptr.lhs.cast = ptrtoint double* %165 to i64
+  %sub.ptr.rhs.cast = ptrtoint double* %167 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %sub.ptr.div = sdiv exact i64 %sub.ptr.sub, 8
+  %168 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_weights = getelementptr inbounds %struct.genann, %struct.genann* %168, i32 0, i32 6
+  %169 = load i32, i32* %total_weights, align 8
+  %conv = sext i32 %169 to i64
+  %cmp177 = icmp eq i64 %sub.ptr.div, %conv
+  %lnot = xor i1 %cmp177, true
+  %lnot.ext = zext i1 %lnot to i32
+  %conv179 = sext i32 %lnot.ext to i64
+  %tobool180 = icmp ne i64 %conv179, 0
+  br i1 %tobool180, label %cond.true181, label %cond.false182
+
+cond.true181:                                     ; preds = %for.end175
+  call void @__assert_rtn(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @__func__.genann_train, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str, i64 0, i64 0), i32 362, i8* getelementptr inbounds ([38 x i8], [38 x i8]* @.str.5, i64 0, i64 0)) #7
+  unreachable
+
+170:                                              ; No predecessors!
+  br label %cond.end183
+
+cond.false182:                                    ; preds = %for.end175
+  br label %cond.end183
+
+cond.end183:                                      ; preds = %cond.false182, %170
+  %171 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers184 = getelementptr inbounds %struct.genann, %struct.genann* %171, i32 0, i32 1
+  %172 = load i32, i32* %hidden_layers184, align 4
+  %sub185 = sub nsw i32 %172, 1
+  store i32 %sub185, i32* %h, align 4
+  br label %for.cond186
+
+for.cond186:                                      ; preds = %for.inc266, %cond.end183
+  %173 = load i32, i32* %h, align 4
+  %cmp187 = icmp sge i32 %173, 0
+  br i1 %cmp187, label %for.body189, label %for.end268
+
+for.body189:                                      ; preds = %for.cond186
+  %174 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %delta191 = getelementptr inbounds %struct.genann, %struct.genann* %174, i32 0, i32 10
+  %175 = load double*, double** %delta191, align 8
+  %176 = load i32, i32* %h, align 4
+  %177 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden192 = getelementptr inbounds %struct.genann, %struct.genann* %177, i32 0, i32 2
+  %178 = load i32, i32* %hidden192, align 8
+  %mul193 = mul nsw i32 %176, %178
+  %idx.ext194 = sext i32 %mul193 to i64
+  %add.ptr195 = getelementptr inbounds double, double* %175, i64 %idx.ext194
+  store double* %add.ptr195, double** %d190, align 8
+  %179 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %output197 = getelementptr inbounds %struct.genann, %struct.genann* %179, i32 0, i32 9
+  %180 = load double*, double** %output197, align 8
+  %181 = load i32, i32* %h, align 4
+  %tobool198 = icmp ne i32 %181, 0
+  br i1 %tobool198, label %cond.true199, label %cond.false205
+
+cond.true199:                                     ; preds = %for.body189
+  %182 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs200 = getelementptr inbounds %struct.genann, %struct.genann* %182, i32 0, i32 0
+  %183 = load i32, i32* %inputs200, align 8
+  %184 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden201 = getelementptr inbounds %struct.genann, %struct.genann* %184, i32 0, i32 2
+  %185 = load i32, i32* %hidden201, align 8
+  %186 = load i32, i32* %h, align 4
+  %sub202 = sub nsw i32 %186, 1
+  %mul203 = mul nsw i32 %185, %sub202
+  %add204 = add nsw i32 %183, %mul203
+  br label %cond.end206
+
+cond.false205:                                    ; preds = %for.body189
+  br label %cond.end206
+
+cond.end206:                                      ; preds = %cond.false205, %cond.true199
+  %cond207 = phi i32 [ %add204, %cond.true199 ], [ 0, %cond.false205 ]
+  %idx.ext208 = sext i32 %cond207 to i64
+  %add.ptr209 = getelementptr inbounds double, double* %180, i64 %idx.ext208
+  store double* %add.ptr209, double** %i196, align 8
+  %187 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight211 = getelementptr inbounds %struct.genann, %struct.genann* %187, i32 0, i32 8
+  %188 = load double*, double** %weight211, align 8
+  %189 = load i32, i32* %h, align 4
+  %tobool212 = icmp ne i32 %189, 0
+  br i1 %tobool212, label %cond.true213, label %cond.false225
+
+cond.true213:                                     ; preds = %cond.end206
+  %190 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs214 = getelementptr inbounds %struct.genann, %struct.genann* %190, i32 0, i32 0
+  %191 = load i32, i32* %inputs214, align 8
+  %add215 = add nsw i32 %191, 1
+  %192 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden216 = getelementptr inbounds %struct.genann, %struct.genann* %192, i32 0, i32 2
+  %193 = load i32, i32* %hidden216, align 8
+  %mul217 = mul nsw i32 %add215, %193
+  %194 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden218 = getelementptr inbounds %struct.genann, %struct.genann* %194, i32 0, i32 2
+  %195 = load i32, i32* %hidden218, align 8
+  %add219 = add nsw i32 %195, 1
+  %196 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden220 = getelementptr inbounds %struct.genann, %struct.genann* %196, i32 0, i32 2
+  %197 = load i32, i32* %hidden220, align 8
+  %mul221 = mul nsw i32 %add219, %197
+  %198 = load i32, i32* %h, align 4
+  %sub222 = sub nsw i32 %198, 1
+  %mul223 = mul nsw i32 %mul221, %sub222
+  %add224 = add nsw i32 %mul217, %mul223
+  br label %cond.end226
+
+cond.false225:                                    ; preds = %cond.end206
+  br label %cond.end226
+
+cond.end226:                                      ; preds = %cond.false225, %cond.true213
+  %cond227 = phi i32 [ %add224, %cond.true213 ], [ 0, %cond.false225 ]
+  %idx.ext228 = sext i32 %cond227 to i64
+  %add.ptr229 = getelementptr inbounds double, double* %188, i64 %idx.ext228
+  store double* %add.ptr229, double** %w210, align 8
+  store i32 0, i32* %j, align 4
+  br label %for.cond230
+
+for.cond230:                                      ; preds = %for.inc263, %cond.end226
+  %199 = load i32, i32* %j, align 4
+  %200 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden231 = getelementptr inbounds %struct.genann, %struct.genann* %200, i32 0, i32 2
+  %201 = load i32, i32* %hidden231, align 8
+  %cmp232 = icmp slt i32 %199, %201
+  br i1 %cmp232, label %for.body234, label %for.end265
+
+for.body234:                                      ; preds = %for.cond230
+  %202 = load double*, double** %d190, align 8
+  %203 = load double, double* %202, align 8
+  %204 = load double, double* %learning_rate.addr, align 8
+  %mul235 = fmul double %203, %204
+  %mul236 = fmul double %mul235, -1.000000e+00
+  %205 = load double*, double** %w210, align 8
+  %incdec.ptr237 = getelementptr inbounds double, double* %205, i32 1
+  store double* %incdec.ptr237, double** %w210, align 8
+  %206 = load double, double* %205, align 8
+  %add238 = fadd double %206, %mul236
+  store double %add238, double* %205, align 8
+  store i32 1, i32* %k, align 4
+  br label %for.cond239
+
+for.cond239:                                      ; preds = %for.inc259, %for.body234
+  %207 = load i32, i32* %k, align 4
+  %208 = load i32, i32* %h, align 4
+  %cmp240 = icmp eq i32 %208, 0
+  br i1 %cmp240, label %cond.true242, label %cond.false244
+
+cond.true242:                                     ; preds = %for.cond239
+  %209 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs243 = getelementptr inbounds %struct.genann, %struct.genann* %209, i32 0, i32 0
+  %210 = load i32, i32* %inputs243, align 8
+  br label %cond.end246
+
+cond.false244:                                    ; preds = %for.cond239
+  %211 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden245 = getelementptr inbounds %struct.genann, %struct.genann* %211, i32 0, i32 2
+  %212 = load i32, i32* %hidden245, align 8
+  br label %cond.end246
+
+cond.end246:                                      ; preds = %cond.false244, %cond.true242
+  %cond247 = phi i32 [ %210, %cond.true242 ], [ %212, %cond.false244 ]
+  %add248 = add nsw i32 %cond247, 1
+  %cmp249 = icmp slt i32 %207, %add248
+  br i1 %cmp249, label %for.body251, label %for.end261
+
+for.body251:                                      ; preds = %cond.end246
+  %213 = load double*, double** %d190, align 8
+  %214 = load double, double* %213, align 8
+  %215 = load double, double* %learning_rate.addr, align 8
+  %mul252 = fmul double %214, %215
+  %216 = load double*, double** %i196, align 8
+  %217 = load i32, i32* %k, align 4
+  %sub253 = sub nsw i32 %217, 1
+  %idxprom254 = sext i32 %sub253 to i64
+  %arrayidx255 = getelementptr inbounds double, double* %216, i64 %idxprom254
+  %218 = load double, double* %arrayidx255, align 8
+  %mul256 = fmul double %mul252, %218
+  %219 = load double*, double** %w210, align 8
+  %incdec.ptr257 = getelementptr inbounds double, double* %219, i32 1
+  store double* %incdec.ptr257, double** %w210, align 8
+  %220 = load double, double* %219, align 8
+  %add258 = fadd double %220, %mul256
+  store double %add258, double* %219, align 8
+  br label %for.inc259
+
+for.inc259:                                       ; preds = %for.body251
+  %221 = load i32, i32* %k, align 4
+  %inc260 = add nsw i32 %221, 1
+  store i32 %inc260, i32* %k, align 4
+  br label %for.cond239
+
+for.end261:                                       ; preds = %cond.end246
+  %222 = load double*, double** %d190, align 8
+  %incdec.ptr262 = getelementptr inbounds double, double* %222, i32 1
+  store double* %incdec.ptr262, double** %d190, align 8
+  br label %for.inc263
+
+for.inc263:                                       ; preds = %for.end261
+  %223 = load i32, i32* %j, align 4
+  %inc264 = add nsw i32 %223, 1
+  store i32 %inc264, i32* %j, align 4
+  br label %for.cond230
+
+for.end265:                                       ; preds = %for.cond230
+  br label %for.inc266
+
+for.inc266:                                       ; preds = %for.end265
+  %224 = load i32, i32* %h, align 4
+  %dec267 = add nsw i32 %224, -1
+  store i32 %dec267, i32* %h, align 4
+  br label %for.cond186
+
+for.end268:                                       ; preds = %for.cond186
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone ssp uwtable
+define void @genann_write(%struct.genann* %ann, %struct.__sFILE* %out) #0 {
+entry:
+  %ann.addr = alloca %struct.genann*, align 8
+  %out.addr = alloca %struct.__sFILE*, align 8
+  %i = alloca i32, align 4
+  store %struct.genann* %ann, %struct.genann** %ann.addr, align 8
+  store %struct.__sFILE* %out, %struct.__sFILE** %out.addr, align 8
+  %0 = load %struct.__sFILE*, %struct.__sFILE** %out.addr, align 8
+  %1 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %inputs = getelementptr inbounds %struct.genann, %struct.genann* %1, i32 0, i32 0
+  %2 = load i32, i32* %inputs, align 8
+  %3 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden_layers = getelementptr inbounds %struct.genann, %struct.genann* %3, i32 0, i32 1
+  %4 = load i32, i32* %hidden_layers, align 4
+  %5 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %hidden = getelementptr inbounds %struct.genann, %struct.genann* %5, i32 0, i32 2
+  %6 = load i32, i32* %hidden, align 8
+  %7 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %outputs = getelementptr inbounds %struct.genann, %struct.genann* %7, i32 0, i32 3
+  %8 = load i32, i32* %outputs, align 4
+  %call = call i32 (%struct.__sFILE*, i8*, ...) @fprintf(%struct.__sFILE* %0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str.2, i64 0, i64 0), i32 %2, i32 %4, i32 %6, i32 %8)
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %9 = load i32, i32* %i, align 4
+  %10 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %total_weights = getelementptr inbounds %struct.genann, %struct.genann* %10, i32 0, i32 6
+  %11 = load i32, i32* %total_weights, align 8
+  %cmp = icmp slt i32 %9, %11
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %12 = load %struct.__sFILE*, %struct.__sFILE** %out.addr, align 8
+  %13 = load %struct.genann*, %struct.genann** %ann.addr, align 8
+  %weight = getelementptr inbounds %struct.genann, %struct.genann* %13, i32 0, i32 8
+  %14 = load double*, double** %weight, align 8
+  %15 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %15 to i64
+  %arrayidx = getelementptr inbounds double, double* %14, i64 %idxprom
+  %16 = load double, double* %arrayidx, align 8
+  %call1 = call i32 (%struct.__sFILE*, i8*, ...) @fprintf(%struct.__sFILE* %12, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.7, i64 0, i64 0), double %16)
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %17 = load i32, i32* %i, align 4
+  %inc = add nsw i32 %17, 1
+  store i32 %inc, i32* %i, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  ret void
+}
+
+declare i32 @fprintf(%struct.__sFILE*, i8*, ...) #4
+
+attributes #0 = { noinline nounwind optnone ssp uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #1 = { nounwind readnone speculatable }
+attributes #2 = { cold noreturn "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="true" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #3 = { allocsize(0) "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #4 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #5 = { cold "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #6 = { nounwind "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="penryn" "target-features"="+cx16,+cx8,+fxsr,+mmx,+sahf,+sse,+sse2,+sse3,+sse4.1,+ssse3,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #7 = { cold noreturn }
+attributes #8 = { allocsize(0) }
+attributes #9 = { cold }
+attributes #10 = { nounwind }
+
+!llvm.module.flags = !{!0, !1, !2}
+!llvm.ident = !{!3}
+
+!0 = !{i32 2, !"SDK Version", [3 x i32] [i32 10, i32 15, i32 4]}
+!1 = !{i32 1, !"wchar_size", i32 4}
+!2 = !{i32 7, !"PIC Level", i32 2}
+!3 = !{!"clang version 9.0.1 (https://github.com/llvm-mirror/clang.git bed37d4b18ce6993fc2567e8de61f6b30fd0cb75) (https://github.com/llvm-mirror/llvm.git c2f5309b216cb02a0aae17353549d985b5b05635)"}
